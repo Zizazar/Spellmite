@@ -1,0 +1,14 @@
+@name=Русский
+
+# Main menu
+menu.play=Играть
+menu.quit=Выход
+
+# HUD
+hud.score=Очки: {0}
+coins.one={0} монета
+coins.few={0} монеты
+coins.many={0} монет
+
+# Dialog
+dialog.intro=Привет, путник!\nКуда держишь путь?

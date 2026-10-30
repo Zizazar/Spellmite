@@ -1,0 +1,13 @@
+@name=English
+
+# Main menu
+menu.play=Play
+menu.quit=Quit
+
+# HUD
+hud.score=Score: {0}
+coins.one={0} coin
+coins.other={0} coins
+
+# Dialog
+dialog.intro=Hello, traveler!\nWhere are you going?

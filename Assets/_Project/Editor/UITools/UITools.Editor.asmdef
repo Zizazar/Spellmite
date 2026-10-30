@@ -1,0 +1,26 @@
+{
+    "name": "UITools.Editor",
+    "rootNamespace": "GameJam.UITools",
+    "references": [
+        "UnityEngine.UI",
+        "Unity.TextMeshPro",
+        "Unity.InputSystem"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.inputsystem",
+            "expression": "",
+            "define": "UITOOLS_INPUT_SYSTEM"
+        }
+    ],
+    "noEngineReferences": false
+}

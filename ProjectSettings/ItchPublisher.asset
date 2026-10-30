@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1
+MonoBehaviour:
+  m_ObjectHideFlags: 53
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d03d1ce2cb8803a41a43a58451bbac04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: ItchPublisher.Editor::GameJam.ItchPublisher.ItchProjectSettings
+  itchUser: zizazr
+  gameSlug: test
+  gameId: 5145831
+  targets:
+  - enabled: 1
+    target: 19
+    channel: windows
+    development: 0
+  - enabled: 1
+    target: 20
+    channel: html5
+    development: 0
+  - enabled: 0
+    target: 24
+    channel: linux
+    development: 0
+  - enabled: 0
+    target: 2
+    channel: mac
+    development: 0
+  buildRoot: Builds
+  cleanBeforeBuild: 1
+  restoreActivePlatform: 1
+  autoBump: 1
+  bumpAndroidVersionCode: 1
+  ifChanged: 1
+  excludeDoNotShip: 1
+  extraIgnore: 
+  initialized: 1
