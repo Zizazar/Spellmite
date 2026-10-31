@@ -1,24 +1,25 @@
 import bpy, bmesh, math
 from mathutils import Vector
 
-R_IN = 14.0
-R_OUT = 19.5
-FLOOR_H = 6.0
-ROOM_H = 5.5
-TOP_ROOM_H = 7.5
-SLAB = 0.5
+# Floors 1-4 are round rooms; floor 5 is the cathedral hall from hall_lib.py
+R_IN = 21.0
+R_OUT = 29.25
+FLOOR_H = 9.0
+ROOM_H = 8.25
+TOP_ROOM_H = 23.0
+SLAB = 0.75
 SHAFT_R = 3.0
 PIT = 0.3
 FLOORS = 5
-WALL_SEG = 48
+WALL_SEG = 64
 PASSAGE_ANGLES = [45, 135, 225, 315]
-PASSAGE_W = 2.6
-PASSAGE_SPRING = 2.5
-PASSAGE_DEPTH_END = 18.0
-SLIT_ANGLES = [22, 112, 202, 292]
+PASSAGE_W = 3.9
+PASSAGE_SPRING = 3.75
+PASSAGE_DEPTH_END = 27.0
+SLIT_ANGLES = [22.5 + 45 * i for i in range(8)]
 PILLAR_ANGLES = [0, 90, 180, 270]
-PILLAR_R = 4.8
-PILLAR_W = 0.9
+PILLAR_R = 7.2
+PILLAR_W = 1.35
 GUIDE_ANGLES = [45, 135, 225, 315]
 GUIDE_R = 3.25
 
@@ -82,8 +83,9 @@ def radial_prism(bm, profile, edge_mis, r0, r1, ang_deg, zb, cap0_mi, cap1_mi, p
 
 def arch_profile(w, spring):
     h = w / 2
+    rise = 0.46 * w
     # pointed arch, 3 segments a side
-    right = [(h, spring), (h * 0.82, spring + 0.6), (h * 0.48, spring + 1.0), (0.0, spring + 1.2)]
+    right = [(h, spring), (h * 0.82, spring + 0.5 * rise), (h * 0.48, spring + 0.83 * rise), (0.0, spring + rise)]
     left = [(-x, z) for x, z in reversed(right[:-1])]
     pts = [(-h, 0.0), (h, 0.0)] + right + left
     # edges: bottom, right side, arch..., left side
@@ -159,8 +161,8 @@ def build_floor_shell(k):
         return [(-w / 2, z0), (w / 2, z0), (w / 2, z1), (-w / 2, z1)]
     bm = bmesh.new()
     for a in SLIT_ANGLES:
-        radial_prism(bm, rect(1.3, 1.9, 4.1), [0, 0, 0, 0], R_IN - 0.4, R_OUT + 0.5, a, fz, 0, 0,
-                     profile1=rect(0.22, 2.35, 3.65))
+        radial_prism(bm, rect(1.95, 2.85, 6.15), [0, 0, 0, 0], R_IN - 0.4, R_OUT + 0.5, a, fz, 0, 0,
+                     profile1=rect(0.33, 3.5, 5.5))
     cutters.append(obj_from_bm(name + "_cut_slits", bm, ["M_Tower_Wall"], cut))
 
     for c in cutters:
@@ -180,7 +182,7 @@ def build_floor_shell(k):
 TILE = {"M_Tower_Wall": 1.5, "M_Tower_WallBase": 1.5, "M_Tower_Floor": 2.0, "M_Tower_Ceiling": 2.0,
         "M_Tower_Rough": 1.5, "M_Tower_Void": 1.0, "M_Tower_Wood": 1.0, "M_Tower_Iron": 1.0}
 NOMINAL_R = [R_IN, R_OUT, SHAFT_R]
-BASE_H = 0.75
+BASE_H = 1.1
 
 def ensure_mat(me, name):
     names = [m.name for m in me.materials]
@@ -201,16 +203,16 @@ def add_details(ob, k):
     for a in PILLAR_ANGLES:
         u, _ = frame(a)
         c = u * PILLAR_R
-        box(bm, c.x, c.y, fz, fz + 0.5, PILLAR_W + 0.3, PILLAR_W + 0.3, a, wall)
-        box(bm, c.x, c.y, fz + 0.5, cz - 0.45, PILLAR_W, PILLAR_W, a, wall)
-        box(bm, c.x, c.y, cz - 0.45, cz + 0.05, PILLAR_W + 0.3, PILLAR_W + 0.3, a, wall)
-    for i in range(8):
-        a = i * 45
+        box(bm, c.x, c.y, fz, fz + 0.7, PILLAR_W + 0.45, PILLAR_W + 0.45, a, wall)
+        box(bm, c.x, c.y, fz + 0.7, cz - 0.65, PILLAR_W, PILLAR_W, a, wall)
+        box(bm, c.x, c.y, cz - 0.65, cz + 0.05, PILLAR_W + 0.45, PILLAR_W + 0.45, a, wall)
+    for i in range(16):
+        a = i * 22.5
         r0 = PILLAR_R if a % 90 == 0 else SHAFT_R + 0.6
         r1 = R_IN + 0.4
         u, _ = frame(a)
         c = u * ((r0 + r1) / 2)
-        box(bm, c.x, c.y, cz - 0.5, cz + 0.05, r1 - r0, 0.4, a, wood)
+        box(bm, c.x, c.y, cz - 0.6, cz + 0.05, r1 - r0, 0.45, a, wood)
     # iron ring around the shaft edge, 2 cm above the floor
     seg = 32
     inner = [bm.verts.new((SHAFT_R * math.cos(2 * math.pi * i / seg), SHAFT_R * math.sin(2 * math.pi * i / seg), fz + 0.02)) for i in range(seg)]
@@ -302,6 +304,7 @@ def build_floor(k):
 
 
 TORCH_ANGLES = [0, 90, 180, 270]
+SECTOR_ANGLES = [45 * i for i in range(8)]
 
 def add_wall_trim(ob, k):
     """Pilasters for the torches and closed stone frames around the passage arches."""
@@ -313,12 +316,12 @@ def add_wall_trim(ob, k):
     for a in TORCH_ANGLES:
         u, _ = frame(a)
         c = u * (R_IN - 0.05)
-        box(tb, c.x, c.y, fz, cz + 0.05, 0.7, 1.1, a, wall)
+        box(tb, c.x, c.y, fz, cz + 0.05, 1.05, 1.65, a, wall)
     inner, _ = arch_profile(PASSAGE_W + 0.02, PASSAGE_SPRING)
-    outer, _ = arch_profile(PASSAGE_W + 0.8, PASSAGE_SPRING)
-    outer = [(x, z if z == 0 else z + 0.15 + (0.25 if x == 0 else 0)) for x, z in outer]
+    outer, _ = arch_profile(PASSAGE_W + 1.2, PASSAGE_SPRING)
+    outer = [(x, z if z == 0 else z + 0.15) for x, z in outer]
     order = list(range(1, len(inner))) + [0]
-    r_front, r_back = R_IN - 0.3, R_IN
+    r_front, r_back = R_IN - 0.45, R_IN
     for a in PASSAGE_ANGLES:
         u, t = frame(a)
         def P(pt, r):

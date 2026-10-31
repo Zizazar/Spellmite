@@ -7,13 +7,33 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: M_Tower_Beam
+    second: {fileID: 2100000, guid: 25f9050e5fbcbb84f81e381dc9d3b9b0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: M_Tower_Ceiling
     second: {fileID: 2100000, guid: 1ec40c5c6bcf4b3449724150bc4ab410, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: M_Tower_Clay
+    second: {fileID: 2100000, guid: 91f55edcc2e204743a1746635c11b543, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Tower_Flame
+    second: {fileID: 2100000, guid: a13fc4d47bb8a864c835cee2d8253e10, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: M_Tower_Floor
     second: {fileID: 2100000, guid: ffbe9550e4b21f345966d629e78bd1f3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Tower_Glass
+    second: {fileID: 2100000, guid: 4b98c544e5c00964c9a831f92c17a37b, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -24,6 +44,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: M_Tower_Rough
     second: {fileID: 2100000, guid: 3cbb6a9e320dfe243b8c2b92455de4e7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Tower_Statue
+    second: {fileID: 2100000, guid: 146ab3c8cc8cf7a4bb7ed81e1fda9c21, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -39,6 +64,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: M_Tower_WallBase
     second: {fileID: 2100000, guid: 73e87b39f5b5cd54e96c8a940b586f5e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Tower_Wax
+    second: {fileID: 2100000, guid: b98c9dd825e1c99489c2ad915e559546, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
