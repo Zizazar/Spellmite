@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8310523414658926211}
   - component: {fileID: 3816358817958348232}
   - component: {fileID: 3107122832113866750}
+  - component: {fileID: 1420810989737161987}
   m_Layer: 6
   m_Name: Parasite
   m_TagString: Untagged
@@ -112,6 +113,7 @@ MonoBehaviour:
   biteRadius: 0.5
   biteCooldown: 0.4
   biteLunge: 5
+  maxKnockbackSpeed: 6
   respawnDelay: 1.5
 --- !u!114 &3107122832113866750
 MonoBehaviour:
@@ -142,6 +144,18 @@ MonoBehaviour:
   stepDuration: 0.07
   stepHeight: 0.1
   stepLead: 0.06
+--- !u!114 &1420810989737161987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 909765166564590262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 401b3668a14f13e448f1773c672331c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.BuffHolder
 --- !u!1 &1094154163748054915
 GameObject:
   m_ObjectHideFlags: 0

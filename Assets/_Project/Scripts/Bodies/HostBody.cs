@@ -17,6 +17,7 @@ namespace Spellmite
         private static readonly int AttackRightHash = Animator.StringToHash("AttackRight");
         private static readonly int HitHash = Animator.StringToHash("Hit");
         private static readonly int DeathHash = Animator.StringToHash("Death");
+        private static readonly int CastHash = Animator.StringToHash("Cast");
 
         [SerializeField] private BodyProfile profile;
         [SerializeField] private Transform latchPoint;
@@ -36,12 +37,14 @@ namespace Spellmite
         [SerializeField] private float attackKnockback = 8f;
 
         [Header("Visuals")]
-        [SerializeField, Tooltip("Optional. Uses triggers AttackLeft, AttackRight, Hit, Death")] private Animator animator;
+        [SerializeField, Tooltip("Optional. Uses triggers AttackLeft, AttackRight, Hit, Death, Cast")] private Animator animator;
         [SerializeField, Tooltip("Punched on hits/attacks when there is no Animator")] private Transform visual;
         [SerializeField] private float destroyDelayAfterDeath = 4f;
 
         private CharacterController controller;
         private Health health;
+        private SpellCaster caster;
+        private BuffHolder buffs;
         private ControlInput input;
         private Vector3 velocity;
         private float resistance = 1f;
@@ -58,15 +61,21 @@ namespace Spellmite
         public Health Health => health;
         public Vector3 Velocity => velocity;
         public Vector3 AimDirection => input.Aim;
+        public Vector3 AimOrigin => input.AimOrigin;
+        public Vector3 Center => controller.bounds.center;
         public bool IsGrounded => controller.isGrounded;
         public bool IsPossessed { get; private set; }
-        public bool IsStunned => Time.time < stunUntil;
+        public bool IsStunned => Time.time < stunUntil || (buffs != null && buffs.IsStunned);
         public float Resistance01 => resistance;
+
+        private bool IsCasting => caster != null && caster.IsCasting;
 
         private void Awake()
         {
             controller = GetComponent<CharacterController>();
             health = GetComponent<Health>();
+            caster = GetComponent<SpellCaster>();
+            buffs = GetComponent<BuffHolder>();
             health.Damaged += OnDamaged;
             health.Died += OnDied;
             if (visual != null) visualBaseScale = visual.localScale;
@@ -100,6 +109,12 @@ namespace Spellmite
             velocity += impulse / Mathf.Max(0.01f, profile.Mass);
         }
 
+        // Spells cast while possessed cost resistance
+        public void DrainResistance(float amount)
+        {
+            resistance = Mathf.Max(0f, resistance - amount);
+        }
+
         private void Update()
         {
             float dt = Time.deltaTime;
@@ -114,7 +129,7 @@ namespace Spellmite
 
             // Horizontal
             Vector3 horizontal = new(velocity.x, 0f, velocity.z);
-            float speed = input.Sprint ? profile.SprintSpeed : profile.WalkSpeed;
+            float speed = (input.Sprint ? profile.SprintSpeed : profile.WalkSpeed) * (buffs != null ? buffs.SpeedMultiplier : 1f);
             float rate = move.sqrMagnitude > 0.01f ? profile.Acceleration : profile.Deceleration;
             if (!grounded) rate *= profile.AirControl;
             horizontal = Vector3.MoveTowards(horizontal, move * speed, rate * dt);
@@ -128,7 +143,10 @@ namespace Spellmite
             velocity = new Vector3(horizontal.x, vertical, horizontal.z);
             controller.Move(velocity * dt);
 
-            if (canAct && input.AttackPressed && Time.time >= nextAttackTime)
+            if (canAct && input.CastSlot > 0 && caster != null && caster.TryCast(input.CastSlot - 1))
+                PlayCast();
+
+            if (canAct && input.AttackPressed && Time.time >= nextAttackTime && !IsCasting)
                 Attack().Forget();
 
             UpdateFacing(horizontal, dt);
@@ -139,7 +157,7 @@ namespace Spellmite
             if (health.IsDead) return;
 
             Vector3 face = horizontal;
-            if (Time.time < attackFacingUntil) face = Vector3.ProjectOnPlane(input.Aim, Vector3.up);
+            if (Time.time < attackFacingUntil || IsCasting) face = Vector3.ProjectOnPlane(input.Aim, Vector3.up);
             if (face.sqrMagnitude < 0.25f) return;
 
             Quaternion target = Quaternion.LookRotation(face.normalized, Vector3.up);
@@ -175,6 +193,12 @@ namespace Spellmite
                 Vector3 push = (Vector3.ProjectOnPlane(target.transform.position - transform.position, Vector3.up).normalized + Vector3.up * 0.4f) * attackKnockback;
                 target.TakeDamage(attackDamage, push);
             }
+        }
+
+        private void PlayCast()
+        {
+            if (animator != null) animator.SetTrigger(CastHash);
+            else PunchVisual(new Vector3(0.2f, 0.25f, -0.1f));
         }
 
         private void OnDamaged(float amount, Vector3 impulse)

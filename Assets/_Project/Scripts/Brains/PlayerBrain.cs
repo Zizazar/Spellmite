@@ -16,6 +16,7 @@ namespace Spellmite
         private InputAction attackAction;
         private InputAction leapAction;
         private InputAction sprintAction;
+        private readonly InputAction[] castActions = new InputAction[4];
 
         private void Awake()
         {
@@ -25,6 +26,8 @@ namespace Spellmite
             attackAction = actions.FindAction("Player/Attack", true);
             leapAction = actions.FindAction("Player/Leap", true);
             sprintAction = actions.FindAction("Player/Sprint", true);
+            for (int i = 0; i < castActions.Length; i++)
+                castActions[i] = actions.FindAction($"Player/Cast{i + 1}", true);
             actions.FindActionMap("Player", true).Enable();
         }
 
@@ -61,7 +64,16 @@ namespace Spellmite
                 JumpPressed = jumpAction.WasPressedThisFrame(),
                 AttackPressed = allowButtons && attackAction.WasPressedThisFrame(),
                 LeapPressed = allowButtons && leapAction.WasPressedThisFrame(),
+                CastSlot = allowButtons ? ReadCastSlot() : 0,
             };
+        }
+
+        // 1-based slot of the cast key pressed this frame, 0 = none
+        private int ReadCastSlot()
+        {
+            for (int i = 0; i < castActions.Length; i++)
+                if (castActions[i].WasPressedThisFrame()) return i + 1;
+            return 0;
         }
     }
 }

@@ -31,6 +31,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 156884942080145581}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5952324770548333998
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2935802641765302097}
+  m_Layer: 0
+  m_Name: CastPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2935802641765302097
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5952324770548333998}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.8, z: 0.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2123470903567067468}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7083720059029828060
 GameObject:
   m_ObjectHideFlags: 0
@@ -45,6 +76,8 @@ GameObject:
   - component: {fileID: 2200389645473769471}
   - component: {fileID: 1117153652194171819}
   - component: {fileID: 3609786086768035441}
+  - component: {fileID: 7378723001526714984}
+  - component: {fileID: 1357064693331714035}
   m_Layer: 7
   m_Name: Seeker
   m_TagString: Untagged
@@ -66,6 +99,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1216671706948782042}
+  - {fileID: 2935802641765302097}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &5823026924611834166
@@ -150,6 +184,11 @@ MonoBehaviour:
   attackRange: 2
   wanderRadius: 5
   wanderPause: 3
+  keepDistance: 0
+  castPause: {x: 0.5, y: 1.5}
+  sightMask:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!114 &3609786086768035441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,6 +247,35 @@ MonoBehaviour:
   headTurnMax: 60
   headSharpness: 8
   actionBlendTime: 0.12
+--- !u!114 &7378723001526714984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7083720059029828060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 401b3668a14f13e448f1773c672331c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.BuffHolder
+--- !u!114 &1357064693331714035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7083720059029828060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a73bdd6f148f4ac40b26cde04e790f48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.SpellCaster
+  castPoint: {fileID: 2935802641765302097}
+  spells:
+  - {fileID: 11400000, guid: 683c1e9da38668c44b9f42aeaa0eb7d9, type: 2}
+  - {fileID: 11400000, guid: 451f086651ed28d49baaa17592eaf8ab, type: 2}
+  aimDistance: 100
 --- !u!1 &8136788350279379748
 GameObject:
   m_ObjectHideFlags: 0

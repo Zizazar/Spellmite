@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8e66e32b2059544bbe83ab10b199e0d, type: 3}
+  m_Name: FrostShards
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.SpellData
+  <NameKey>k__BackingField: spell.frost_shards
+  <Icon>k__BackingField: {fileID: 0}
+  <Tags>k__BackingField:
+  - {fileID: 11400000, guid: aabdeb38047b70543b27b9d39e223af0, type: 2}
+  - {fileID: 11400000, guid: 89ec77dd291eff245823573c2dcb344e, type: 2}
+  <Kind>k__BackingField: 0
+  <Cooldown>k__BackingField: 4
+  <CastTime>k__BackingField: 0.4
+  <ResistanceCost>k__BackingField: 0.1
+  <CastVfx>k__BackingField: {fileID: 4643988801186694651, guid: 475e0944d223d644798888018ff15cbb, type: 3}
+  <SelfBuff>k__BackingField: {fileID: 0}
+  <Damage>k__BackingField: 6
+  <Speed>k__BackingField: 22
+  <Gravity>k__BackingField: 0
+  <Lifetime>k__BackingField: 2.5
+  <Radius>k__BackingField: 0.15
+  <Knockback>k__BackingField: 2
+  <Count>k__BackingField: 3
+  <SpreadAngle>k__BackingField: 20
+  <HomingTurnRate>k__BackingField: 90
+  <HomingRange>k__BackingField: 15
+  <SplashRadius>k__BackingField: 0
+  <HitBuff>k__BackingField: {fileID: 11400000, guid: 023237e133e1d2a4ebe1f521d5f39b46, type: 2}
+  <ProjectileVfx>k__BackingField: {fileID: 2374901705010446669, guid: be15969a4d6e1c44bbe7a583269bf5e5, type: 3}
+  <ImpactVfx>k__BackingField: {fileID: 4011251727955164085, guid: 011166512bd46c64ca8c123c04893048, type: 3}
+  <MuzzleVfx>k__BackingField: {fileID: 590347587754499779, guid: 495f4badb3681e740ae65d912ee769fe, type: 3}
+  <AiUse>k__BackingField: 0
+  <AiMinRange>k__BackingField: 0
+  <AiMaxRange>k__BackingField: 12
+  <AiHealthBelow>k__BackingField: 0.5

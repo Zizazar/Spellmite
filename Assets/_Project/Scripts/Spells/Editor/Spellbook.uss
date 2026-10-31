@@ -1,0 +1,96 @@
+/* Spellbook window. Neutral greys with alpha so it reads in both the dark and the light Editor skin. */
+
+.sb-root { flex-grow: 1; }
+
+/* Header and tabs */
+.sb-header { flex-direction: row; align-items: center; padding: 6px 10px; border-bottom-width: 1px; border-color: rgba(128, 128, 128, 0.3); }
+.sb-header__title { flex-grow: 1; font-size: 15px; -unity-font-style: bold; }
+.sb-tab { padding: 3px 10px; margin-left: 4px; border-radius: 6px; border-width: 1px; border-color: rgba(0, 0, 0, 0); }
+.sb-tab:hover { background-color: rgba(128, 128, 128, 0.12); }
+.sb-tab--on { background-color: rgba(128, 128, 128, 0.2); border-color: rgba(128, 128, 128, 0.45); }
+
+.sb-content { flex-grow: 1; }
+.sb-split { flex-grow: 1; }
+
+/* Sidebar */
+.sb-side { flex-grow: 1; padding: 8px; }
+.sb-row { flex-direction: row; align-items: center; }
+.sb-search { flex-grow: 1; flex-shrink: 1; width: auto; min-width: 60px; margin: 0; }
+.sb-add { width: 24px; height: 20px; margin: 0 0 0 4px; }
+.sb-filters { margin: 6px 0 2px 0; }
+.sb-list { flex-grow: 1; }
+.sb-group { margin: 8px 4px 2px 4px; font-size: 11px; color: rgb(128, 128, 128); }
+.sb-item { flex-direction: row; align-items: center; height: 24px; padding: 0 6px; margin: 1px 0; border-radius: 5px; }
+.sb-item:hover { background-color: rgba(128, 128, 128, 0.15); }
+.sb-item--on, .sb-item--on:hover { background-color: rgba(58, 121, 187, 0.5); }
+.sb-item__icon { width: 16px; height: 16px; margin-right: 6px; border-radius: 3px; -unity-background-scale-mode: scale-to-fit; }
+.sb-item__name { flex-grow: 1; -unity-text-align: middle-left; }
+.sb-dot { width: 8px; height: 8px; margin-left: 4px; border-radius: 4px; }
+
+/* Chips */
+.sb-chips { flex-direction: row; flex-wrap: wrap; align-items: center; }
+.sb-chip { height: 20px; padding: 0 9px; margin: 2px; border-radius: 10px; border-width: 1px; border-color: rgba(128, 128, 128, 0.45); -unity-text-align: middle-center; }
+.sb-chip:hover { background-color: rgba(128, 128, 128, 0.15); }
+.sb-new-tag { width: 120px; margin: 2px; }
+
+/* Detail page */
+.sb-detail { flex-grow: 1; }
+.sb-page { padding: 8px; }
+.sb-empty { margin: 24px; color: rgb(128, 128, 128); -unity-text-align: middle-center; white-space: normal; }
+.sb-muted { margin: 4px 3px 0 3px; color: rgb(128, 128, 128); white-space: normal; }
+.sb-hint { margin: 8px 10px 0 10px; color: rgb(128, 128, 128); white-space: normal; }
+
+.sb-head { flex-direction: row; align-items: center; margin: 4px 4px 10px 4px; }
+.sb-head__icon { width: 52px; height: 52px; margin-right: 12px; border-radius: 10px; align-items: center; justify-content: center; -unity-background-scale-mode: scale-to-fit; }
+.sb-head__letter { font-size: 24px; -unity-font-style: bold; }
+.sb-head__titles { flex-grow: 1; flex-shrink: 1; }
+.sb-title { margin: 0; }
+.sb-title .unity-base-text-field__input { font-size: 18px; -unity-font-style: bold; min-height: 28px; background-color: rgba(0, 0, 0, 0); border-color: rgba(0, 0, 0, 0); }
+.sb-title .unity-base-text-field__input:hover { border-color: rgba(128, 128, 128, 0.45); }
+.sb-subtitle { margin-left: 4px; color: rgb(128, 128, 128); }
+.sb-btn { height: 26px; padding: 0 10px; margin-left: 6px; border-radius: 6px; }
+.sb-btn--accent { border-color: rgb(58, 142, 230); }
+
+/* Cards */
+.sb-grid { flex-direction: row; flex-wrap: wrap; }
+.sb-card { margin: 4px; border-radius: 8px; border-width: 1px; border-color: rgba(128, 128, 128, 0.3); background-color: rgba(128, 128, 128, 0.06); }
+.sb-grid > .sb-card { flex-grow: 1; flex-basis: 300px; min-width: 260px; }
+.sb-card__head { flex-direction: row; align-items: center; padding: 6px 10px; border-bottom-width: 1px; border-color: rgba(128, 128, 128, 0.25); }
+.sb-card__title { flex-grow: 1; -unity-font-style: bold; }
+.sb-card__note { color: rgb(128, 128, 128); }
+.sb-card__body { padding: 6px 8px 8px 8px; }
+/* The cards already group fields: hide the [Header] decorators from SpellData / BuffData */
+.sb-card .unity-decorator-drawers-container { display: none; }
+
+/* AI range bar */
+.sb-range { flex-direction: row; align-items: center; margin: 8px 3px 2px 3px; }
+.sb-range__label { width: 150px; }
+.sb-range__track { flex-grow: 1; height: 6px; border-radius: 3px; background-color: rgba(128, 128, 128, 0.3); }
+.sb-range__fill { position: absolute; top: 0; bottom: 0; border-radius: 3px; background-color: rgb(58, 142, 230); }
+
+/* Stat tiles */
+.sb-stats { flex-direction: row; flex-wrap: wrap; }
+.sb-stat { flex-grow: 1; flex-basis: 160px; margin: 4px; padding: 8px 12px; border-radius: 8px; background-color: rgba(128, 128, 128, 0.1); }
+.sb-stat__title { color: rgb(128, 128, 128); }
+.sb-stat__value { font-size: 20px; -unity-font-style: bold; white-space: normal; }
+.sb-stat__caption { font-size: 11px; color: rgb(128, 128, 128); white-space: normal; }
+.sb-stat--ok { background-color: rgba(60, 170, 80, 0.18); }
+.sb-stat--ok > .sb-stat__title, .sb-stat--ok > .sb-stat__value { color: rgb(80, 190, 95); }
+.sb-stat--warn { background-color: rgba(230, 150, 40, 0.18); }
+.sb-stat--warn > .sb-stat__title, .sb-stat--warn > .sb-stat__value, .sb-stat--warn > .sb-stat__caption { color: rgb(230, 150, 50); }
+
+/* Tables */
+.sb-table { flex-grow: 1; margin: 6px; }
+.sb-tr { flex-direction: row; align-items: center; min-height: 24px; }
+.sb-tr--odd { background-color: rgba(128, 128, 128, 0.07); }
+.sb-tr--head { border-bottom-width: 1px; border-color: rgba(128, 128, 128, 0.35); }
+.sb-th { width: 72px; margin: 1px 2px; padding: 3px 4px; -unity-font-style: bold; -unity-text-align: middle-right; }
+.sb-th:hover { background-color: rgba(128, 128, 128, 0.15); }
+.sb-td { width: 72px; margin: 1px 2px; }
+.sb-td--name { width: 150px; padding-left: 6px; -unity-text-align: middle-left; }
+.sb-td--kind { width: 72px; color: rgb(128, 128, 128); -unity-text-align: middle-left; }
+.sb-num { padding-right: 6px; -unity-text-align: middle-right; }
+.sb-link:hover { color: rgb(88, 160, 240); }
+.sb-cell { width: 130px; margin: 1px 4px; }
+.sb-th.sb-cell { -unity-text-align: middle-center; }
+.sb-warn-text { color: rgb(230, 150, 50); }

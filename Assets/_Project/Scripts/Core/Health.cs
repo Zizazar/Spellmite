@@ -11,6 +11,7 @@ namespace Spellmite
         public float Max => maxHealth;
         public bool IsDead => Current <= 0f;
         public bool Invulnerable { get; set; }
+        public float DamageTakenMultiplier { get; set; } = 1f; // set by BuffHolder
 
         // amount, knockback impulse
         public event Action<float, Vector3> Damaged;
@@ -23,11 +24,19 @@ namespace Spellmite
 
         public void TakeDamage(float amount, Vector3 impulse)
         {
-            if (IsDead || Invulnerable || amount <= 0f) return;
+            if (IsDead || Invulnerable) return;
+            amount *= DamageTakenMultiplier;
+            if (amount <= 0f) return;
 
             Current = Mathf.Max(0f, Current - amount);
             Damaged?.Invoke(amount, impulse);
             if (IsDead) Died?.Invoke();
+        }
+
+        public void Heal(float amount)
+        {
+            if (IsDead || amount <= 0f) return;
+            Current = Mathf.Min(maxHealth, Current + amount);
         }
 
         public void ResetHealth()

@@ -53,6 +53,7 @@ namespace Spellmite
         [SerializeField] private float respawnDelay = 1.5f;
 
         private Health health;
+        private BuffHolder buffs;
         private ControlInput input;
         private Vector3 velocity;
         private Vector3 up = Vector3.up;
@@ -93,6 +94,7 @@ namespace Spellmite
         private void Awake()
         {
             health = GetComponent<Health>();
+            buffs = GetComponent<BuffHolder>();
             var trigger = GetComponent<SphereCollider>();
             trigger.isTrigger = true;
             trigger.radius = radius;
@@ -112,6 +114,7 @@ namespace Spellmite
 
             float dt = Time.deltaTime;
             health.Invulnerable = IsHosted || Time.time < invulnerableUntil;
+            if (State == ParasiteState.Free && buffs != null && buffs.IsStunned) input = default;
 
             switch (State)
             {
@@ -179,7 +182,7 @@ namespace Spellmite
             }
 
             Vector3 move = SurfaceMove(input.Move);
-            float speed = input.Sprint ? profile.SprintSpeed : profile.WalkSpeed;
+            float speed = (input.Sprint ? profile.SprintSpeed : profile.WalkSpeed) * (buffs != null ? buffs.SpeedMultiplier : 1f);
             float rate = move.sqrMagnitude > 0.01f ? profile.Acceleration : profile.Deceleration;
             velocity = Vector3.MoveTowards(Vector3.ProjectOnPlane(velocity, up), move * speed, rate * dt);
 

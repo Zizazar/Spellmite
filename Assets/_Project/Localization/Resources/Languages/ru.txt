@@ -12,3 +12,13 @@ coins.many={0} монет
 
 # Dialog
 dialog.intro=Привет, путник!\nКуда держишь путь?
+
+# Spells
+spell.fireball=Огненный шар
+spell.frost_shards=Ледяные осколки
+spell.mend=Исцеление
+
+# Buffs
+buff.burn=Горение
+buff.chill=Озноб
+buff.regeneration=Регенерация

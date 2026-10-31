@@ -11,3 +11,13 @@ coins.other={0} coins
 
 # Dialog
 dialog.intro=Hello, traveler!\nWhere are you going?
+
+# Spells
+spell.fireball=Fireball
+spell.frost_shards=Frost Shards
+spell.mend=Mend
+
+# Buffs
+buff.burn=Burning
+buff.chill=Chilled
+buff.regeneration=Regeneration

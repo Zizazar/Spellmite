@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8e66e32b2059544bbe83ab10b199e0d, type: 3}
+  m_Name: Mend
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.SpellData
+  <NameKey>k__BackingField: spell.mend
+  <Icon>k__BackingField: {fileID: 0}
+  <Tags>k__BackingField:
+  - {fileID: 11400000, guid: b9525ebeb722f4c4cb73570641cd265e, type: 2}
+  <Kind>k__BackingField: 1
+  <Cooldown>k__BackingField: 12
+  <CastTime>k__BackingField: 0.6
+  <ResistanceCost>k__BackingField: 0.15
+  <CastVfx>k__BackingField: {fileID: 6308758188975051715, guid: 3ca2957386a6f7341828e0089b523103, type: 3}
+  <SelfBuff>k__BackingField: {fileID: 11400000, guid: 26857f4679f32cc429d3358dd868b9e9, type: 2}
+  <Damage>k__BackingField: 10
+  <Speed>k__BackingField: 20
+  <Gravity>k__BackingField: 0
+  <Lifetime>k__BackingField: 3
+  <Radius>k__BackingField: 0.2
+  <Knockback>k__BackingField: 5
+  <Count>k__BackingField: 1
+  <SpreadAngle>k__BackingField: 20
+  <HomingTurnRate>k__BackingField: 0
+  <HomingRange>k__BackingField: 15
+  <SplashRadius>k__BackingField: 0
+  <HitBuff>k__BackingField: {fileID: 0}
+  <ProjectileVfx>k__BackingField: {fileID: 0}
+  <ImpactVfx>k__BackingField: {fileID: 0}
+  <MuzzleVfx>k__BackingField: {fileID: 0}
+  <AiUse>k__BackingField: 2
+  <AiMinRange>k__BackingField: 0
+  <AiMaxRange>k__BackingField: 12
+  <AiHealthBelow>k__BackingField: 0.5

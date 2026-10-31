@@ -12,5 +12,6 @@ namespace Spellmite
         public bool JumpPressed;
         public bool AttackPressed;
         public bool LeapPressed;    // parasite: leap at target / leap out of the host
+        public int CastSlot;        // SpellCaster slot to cast this frame, 1-based; 0 = none
     }
 }
