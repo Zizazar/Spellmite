@@ -48,7 +48,8 @@ namespace Spellmite
         [SerializeField] private float biteCooldown = 0.4f;
         [SerializeField] private float biteLunge = 5f;
 
-        [Header("Death")]
+        [Header("Damage")]
+        [SerializeField, Tooltip("Cap on knockback speed, so the light parasite isn't launched across the map")] private float maxKnockbackSpeed = 6f;
         [SerializeField] private float respawnDelay = 1.5f;
 
         private Health health;
@@ -56,6 +57,8 @@ namespace Spellmite
         private Vector3 velocity;
         private Vector3 up = Vector3.up;
         private bool onSurface;
+        private Quaternion moveFrame = Quaternion.identity;
+        private bool moveFrameActive;
         private int airLeaps;
         private float nextLeapTime;
         private float nextBiteTime;
@@ -154,14 +157,15 @@ namespace Spellmite
         private bool TryLeapFromInput()
         {
             if (!input.LeapPressed || Time.time < nextLeapTime) return false;
-            if (!onSurface || State == ParasiteState.Leaping)
-            {
-                if (airLeaps <= 0) return false;
-                airLeaps--;
-            }
+            bool airborne = !onSurface || State == ParasiteState.Leaping;
+            if (airborne && airLeaps <= 0) return false;
 
-            var target = FindLeapTarget(input.AimOrigin, input.Aim, null, out Vector3 aimPoint);
-            StartLeap(target, (aimPoint - transform.position).normalized * leapSpeed);
+            // RMB only leaps at hosts; with nothing in the crosshair it does nothing
+            var target = FindLeapTarget(input.AimOrigin, input.Aim, null, out _);
+            if (target == null) return false;
+
+            if (airborne) airLeaps--;
+            StartLeap(target, Vector3.zero);
             return true;
         }
 
@@ -196,12 +200,7 @@ namespace Spellmite
                     {
                         // Concave corner: climb onto the wall/ceiling ahead
                         transform.position += dir * Mathf.Max(0f, hit.distance - 0.01f);
-                        Vector3 oldUp = up;
-                        float speedNow = velocity.magnitude;
-                        up = hit.normal;
-                        Vector3 newDir = Vector3.ProjectOnPlane(dir, up)
-                                         + Vector3.ProjectOnPlane(oldUp, up).normalized * Mathf.Max(0f, Vector3.Dot(dir, -up));
-                        velocity = newDir.normalized * speedNow;
+                        ChangeSurface(hit.normal);
                         return;
                     }
                 }
@@ -209,15 +208,48 @@ namespace Spellmite
             }
 
             if (!StickToSurface() && !WrapAroundEdge()) onSurface = false;
+
+            // Back on a floor: input is camera-relative again
+            if (Vector3.Dot(up, Vector3.up) > 0.7f) moveFrameActive = false;
         }
 
         // Camera-relative input mapped onto the current surface. Pushing into a wall climbs it.
+        // After crossing an edge or corner the mapping is carried along (moveFrame), so holding a direction keeps crawling around.
         private Vector3 SurfaceMove(Vector3 worldMove)
         {
-            Vector3 move = Vector3.ProjectOnPlane(worldMove, up);
-            Vector3 wallUp = Vector3.ProjectOnPlane(Vector3.up, up); // zero on floors and ceilings
-            move += wallUp * Vector3.Dot(worldMove, -up);
+            Vector3 move;
+            if (moveFrameActive)
+            {
+                move = Vector3.ProjectOnPlane(moveFrame * worldMove, up);
+            }
+            else
+            {
+                move = Vector3.ProjectOnPlane(worldMove, up);
+                Vector3 wallUp = Vector3.ProjectOnPlane(Vector3.up, up); // zero on floors and ceilings
+                move += wallUp * Vector3.Dot(worldMove, -up);
+            }
             return move.sqrMagnitude > 1e-4f ? move.normalized * worldMove.magnitude : Vector3.zero;
+        }
+
+        // Rotate velocity and the input mapping together with the surface
+        private void ChangeSurface(Vector3 newUp)
+        {
+            Quaternion turn = Quaternion.FromToRotation(up, newUp);
+            Vector3 move = SurfaceMove(input.Move);
+            float speed = velocity.magnitude;
+
+            up = newUp;
+            velocity = Vector3.ProjectOnPlane(turn * velocity, up).normalized * speed;
+
+            if (moveFrameActive)
+            {
+                moveFrame = turn * moveFrame;
+            }
+            else if (move.sqrMagnitude > 1e-4f)
+            {
+                moveFrame = Quaternion.FromToRotation(input.Move.normalized, (turn * move).normalized);
+                moveFrameActive = true;
+            }
         }
 
         private bool StickToSurface()
@@ -240,11 +272,8 @@ namespace Spellmite
             if (!Physics.Raycast(origin, -tangent.normalized, out var hit, radius * 4f, surfaceMask, QueryTriggerInteraction.Ignore))
                 return false;
 
-            Vector3 oldUp = up;
-            float speedNow = velocity.magnitude;
-            up = hit.normal;
             transform.position = hit.point + hit.normal * radius;
-            velocity = Vector3.ProjectOnPlane(-oldUp, up).normalized * speedNow;
+            ChangeSurface(hit.normal);
             return true;
         }
 
@@ -294,6 +323,7 @@ namespace Spellmite
         {
             onSurface = true;
             up = normal;
+            moveFrameActive = false;
             airLeaps = maxAirLeaps;
             velocity = Vector3.ProjectOnPlane(velocity, up);
             if (State == ParasiteState.Leaping)
@@ -516,7 +546,7 @@ namespace Spellmite
 
         private void OnDamaged(float amount, Vector3 impulse)
         {
-            velocity += impulse / Mathf.Max(0.01f, profile.Mass);
+            velocity += Vector3.ClampMagnitude(impulse / Mathf.Max(0.01f, profile.Mass), maxKnockbackSpeed);
             if (impulse.sqrMagnitude > 1f)
             {
                 onSurface = false;

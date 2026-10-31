@@ -171,10 +171,10 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.05
-  far clip plane: 1000
-  field of view: 60
+  far clip plane: 5000
+  field of view: 65
   orthographic: 0
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -282,8 +282,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 95675869}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: -4}
+  m_LocalRotation: {x: 0.1305262, y: 0, z: 0, w: 0.9914449}
+  m_LocalPosition: {x: 0, y: 1.6729295, z: -2.5114071}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -446,7 +446,7 @@ MonoBehaviour:
     m_Value: 0
   OutputChannel: 1
   StandbyUpdate: 2
-  m_StreamingVersion: 0
+  m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
     TrackingTarget: {fileID: 1933356381}
@@ -502,8 +502,8 @@ MonoBehaviour:
       YOffset: 0
     Strategy: 0
     MaximumEffort: 4
-    SmoothingTime: 0
-    Damping: 0.3
+    SmoothingTime: 0.2
+    Damping: 0.5
     DampingWhenOccluded: 0
   ShotQualityEvaluation:
     Enabled: 0
@@ -548,8 +548,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 212842629}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.13052619, y: 0, z: 0, w: 0.9914449}
+  m_LocalPosition: {x: 0, y: 1.6729295, z: -2.5114071}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2125,6 +2125,11 @@ MonoBehaviour:
   speedSmoothing: 3
   mouseSensitivity: 0.1
   gamepadSensitivity: 180
+  surfaceUpSharpness: 6
+  recenterDelay: 0.5
+  recenterSharpness: 3
+  recenterMinSpeed: 0.5
+  recenterMaxAngle: 135
 --- !u!114 &1818499099
 MonoBehaviour:
   m_ObjectHideFlags: 0

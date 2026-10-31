@@ -20,6 +20,13 @@ namespace Spellmite
         [SerializeField] private float speedSmoothing = 3f;
         [SerializeField] private float mouseSensitivity = 0.1f;
         [SerializeField, Tooltip("Degrees per second at full stick")] private float gamepadSensitivity = 180f;
+        [SerializeField, Tooltip("How fast the height offset turns to follow the surface the parasite crawls on")] private float surfaceUpSharpness = 6f;
+
+        [Header("Auto-center")]
+        [SerializeField, Tooltip("Seconds without look input before the camera swings behind the body")] private float recenterDelay = 0.5f;
+        [SerializeField, Tooltip("Swing speed at full sprint")] private float recenterSharpness = 3f;
+        [SerializeField] private float recenterMinSpeed = 0.5f;
+        [SerializeField, Tooltip("Don't swing around when moving towards the camera")] private float recenterMaxAngle = 135f;
 
         private InputAction lookAction;
         private Transform currentBody;
@@ -28,6 +35,8 @@ namespace Spellmite
         private float fromFov;
         private float transition = 1f;
         private float speed01;
+        private Vector3 cameraUp = Vector3.up;
+        private float lastLookTime;
 
         private void Awake()
         {
@@ -52,13 +61,19 @@ namespace Spellmite
                 currentBody = body;
             }
 
-            float targetSpeed01 = Mathf.Clamp01(parasite.ActiveVelocity.magnitude / Mathf.Max(0.01f, profile.SprintSpeed));
+            float speed = parasite.ActiveVelocity.magnitude;
+            float targetSpeed01 = Mathf.Clamp01(speed / Mathf.Max(0.01f, profile.SprintSpeed));
             speed01 = Mathf.Lerp(speed01, targetSpeed01, 1f - Mathf.Exp(-speedSmoothing * dt));
 
             transition = Mathf.Min(1f, transition + dt / transitionTime);
             float k = Mathf.SmoothStep(0f, 1f, transition);
 
-            Vector3 targetPosition = body.position + Vector3.up * profile.CameraHeight;
+            // Offset along the surface normal (off walls, below ceilings), turned smoothly so edges don't jerk
+            Vector3 targetUp = parasite.IsOnSurface ? parasite.SurfaceUp : Vector3.up;
+            cameraUp = Vector3.Slerp(cameraUp, targetUp, 1f - Mathf.Exp(-surfaceUpSharpness * dt)).normalized;
+            Recenter(body, speed, dt);
+
+            Vector3 targetPosition = body.position + cameraUp * profile.CameraHeight;
             float distance = profile.CameraDistance + profile.CameraSpeedDistance * speed01;
             float fov = profile.CameraFov + profile.CameraSpeedFov * speed01;
 
@@ -73,12 +88,34 @@ namespace Spellmite
             bool gamepad = lookAction.activeControl?.device is Gamepad;
             if (!gamepad && Cursor.lockState != CursorLockMode.Locked) return;
 
+            if (look.sqrMagnitude > (gamepad ? 0.01f : 1f)) lastLookTime = Time.time;
             look *= gamepad ? gamepadSensitivity * dt : mouseSensitivity;
             orbit.HorizontalAxis.Value += look.x;
             if (orbit.HorizontalAxis.Wrap) orbit.HorizontalAxis.Value = Mathf.Repeat(orbit.HorizontalAxis.Value + 180f, 360f) - 180f;
 
             Vector2 range = orbit.VerticalAxis.Range;
             orbit.VerticalAxis.Value = Mathf.Clamp(orbit.VerticalAxis.Value - look.y, range.x, range.y);
+        }
+
+        // Swing behind the body while it walks and the player isn't steering the camera
+        private void Recenter(Transform body, float speed, float dt)
+        {
+            if (Time.time - lastLookTime < recenterDelay || speed < recenterMinSpeed) return;
+
+            bool grounded = parasite.IsHosted ? parasite.Host != null && parasite.Host.IsGrounded : parasite.IsOnSurface;
+            if (!grounded) return;
+
+            // On a wall, also face into it (forward alone points straight up while climbing)
+            Vector3 heading = Vector3.ProjectOnPlane(body.forward, Vector3.up);
+            if (parasite.IsOnSurface) heading += Vector3.ProjectOnPlane(-parasite.SurfaceUp, Vector3.up);
+            if (heading.sqrMagnitude < 0.01f) return;
+
+            float targetYaw = Mathf.Atan2(heading.x, heading.z) * Mathf.Rad2Deg;
+            float delta = Mathf.DeltaAngle(orbit.HorizontalAxis.Value, targetYaw);
+            if (Mathf.Abs(delta) > recenterMaxAngle) return;
+
+            orbit.HorizontalAxis.Value += delta * (1f - Mathf.Exp(-recenterSharpness * speed01 * dt));
+            if (orbit.HorizontalAxis.Wrap) orbit.HorizontalAxis.Value = Mathf.Repeat(orbit.HorizontalAxis.Value + 180f, 360f) - 180f;
         }
     }
 }
