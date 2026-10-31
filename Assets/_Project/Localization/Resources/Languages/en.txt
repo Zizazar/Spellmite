@@ -16,6 +16,8 @@ dialog.intro=Hello, traveler!\nWhere are you going?
 spell.fireball=Fireball
 spell.frost_shards=Frost Shards
 spell.mend=Mend
+spell.slam=Slam
+spell.fire_hail=Fire Hail
 
 # Buffs
 buff.burn=Burning

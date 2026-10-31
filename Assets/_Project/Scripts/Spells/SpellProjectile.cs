@@ -87,11 +87,13 @@ namespace Spellmite
             return found;
         }
 
-        private bool CanHit(Collider col)
+        private bool CanHit(Collider col) => CanHit(col, ownerHealth, fromPlayer);
+
+        private static bool CanHit(Collider col, Health owner, bool fromPlayer)
         {
             var health = col.GetComponentInParent<Health>();
             if (health == null) return !col.isTrigger;
-            if (health == ownerHealth || health.IsDead) return false;
+            if (health == owner || health.IsDead) return false;
             return Teams.IsPlayerSide(health) != fromPlayer;
         }
 
@@ -101,27 +103,36 @@ namespace Spellmite
 
             damaged.Clear();
             var directHealth = direct.GetComponentInParent<Health>();
-            if (directHealth != null) Damage(directHealth, point);
-
-            if (spell.SplashRadius > 0f)
-            {
-                int count = Physics.OverlapSphereNonAlloc(point, spell.SplashRadius, overlapBuffer, ~0, QueryTriggerInteraction.Collide);
-                for (int i = 0; i < count; i++)
-                {
-                    var health = overlapBuffer[i].GetComponentInParent<Health>();
-                    if (health != null && CanHit(overlapBuffer[i])) Damage(health, point);
-                }
-            }
+            if (directHealth != null) Damage(spell, directHealth, point, velocity);
+            if (spell.SplashRadius > 0f) Splash(spell, ownerHealth, fromPlayer, point, velocity);
 
             Finish();
         }
 
-        private void Damage(Health target, Vector3 point)
+        // Every enemy of the caster within the spell's SplashRadius of the point. Area spells (Nova, Barrage) hit with this
+        public static void DamageArea(SpellData spell, Health owner, bool fromPlayer, Vector3 point)
+        {
+            damaged.Clear();
+            Splash(spell, owner, fromPlayer, point, Vector3.zero);
+        }
+
+        private static void Splash(SpellData spell, Health owner, bool fromPlayer, Vector3 point, Vector3 pushFallback)
+        {
+            int count = Physics.OverlapSphereNonAlloc(point, spell.SplashRadius, overlapBuffer, ~0, QueryTriggerInteraction.Collide);
+            for (int i = 0; i < count; i++)
+            {
+                var health = overlapBuffer[i].GetComponentInParent<Health>();
+                if (health != null && CanHit(overlapBuffer[i], owner, fromPlayer)) Damage(spell, health, point, pushFallback);
+            }
+        }
+
+        // pushFallback: knockback direction when the target stands right on the point
+        private static void Damage(SpellData spell, Health target, Vector3 point, Vector3 pushFallback)
         {
             if (target.Invulnerable || !damaged.Add(target)) return;
 
             Vector3 away = Vector3.ProjectOnPlane(target.transform.position - point, Vector3.up);
-            if (away.sqrMagnitude < 0.01f) away = Vector3.ProjectOnPlane(velocity, Vector3.up);
+            if (away.sqrMagnitude < 0.01f) away = Vector3.ProjectOnPlane(pushFallback, Vector3.up);
             target.TakeDamage(spell.Damage, (away.normalized + Vector3.up * 0.4f) * spell.Knockback);
 
             if (spell.HitBuff != null && target.TryGetComponent(out BuffHolder buffs)) buffs.Apply(spell.HitBuff);

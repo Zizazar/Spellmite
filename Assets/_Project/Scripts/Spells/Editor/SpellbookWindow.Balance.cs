@@ -12,7 +12,7 @@ namespace Spellmite
     public partial class SpellbookWindow
     {
         // Field = SpellData property edited in the cell; null = computed, read-only
-        private static readonly (string Title, string Field, Func<SpellData, float> Value, bool ProjectileOnly)[] BalanceColumns =
+        private static readonly (string Title, string Field, Func<SpellData, float> Value, bool DamageOnly)[] BalanceColumns =
         {
             ("Cooldown", "Cooldown", s => s.Cooldown, false),
             ("Cast", "CastTime", s => s.CastTime, false),
@@ -83,7 +83,7 @@ namespace Spellmite
                         cell = new FloatField { bindingPath = path };
                     }
                     cell.AddToClassList("sb-td");
-                    cell.SetEnabled(!column.ProjectileOnly || spell.Kind == SpellKind.Projectile);
+                    cell.SetEnabled(!column.DamageOnly || spell.Kind != SpellKind.Self);
                     row.Add(cell);
                 }
 

@@ -120,6 +120,21 @@ namespace Spellmite
             vfx.Add(Field(so, "ImpactVfx", "Impact"));
             vfx.Add(Field(so, "MuzzleVfx", "Muzzle"));
 
+            var area = Card(grid, "Area");
+            area.Add(Field(so, "Damage"));
+            area.Add(Field(so, "SplashRadius", "Radius"));
+            area.Add(Field(so, "Knockback"));
+            area.Add(Field(so, "HitBuff"));
+            area.Add(Field(so, "AreaVfx", "VFX"));
+            var barrageFields = new[]
+            {
+                Field(so, "Count", "Hits"),
+                Field(so, "BarrageHeight", "Height"),
+                Field(so, "BarrageDelay", "Fall time, s"),
+                Field(so, "BarrageInterval", "Between hits, s"),
+            };
+            foreach (var field in barrageFields) area.Add(field);
+
             var ai = Card(page, "AI", out var aiNote);
             ai.Add(Field(so, "AiUse", "Use"));
             var aiMin = Field(so, "AiMinRange", "Min range");
@@ -152,6 +167,8 @@ namespace Spellmite
                 SetVisible(projectile.parent, isProjectile);
                 SetVisible(hit.parent, isProjectile);
                 SetVisible(vfx.parent, isProjectile);
+                SetVisible(area.parent, spell.Kind is SpellKind.Nova or SpellKind.Barrage);
+                foreach (var field in barrageFields) SetVisible(field, spell.Kind == SpellKind.Barrage);
 
                 SetIcon(icon, spell.Icon, TagColors(spell).DefaultIfEmpty(Color.gray).First(), spell.name);
                 subtitle.text = $"{spell.Kind} · {AssetPath(spell)}";
@@ -180,12 +197,13 @@ namespace Spellmite
                 fill.style.left = Length.Percent(Mathf.Clamp01(spell.AiMinRange / scale) * 100f);
                 fill.style.width = Length.Percent(Mathf.Clamp01((spell.AiMaxRange - spell.AiMinRange) / scale) * 100f);
 
-                if (isProjectile)
+                if (spell.Kind != SpellKind.Self)
                 {
                     float dot = -BuffTotal(spell.HitBuff);
                     string dotText = dot > 0f ? $" + {spell.HitBuff.name} {dot:0.#}" : "";
                     power.Set("DPS", Dps(spell).ToString("0.#"), $"{spell.Damage:0.#} × {spell.Count}{dotText} every {Cycle(spell):0.#} s");
-                    time.Set("Time to hit", spell.Speed > 0f ? $"{TimeToHit(spell):0.##} s" : "—", $"windup + flight to {TestDistance(spell):0.#} m");
+                    if (isProjectile) time.Set("Time to hit", spell.Speed > 0f ? $"{TimeToHit(spell):0.##} s" : "—", $"windup + flight to {TestDistance(spell):0.#} m");
+                    else time.Set("Time to hit", $"{TimeToHit(spell):0.##} s", spell.Kind == SpellKind.Barrage ? "windup + fall" : "windup");
                 }
                 else
                 {
@@ -306,6 +324,14 @@ namespace Spellmite
                 else if (s.AiUse == SpellAiUse.Attack && s.AiMaxRange > s.Speed * s.Lifetime)
                     issues.Add($"Flies {s.Speed * s.Lifetime:0.#} m, but AI max range is {s.AiMaxRange:0.#} m");
             }
+            else if (s.Kind is SpellKind.Nova or SpellKind.Barrage)
+            {
+                if (s.AreaVfx == null) issues.Add("No area VFX");
+                if (s.SplashRadius <= 0f) issues.Add("Area spell needs a Splash Radius above 0");
+                if (s.Damage <= 0f && s.HitBuff == null) issues.Add("No damage and no hit buff");
+                if (s.Kind == SpellKind.Nova && s.AiUse == SpellAiUse.Attack && s.AiMaxRange > s.SplashRadius)
+                    issues.Add($"Hits {s.SplashRadius:0.#} m around, but AI max range is {s.AiMaxRange:0.#} m");
+            }
             else if (s.SelfBuff == null)
             {
                 issues.Add("Self spell without a self buff does nothing");
@@ -324,15 +350,19 @@ namespace Spellmite
         private static float BuffTotal(BuffData b) =>
             b == null || b.HealthPerTick == 0f ? 0f : b.HealthPerTick * Mathf.Floor(b.Duration / Mathf.Max(0.05f, b.TickInterval));
 
-        // Projectile: hit damage of every shot + hit buff damage, per cast cycle. Self: healing per second.
-        private static float Dps(SpellData s) => s.Kind == SpellKind.Projectile
+        // Projectile, area: hit damage of every shot/hit + hit buff damage, per cast cycle. Self: healing per second.
+        private static float Dps(SpellData s) => s.Kind != SpellKind.Self
             ? (s.Damage * s.Count + Mathf.Max(0f, -BuffTotal(s.HitBuff))) / Cycle(s)
             : Mathf.Max(0f, BuffTotal(s.SelfBuff)) / Cycle(s);
 
         // Middle of the AI range: the typical distance the spell is cast from
         private static float TestDistance(SpellData s) => (s.AiMinRange + s.AiMaxRange) * 0.5f;
 
-        private static float TimeToHit(SpellData s) =>
-            s.Kind == SpellKind.Projectile && s.Speed > 0f ? s.CastTime + TestDistance(s) / s.Speed : s.CastTime;
+        private static float TimeToHit(SpellData s) => s.Kind switch
+        {
+            SpellKind.Projectile when s.Speed > 0f => s.CastTime + TestDistance(s) / s.Speed,
+            SpellKind.Barrage => s.CastTime + s.BarrageDelay,
+            _ => s.CastTime,
+        };
     }
 }

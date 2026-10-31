@@ -119,6 +119,51 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &13472011
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 13472012}
+  - component: {fileID: 13472013}
+  m_Layer: 0
+  m_Name: Pocket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &13472012
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 13472011}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.875, z: 1.625}
+  m_LocalScale: {x: 4, y: 5.75, z: 6.25}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 893397349}
+  m_Father: {fileID: 1043680683}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &13472013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 13472011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af640000181c1ec49b2d628bf33b2c8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.EnemyPocket
 --- !u!1 &95675869
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,6 +352,113 @@ MonoBehaviour:
   dither: 1
   vertexSnapHeight: 240
   affineMapping: 1
+--- !u!1 &137542121
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 137542122}
+  - component: {fileID: 137542123}
+  m_Layer: 0
+  m_Name: Pocket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &137542122
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 137542121}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.775, z: 1}
+  m_LocalScale: {x: 4, y: 5.55, z: 6.5}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 733920655}
+  m_Father: {fileID: 1853756495}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &137542123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 137542121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af640000181c1ec49b2d628bf33b2c8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.EnemyPocket
+--- !u!1001 &156963835
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1588618770}
+    m_Modifications:
+    - target: {fileID: 4293736037251325679, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_Name
+      value: PocketFog
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+--- !u!4 &156963836 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+  m_PrefabInstance: {fileID: 156963835}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &208582562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -336,6 +488,11 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!4 &212369855 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7403083567988114030, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+  m_PrefabInstance: {fileID: 3843495505573851063}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &212842629
 GameObject:
   m_ObjectHideFlags: 0
@@ -545,6 +702,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &246892705 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2294427340723911161, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+  m_PrefabInstance: {fileID: 3843495505573851063}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &275081323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -574,6 +736,68 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1001 &281109788
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1323493274}
+    m_Modifications:
+    - target: {fileID: 4293736037251325679, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_Name
+      value: PocketFog
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+--- !u!4 &281109789 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+  m_PrefabInstance: {fileID: 281109788}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &299710467
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -665,6 +889,68 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1001 &335723130
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 615085233}
+    m_Modifications:
+    - target: {fileID: 4293736037251325679, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_Name
+      value: PocketFog
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+--- !u!4 &335723131 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+  m_PrefabInstance: {fileID: 335723130}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &355289124
 GameObject:
   m_ObjectHideFlags: 0
@@ -741,6 +1027,285 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 355289124}
   m_CullTransparentMesh: 1
+--- !u!4 &371033043 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6825530496128767639, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+  m_PrefabInstance: {fileID: 3843495505573851063}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &453605690
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 453605691}
+  - component: {fileID: 453605692}
+  m_Layer: 0
+  m_Name: Pocket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &453605691
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 453605690}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.775, z: 1}
+  m_LocalScale: {x: 4, y: 5.55, z: 6.5}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2112322981}
+  m_Father: {fileID: 1362335857}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &453605692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 453605690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af640000181c1ec49b2d628bf33b2c8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.EnemyPocket
+--- !u!4 &455983610 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6307410036296505013, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+  m_PrefabInstance: {fileID: 3843495505573851063}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &481789276
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1112380893}
+    m_Modifications:
+    - target: {fileID: 4293736037251325679, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_Name
+      value: PocketFog
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+--- !u!4 &481789277 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+  m_PrefabInstance: {fileID: 481789276}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &514668217
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2117276770}
+    m_Modifications:
+    - target: {fileID: 4293736037251325679, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_Name
+      value: PocketFog
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+--- !u!4 &514668218 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+  m_PrefabInstance: {fileID: 514668217}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &544660734 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6579955703978226949, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+  m_PrefabInstance: {fileID: 3843495505573851063}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &547352191 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5540236052655628362, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+  m_PrefabInstance: {fileID: 3843495505573851063}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &615085232
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 615085233}
+  - component: {fileID: 615085234}
+  m_Layer: 0
+  m_Name: Pocket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &615085233
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 615085232}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.775, z: 1}
+  m_LocalScale: {x: 4, y: 5.55, z: 6.5}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 335723131}
+  m_Father: {fileID: 1369895883}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &615085234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 615085232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af640000181c1ec49b2d628bf33b2c8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.EnemyPocket
+--- !u!1 &636275509
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 636275510}
+  - component: {fileID: 636275511}
+  m_Layer: 0
+  m_Name: Pocket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &636275510
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 636275509}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.775, z: 1}
+  m_LocalScale: {x: 4, y: 5.55, z: 6.5}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1143265236}
+  m_Father: {fileID: 246892705}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &636275511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 636275509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af640000181c1ec49b2d628bf33b2c8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.EnemyPocket
 --- !u!114 &636502402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -770,6 +1335,56 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1 &679321658
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 679321659}
+  - component: {fileID: 679321660}
+  m_Layer: 0
+  m_Name: Pocket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &679321659
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 679321658}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.775, z: 1}
+  m_LocalScale: {x: 4, y: 5.55, z: 6.5}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1736599899}
+  m_Father: {fileID: 1325909332}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &679321660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 679321658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af640000181c1ec49b2d628bf33b2c8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.EnemyPocket
+--- !u!4 &685498012 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4621926818220549147, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+  m_PrefabInstance: {fileID: 3843495505573851063}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &698771227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -799,6 +1414,444 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1001 &733920654
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 137542122}
+    m_Modifications:
+    - target: {fileID: 4293736037251325679, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_Name
+      value: PocketFog
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+--- !u!4 &733920655 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+  m_PrefabInstance: {fileID: 733920654}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &758315948
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 758315949}
+  - component: {fileID: 758315950}
+  m_Layer: 0
+  m_Name: Pocket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &758315949
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 758315948}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.775, z: 1}
+  m_LocalScale: {x: 4, y: 5.55, z: 6.5}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1042911771}
+  m_Father: {fileID: 993182228}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &758315950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 758315948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af640000181c1ec49b2d628bf33b2c8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.EnemyPocket
+--- !u!4 &779613071 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6587312093174673571, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+  m_PrefabInstance: {fileID: 3843495505573851063}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &796144338
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1892156708}
+    m_Modifications:
+    - target: {fileID: 4293736037251325679, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_Name
+      value: PocketFog
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+--- !u!4 &796144339 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+  m_PrefabInstance: {fileID: 796144338}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &810337376
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1370839386}
+    m_Modifications:
+    - target: {fileID: 4293736037251325679, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_Name
+      value: PocketFog
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+--- !u!4 &810337377 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+  m_PrefabInstance: {fileID: 810337376}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &883013935 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6536677818557962995, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+  m_PrefabInstance: {fileID: 3843495505573851063}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &889061158
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 889061159}
+  - component: {fileID: 889061160}
+  m_Layer: 0
+  m_Name: Pocket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &889061159
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 889061158}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.875, z: 1.625}
+  m_LocalScale: {x: 4, y: 5.75, z: 6.25}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1921321669}
+  m_Father: {fileID: 371033043}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &889061160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 889061158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af640000181c1ec49b2d628bf33b2c8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.EnemyPocket
+--- !u!1001 &893397348
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 13472012}
+    m_Modifications:
+    - target: {fileID: 4293736037251325679, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_Name
+      value: PocketFog
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+--- !u!4 &893397349 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+  m_PrefabInstance: {fileID: 893397348}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &893708603
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 893708604}
+  - component: {fileID: 893708605}
+  m_Layer: 0
+  m_Name: Pocket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &893708604
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 893708603}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.775, z: 1}
+  m_LocalScale: {x: 4, y: 5.55, z: 6.5}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1574604327}
+  m_Father: {fileID: 883013935}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &893708605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 893708603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af640000181c1ec49b2d628bf33b2c8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.EnemyPocket
+--- !u!1 &961113149
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 961113150}
+  - component: {fileID: 961113151}
+  m_Layer: 0
+  m_Name: Pocket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &961113150
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961113149}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.775, z: 1}
+  m_LocalScale: {x: 4, y: 5.55, z: 6.5}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1242445754}
+  m_Father: {fileID: 1520265390}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &961113151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961113149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af640000181c1ec49b2d628bf33b2c8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.EnemyPocket
 --- !u!1 &966469126
 GameObject:
   m_ObjectHideFlags: 0
@@ -874,6 +1927,11 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 352, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!4 &993182228 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 471770107343784736, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+  m_PrefabInstance: {fileID: 3843495505573851063}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1015522348
 GameObject:
   m_ObjectHideFlags: 0
@@ -1036,6 +2094,73 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1001 &1042911770
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 758315949}
+    m_Modifications:
+    - target: {fileID: 4293736037251325679, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_Name
+      value: PocketFog
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+--- !u!4 &1042911771 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+  m_PrefabInstance: {fileID: 1042911770}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1043680683 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 84476399611452682, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+  m_PrefabInstance: {fileID: 3843495505573851063}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1048592677
 GameObject:
   m_ObjectHideFlags: 0
@@ -1098,6 +2223,113 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1001 &1107765553
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1801467737}
+    m_Modifications:
+    - target: {fileID: 4293736037251325679, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_Name
+      value: PocketFog
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+--- !u!4 &1107765554 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+  m_PrefabInstance: {fileID: 1107765553}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1112380892
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1112380893}
+  - component: {fileID: 1112380894}
+  m_Layer: 0
+  m_Name: Pocket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1112380893
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112380892}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.775, z: 1}
+  m_LocalScale: {x: 4, y: 5.55, z: 6.5}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 481789277}
+  m_Father: {fileID: 1166620927}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1112380894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112380892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af640000181c1ec49b2d628bf33b2c8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.EnemyPocket
 --- !u!1 &1141067548 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 688098323258780827, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
@@ -1353,6 +2585,73 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1001 &1143265235
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 636275510}
+    m_Modifications:
+    - target: {fileID: 4293736037251325679, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_Name
+      value: PocketFog
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+--- !u!4 &1143265236 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+  m_PrefabInstance: {fileID: 1143265235}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1166620927 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 447110751778634642, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+  m_PrefabInstance: {fileID: 3843495505573851063}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1188385494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1411,6 +2710,268 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1 &1201560945
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1201560946}
+  - component: {fileID: 1201560947}
+  m_Layer: 0
+  m_Name: Pocket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1201560946
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201560945}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.775, z: 1}
+  m_LocalScale: {x: 4, y: 5.55, z: 6.5}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1725095611}
+  m_Father: {fileID: 212369855}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1201560947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201560945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af640000181c1ec49b2d628bf33b2c8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.EnemyPocket
+--- !u!1 &1237671631
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1237671632}
+  - component: {fileID: 1237671633}
+  m_Layer: 0
+  m_Name: Pocket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1237671632
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1237671631}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.875, z: 1.625}
+  m_LocalScale: {x: 4, y: 5.75, z: 6.25}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1889262510}
+  m_Father: {fileID: 547352191}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1237671633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1237671631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af640000181c1ec49b2d628bf33b2c8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.EnemyPocket
+--- !u!1001 &1242445753
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 961113150}
+    m_Modifications:
+    - target: {fileID: 4293736037251325679, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_Name
+      value: PocketFog
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+--- !u!4 &1242445754 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+  m_PrefabInstance: {fileID: 1242445753}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1262893232 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5808684273341983050, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+  m_PrefabInstance: {fileID: 3843495505573851063}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1323493273
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1323493274}
+  - component: {fileID: 1323493275}
+  m_Layer: 0
+  m_Name: Pocket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1323493274
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1323493273}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.775, z: 1}
+  m_LocalScale: {x: 4, y: 5.55, z: 6.5}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 281109789}
+  m_Father: {fileID: 685498012}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1323493275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1323493273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af640000181c1ec49b2d628bf33b2c8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.EnemyPocket
+--- !u!4 &1325909332 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3213205804237840175, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+  m_PrefabInstance: {fileID: 3843495505573851063}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1362335857 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3722272143887803622, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+  m_PrefabInstance: {fileID: 3843495505573851063}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1369895883 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1022319360195973263, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+  m_PrefabInstance: {fileID: 3843495505573851063}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1370839385
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1370839386}
+  - component: {fileID: 1370839387}
+  m_Layer: 0
+  m_Name: Pocket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1370839386
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1370839385}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.775, z: 1}
+  m_LocalScale: {x: 4, y: 5.55, z: 6.5}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 810337377}
+  m_Father: {fileID: 1262893232}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1370839387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1370839385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af640000181c1ec49b2d628bf33b2c8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.EnemyPocket
 --- !u!114 &1436137714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1498,6 +3059,180 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!4 &1520265390 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3026323994729385573, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+  m_PrefabInstance: {fileID: 3843495505573851063}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1548832835
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1849964637}
+    m_Modifications:
+    - target: {fileID: 4293736037251325679, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_Name
+      value: PocketFog
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+--- !u!4 &1548832836 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+  m_PrefabInstance: {fileID: 1548832835}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1574604326
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 893708604}
+    m_Modifications:
+    - target: {fileID: 4293736037251325679, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_Name
+      value: PocketFog
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+--- !u!4 &1574604327 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+  m_PrefabInstance: {fileID: 1574604326}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1588618769
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1588618770}
+  - component: {fileID: 1588618771}
+  m_Layer: 0
+  m_Name: Pocket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1588618770
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1588618769}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.775, z: 1}
+  m_LocalScale: {x: 4, y: 5.55, z: 6.5}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 156963836}
+  m_Father: {fileID: 544660734}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1588618771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1588618769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af640000181c1ec49b2d628bf33b2c8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.EnemyPocket
 --- !u!114 &1616169512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1585,6 +3320,175 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1001 &1725095610
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1201560946}
+    m_Modifications:
+    - target: {fileID: 4293736037251325679, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_Name
+      value: PocketFog
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+--- !u!4 &1725095611 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+  m_PrefabInstance: {fileID: 1725095610}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1736599898
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 679321659}
+    m_Modifications:
+    - target: {fileID: 4293736037251325679, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_Name
+      value: PocketFog
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+--- !u!4 &1736599899 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+  m_PrefabInstance: {fileID: 1736599898}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1801467736
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1801467737}
+  - component: {fileID: 1801467738}
+  m_Layer: 0
+  m_Name: Pocket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1801467737
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801467736}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.775, z: 1}
+  m_LocalScale: {x: 4, y: 5.55, z: 6.5}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1107765554}
+  m_Father: {fileID: 455983610}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1801467738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801467736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af640000181c1ec49b2d628bf33b2c8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.EnemyPocket
 --- !u!1 &1818499097
 GameObject:
   m_ObjectHideFlags: 0
@@ -1729,6 +3633,225 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1849964636
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1849964637}
+  - component: {fileID: 1849964638}
+  m_Layer: 0
+  m_Name: Pocket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1849964637
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849964636}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.775, z: 1}
+  m_LocalScale: {x: 4, y: 5.55, z: 6.5}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1548832836}
+  m_Father: {fileID: 779613071}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1849964638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849964636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af640000181c1ec49b2d628bf33b2c8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.EnemyPocket
+--- !u!4 &1853756495 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6861973601645836854, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+  m_PrefabInstance: {fileID: 3843495505573851063}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1889262509
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1237671632}
+    m_Modifications:
+    - target: {fileID: 4293736037251325679, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_Name
+      value: PocketFog
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+--- !u!4 &1889262510 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+  m_PrefabInstance: {fileID: 1889262509}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1892156707
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1892156708}
+  - component: {fileID: 1892156709}
+  m_Layer: 0
+  m_Name: Pocket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1892156708
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1892156707}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.875, z: 1.625}
+  m_LocalScale: {x: 4, y: 5.75, z: 6.25}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 796144339}
+  m_Father: {fileID: 2030991011}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1892156709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1892156707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af640000181c1ec49b2d628bf33b2c8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.EnemyPocket
+--- !u!1001 &1921321668
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 889061159}
+    m_Modifications:
+    - target: {fileID: 4293736037251325679, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_Name
+      value: PocketFog
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+--- !u!4 &1921321669 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+  m_PrefabInstance: {fileID: 1921321668}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1933356380
 GameObject:
   m_ObjectHideFlags: 0
@@ -1760,6 +3883,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1959410385 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 642617800282617734, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+  m_PrefabInstance: {fileID: 3843495505573851063}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2010440864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1789,6 +3917,11 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!4 &2030991011 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2653220547313585511, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+  m_PrefabInstance: {fileID: 3843495505573851063}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2101664183
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1880,6 +4013,113 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1001 &2112322980
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 453605691}
+    m_Modifications:
+    - target: {fileID: 4293736037251325679, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_Name
+      value: PocketFog
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+--- !u!4 &2112322981 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5288789284697631420, guid: bd6ad1619ca547b4f829300255c87873, type: 3}
+  m_PrefabInstance: {fileID: 2112322980}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2117276769
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2117276770}
+  - component: {fileID: 2117276771}
+  m_Layer: 0
+  m_Name: Pocket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2117276770
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117276769}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.775, z: 1}
+  m_LocalScale: {x: 4, y: 5.55, z: 6.5}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 514668218}
+  m_Father: {fileID: 1959410385}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2117276771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117276769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af640000181c1ec49b2d628bf33b2c8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.EnemyPocket
 --- !u!114 &2139566408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2031,7 +4271,67 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6579955703978226949, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1588618770}
+    - targetCorrespondingSourceObject: {fileID: 3722272143887803622, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 453605691}
+    - targetCorrespondingSourceObject: {fileID: 6536677818557962995, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 893708604}
+    - targetCorrespondingSourceObject: {fileID: 7403083567988114030, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1201560946}
+    - targetCorrespondingSourceObject: {fileID: 3213205804237840175, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 679321659}
+    - targetCorrespondingSourceObject: {fileID: 447110751778634642, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1112380893}
+    - targetCorrespondingSourceObject: {fileID: 3026323994729385573, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 961113150}
+    - targetCorrespondingSourceObject: {fileID: 1022319360195973263, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 615085233}
+    - targetCorrespondingSourceObject: {fileID: 6307410036296505013, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1801467737}
+    - targetCorrespondingSourceObject: {fileID: 5808684273341983050, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1370839386}
+    - targetCorrespondingSourceObject: {fileID: 6861973601645836854, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 137542122}
+    - targetCorrespondingSourceObject: {fileID: 6587312093174673571, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1849964637}
+    - targetCorrespondingSourceObject: {fileID: 471770107343784736, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 758315949}
+    - targetCorrespondingSourceObject: {fileID: 4621926818220549147, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1323493274}
+    - targetCorrespondingSourceObject: {fileID: 642617800282617734, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2117276770}
+    - targetCorrespondingSourceObject: {fileID: 2294427340723911161, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 636275510}
+    - targetCorrespondingSourceObject: {fileID: 5540236052655628362, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1237671632}
+    - targetCorrespondingSourceObject: {fileID: 2653220547313585511, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1892156708}
+    - targetCorrespondingSourceObject: {fileID: 6825530496128767639, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 889061159}
+    - targetCorrespondingSourceObject: {fileID: 84476399611452682, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 13472012}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5982749246090050364, guid: dc998a1b1f55f994dbd4ccb369d0397a, type: 3}
       insertIndex: -1

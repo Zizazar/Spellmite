@@ -3,7 +3,8 @@ using UnityEngine;
 
 namespace Spellmite
 {
-    public enum SpellKind { Projectile, Self }
+    // Nova: hits everyone around the caster. Barrage: rains on the aim point a moment after firing
+    public enum SpellKind { Projectile, Self, Nova, Barrage }
 
     // When an AI brain picks the spell
     public enum SpellAiUse { Attack, BuffInCombat, HealWhenHurt }
@@ -32,12 +33,18 @@ namespace Spellmite
         [field: SerializeField] public float Lifetime { get; private set; } = 3f;
         [field: SerializeField] public float Radius { get; private set; } = 0.2f;
         [field: SerializeField] public float Knockback { get; private set; } = 5f;
-        [field: SerializeField, Min(1)] public int Count { get; private set; } = 1;
+        [field: SerializeField, Min(1), Tooltip("Barrage: number of area hits")] public int Count { get; private set; } = 1;
         [field: SerializeField, Tooltip("Fan width in degrees when Count > 1")] public float SpreadAngle { get; private set; } = 20f;
         [field: SerializeField, Tooltip("Degrees per second, 0 = no homing")] public float HomingTurnRate { get; private set; }
         [field: SerializeField] public float HomingRange { get; private set; } = 15f;
-        [field: SerializeField, Tooltip("0 = only the body that was hit")] public float SplashRadius { get; private set; }
+        [field: SerializeField, Tooltip("0 = only the body that was hit. Nova, Barrage: radius of the area")] public float SplashRadius { get; private set; }
         [field: SerializeField, Tooltip("Applied to every body damaged")] public BuffData HitBuff { get; private set; }
+
+        [field: Header("Area (Nova, Barrage) — uses Damage, Knockback, Splash Radius, Hit Buff")]
+        [field: SerializeField, Tooltip("Nova: at the caster's feet (Combat/Damage). Barrage: above the target point, pointing down (Combat/Barrage)")] public GameObject AreaVfx { get; private set; }
+        [field: SerializeField, Tooltip("Barrage: the VFX starts this high above the target point")] public float BarrageHeight { get; private set; } = 8f;
+        [field: SerializeField, Tooltip("Barrage: seconds from firing to the first hit (fall time)")] public float BarrageDelay { get; private set; } = 0.7f;
+        [field: SerializeField, Tooltip("Barrage: seconds between its Count hits")] public float BarrageInterval { get; private set; } = 0.15f;
 
         [field: Header("Projectile VFX (Retro Arsenal)")]
         [field: SerializeField, Tooltip("Combat/Missiles")] public GameObject ProjectileVfx { get; private set; }

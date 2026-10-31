@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
@@ -13,6 +14,7 @@ namespace Spellmite
         [SerializeField, Tooltip("Hand / muzzle the spells come from")] private Transform castPoint;
         [SerializeField] private List<SpellData> spells = new();
         [SerializeField, Tooltip("Length of the aim ray that projectiles converge on")] private float aimDistance = 100f;
+        [SerializeField, Tooltip("Barrage spells land on this below the aim point")] private LayerMask groundMask = 1;
 
         private HostBody body;
         private BuffHolder buffs;
@@ -45,7 +47,7 @@ namespace Spellmite
         {
             while (spells.Count <= slot) spells.Add(null);
             spells[slot] = spell;
-            if (readyTimes.Length < spells.Count) System.Array.Resize(ref readyTimes, spells.Count);
+            if (readyTimes.Length < spells.Count) Array.Resize(ref readyTimes, spells.Count);
             readyTimes[slot] = 0f;
         }
 
@@ -86,8 +88,24 @@ namespace Spellmite
             readyTimes[slot] = Time.time + spell.Cooldown;
             if (body.IsPossessed) body.DrainResistance(spell.ResistanceCost);
             if (spell.SelfBuff != null && buffs != null) buffs.Apply(spell.SelfBuff);
-            if (spell.Kind != SpellKind.Projectile) return;
 
+            switch (spell.Kind)
+            {
+                case SpellKind.Projectile:
+                    FireProjectiles(spell);
+                    break;
+                case SpellKind.Nova:
+                    if (spell.AreaVfx != null) Destroy(Instantiate(spell.AreaVfx, transform.position, Quaternion.identity), 5f);
+                    SpellProjectile.DamageArea(spell, body.Health, body.IsPossessed, body.Center);
+                    break;
+                case SpellKind.Barrage:
+                    Barrage(spell, GroundPoint(AimPoint()), body.IsPossessed, destroyCancellationToken).Forget();
+                    break;
+            }
+        }
+
+        private void FireProjectiles(SpellData spell)
+        {
             Vector3 origin = castPoint.position;
             Vector3 dir = AimPoint() - origin;
             dir = dir.sqrMagnitude > 1e-4f ? dir.normalized : transform.forward;
@@ -100,6 +118,23 @@ namespace Spellmite
                 SpellProjectile.Launch(spell, body, body.IsPossessed, origin, Quaternion.AngleAxis(angle, Vector3.up) * dir);
             }
         }
+
+        // The point is locked when the spell fires: the VFX falls from above, Count area hits land after BarrageDelay
+        private async UniTaskVoid Barrage(SpellData spell, Vector3 point, bool fromPlayer, CancellationToken token)
+        {
+            // Euler(90, 0, 0) points the VFX's forward down
+            if (spell.AreaVfx != null) Destroy(Instantiate(spell.AreaVfx, point + Vector3.up * spell.BarrageHeight, Quaternion.Euler(90f, 0f, 0f)), 5f);
+            await UniTask.Delay(TimeSpan.FromSeconds(spell.BarrageDelay), cancellationToken: token);
+            for (int i = 0; i < spell.Count; i++)
+            {
+                if (i > 0) await UniTask.Delay(TimeSpan.FromSeconds(spell.BarrageInterval), cancellationToken: token);
+                SpellProjectile.DamageArea(spell, body.Health, fromPlayer, point + Vector3.up * 0.5f);
+            }
+        }
+
+        // The floor under the aim point, so a barrage aimed at a body rains around its feet
+        private Vector3 GroundPoint(Vector3 point) =>
+            Physics.Raycast(point + Vector3.up * 0.5f, Vector3.down, out var hit, 20f, groundMask, QueryTriggerInteraction.Ignore) ? hit.point : point;
 
         // Where the controller's aim ray hits, so shots from the hand converge on the crosshair
         private Vector3 AimPoint()

@@ -17,6 +17,8 @@ dialog.intro=Привет, путник!\nКуда держишь путь?
 spell.fireball=Огненный шар
 spell.frost_shards=Ледяные осколки
 spell.mend=Исцеление
+spell.slam=Сокрушающий удар
+spell.fire_hail=Огненный град
 
 # Buffs
 buff.burn=Горение

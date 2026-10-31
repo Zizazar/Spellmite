@@ -61,6 +61,9 @@ namespace Spellmite
         [SerializeField, Tooltip("Cap on knockback speed, so the light parasite isn't launched across the map")] private float maxKnockbackSpeed = 6f;
         [SerializeField] private float respawnDelay = 1.5f;
 
+        [Header("Spawn pockets")]
+        [SerializeField, Tooltip("Push out of an EnemyPocket at its back wall, in multiples of the body's acceleration. Walking in, the push wins past 1/this of the depth")] private float pocketPush = 4f;
+
         private Health health;
         private BuffHolder buffs;
         private ControlInput input;
@@ -124,6 +127,7 @@ namespace Spellmite
             float dt = Time.deltaTime;
             health.Invulnerable = IsHosted || Time.time < invulnerableUntil;
             if (State == ParasiteState.Free && buffs != null && buffs.IsStunned) input = default;
+            PushOutOfPockets(dt);
 
             switch (State)
             {
@@ -153,6 +157,24 @@ namespace Spellmite
             }
 
             UpdateRotation(Time.deltaTime);
+        }
+
+        // Spawn pockets are for enemies: the player (or the host it drives) is eased back out, harder the deeper it goes
+        private void PushOutOfPockets(float dt)
+        {
+            bool controlling = State == ParasiteState.Controlling && Host != null;
+            if (State != ParasiteState.Free && !controlling) return;
+
+            Vector3 push = EnemyPocket.PushAt(controlling ? Host.Center : transform.position) * (pocketPush * ActiveProfile.Acceleration * dt);
+            if (push == Vector3.zero) return;
+            if (controlling)
+            {
+                Host.AddImpulse(push * Host.Profile.Mass);
+                return;
+            }
+            // Crawling on the back wall the push is along its normal and would be projected away: let go instead
+            if (onSurface && Vector3.Dot(push.normalized, up) > 0.5f) onSurface = false;
+            velocity += push;
         }
 
         // ---------- Free ----------

@@ -301,6 +301,7 @@ namespace Spellmite
         private bool IsBlocked(Vector3 dir)
         {
             if (dir.sqrMagnitude < 1e-4f) return false;
+            if (EnemyPocket.Blocks(body.Center, dir, controller.radius)) return true;
             return Physics.SphereCast(body.Center, controller.radius * 0.9f, dir.normalized, out _, probeDistance, sightMask, QueryTriggerInteraction.Ignore);
         }
 
@@ -361,7 +362,7 @@ namespace Spellmite
             if (clip != null) AudioSource.PlayClipAtPoint(clip, body.Center, barkVolume);
         }
 
-        // Ring on the ground under the target while a splash spell winds up, so the player can step out of it
+        // Ring on the ground under the target (a Nova: under us) while a splash spell winds up, so the player can step out of it
         private void UpdateAimRing(Transform target)
         {
             bool show = target != null && aimRingMaterial != null && castSpell != null && castSpell.SplashRadius > 0f
@@ -384,8 +385,10 @@ namespace Spellmite
                 aimRing.enabled = true;
             }
 
-            Vector3 point = target.position;
-            if (Physics.Raycast(AimPoint(target), Vector3.down, out var hit, 10f, sightMask, QueryTriggerInteraction.Ignore)) point = hit.point;
+            bool nova = castSpell.Kind == SpellKind.Nova;
+            Vector3 point = nova ? transform.position : target.position;
+            Vector3 from = nova ? body.Center : AimPoint(target);
+            if (Physics.Raycast(from, Vector3.down, out var hit, 10f, sightMask, QueryTriggerInteraction.Ignore)) point = hit.point;
             aimRing.transform.position = point + Vector3.up * 0.05f;
         }
 
