@@ -143,7 +143,7 @@ namespace Spellmite
             velocity = new Vector3(horizontal.x, vertical, horizontal.z);
             controller.Move(velocity * dt);
 
-            if (canAct && input.CastSlot > 0 && caster != null && caster.TryCast(input.CastSlot - 1))
+            if (canAct && input.CastSlot > 0 && caster != null && caster.TryCast(input.CastSlot - 1, input.CastTimeScale))
                 PlayCast();
 
             if (canAct && input.AttackPressed && Time.time >= nextAttackTime && !IsCasting)

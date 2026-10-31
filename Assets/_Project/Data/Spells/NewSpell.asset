@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Spellmite.SpellData
   <NameKey>k__BackingField: 
   <Icon>k__BackingField: {fileID: 0}
-  <Tags>k__BackingField: []
+  <Tags>k__BackingField:
+  - {fileID: 11400000, guid: f3f5245d1fb441e42b5bd1e1b1444515, type: 2}
   <Kind>k__BackingField: 0
   <Cooldown>k__BackingField: 2
   <CastTime>k__BackingField: 0.4
   <ResistanceCost>k__BackingField: 0.1
-  <CastVfx>k__BackingField: {fileID: 0}
+  <CastVfx>k__BackingField: {fileID: 484316541744064046, guid: 01428f06eefd7b341b077152a3c814f4, type: 3}
   <SelfBuff>k__BackingField: {fileID: 0}
   <Damage>k__BackingField: 10
   <Speed>k__BackingField: 20
@@ -40,3 +41,4 @@ MonoBehaviour:
   <AiMinRange>k__BackingField: 0
   <AiMaxRange>k__BackingField: 12
   <AiHealthBelow>k__BackingField: 0.5
+  <AiTokenCost>k__BackingField: 1

@@ -49,19 +49,21 @@ namespace Spellmite
             readyTimes[slot] = 0f;
         }
 
-        public bool TryCast(int slot)
+        // castTimeScale: windup multiplier from the controller, 0 = the spell's CastTime as is
+        public bool TryCast(int slot, float castTimeScale = 1f)
         {
             if (IsCasting || !IsReady(slot)) return false;
-            Cast(slot, spells[slot], destroyCancellationToken).Forget();
+            float castTime = spells[slot].CastTime * (castTimeScale > 0f ? castTimeScale : 1f);
+            Cast(slot, spells[slot], castTime, destroyCancellationToken).Forget();
             return true;
         }
 
-        private async UniTaskVoid Cast(int slot, SpellData spell, CancellationToken token)
+        private async UniTaskVoid Cast(int slot, SpellData spell, float castTime, CancellationToken token)
         {
             IsCasting = true;
             bool possessed = body.IsPossessed;
             GameObject telegraph = spell.CastVfx != null ? Instantiate(spell.CastVfx, castPoint.position, castPoint.rotation, castPoint) : null;
-            float fireTime = Time.time + spell.CastTime;
+            float fireTime = Time.time + castTime;
             try
             {
                 // Stun, death or a change of controller cancels the windup

@@ -49,5 +49,6 @@ namespace Spellmite
         [field: SerializeField] public float AiMinRange { get; private set; }
         [field: SerializeField] public float AiMaxRange { get; private set; } = 12f;
         [field: SerializeField, Range(0f, 1f), Tooltip("HealWhenHurt: cast below this health fraction")] public float AiHealthBelow { get; private set; } = 0.5f;
+        [field: SerializeField, Range(0, 3), Tooltip("Attack tokens (AttackDirector) this spell takes: cast only while the player sees the enemy. 0 = any time (heals, buffs)")] public int AiTokenCost { get; private set; } = 1;
     }
 }

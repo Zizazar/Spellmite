@@ -10,6 +10,7 @@ namespace Spellmite
     {
         [SerializeField] private ParasiteBody parasite;
         [SerializeField] private Camera viewCamera;
+        [SerializeField, Tooltip("Spell windup multiplier for the player. Enemies use DifficultySettings.EnemyCastTimeScale")] private float castTimeScale = 0.7f;
 
         private InputAction moveAction;
         private InputAction jumpAction;
@@ -65,6 +66,7 @@ namespace Spellmite
                 AttackPressed = allowButtons && attackAction.WasPressedThisFrame(),
                 LeapPressed = allowButtons && leapAction.WasPressedThisFrame(),
                 CastSlot = allowButtons ? ReadCastSlot() : 0,
+                CastTimeScale = castTimeScale,
             };
         }
 

@@ -121,11 +121,18 @@ MonoBehaviour:
   attackRange: 2
   wanderRadius: 6
   wanderPause: 2
-  keepDistance: 0
   castPause: {x: 0.5, y: 1.5}
   sightMask:
     serializedVersion: 2
     m_Bits: 1
+  holdRangeFraction: 0.8
+  strafeSpeed: 0.6
+  strafeSwitchTime: {x: 0.8, y: 2}
+  barks: []
+  barkChance: 0.6
+  barkVolume: 1
+  aimRingMaterial: {fileID: 2100000, guid: fcecc1dce7ecf4b4da2e3b9751028a2e, type: 2}
+  aimRingWidth: 0.08
 --- !u!114 &6908551560080853840
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -41,3 +41,4 @@ MonoBehaviour:
   <AiMinRange>k__BackingField: 0
   <AiMaxRange>k__BackingField: 12
   <AiHealthBelow>k__BackingField: 0.5
+  <AiTokenCost>k__BackingField: 0

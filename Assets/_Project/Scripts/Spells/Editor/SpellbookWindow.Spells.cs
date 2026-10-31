@@ -128,6 +128,7 @@ namespace Spellmite
             ai.Add(aiMin);
             ai.Add(aiMax);
             ai.Add(aiHealth);
+            ai.Add(Field(so, "AiTokenCost", "Attack tokens"));
             var range = Div("sb-range");
             var rangeLabel = Text("", "sb-range__label");
             var track = Div("sb-range__track");
@@ -173,6 +174,7 @@ namespace Spellmite
                     SpellAiUse.BuffInCombat => "cast when a target is near",
                     _ => $"cast below {spell.AiHealthBelow:P0} health",
                 };
+                if (spell.AiTokenCost > 0) aiNote.text += $", only on screen ({spell.AiTokenCost} token{(spell.AiTokenCost > 1 ? "s" : "")})";
                 float scale = Mathf.Max(20f, Mathf.Ceil(spell.AiMaxRange / 5f) * 5f);
                 rangeLabel.text = $"Range {spell.AiMinRange:0.#} – {spell.AiMaxRange:0.#} m";
                 fill.style.left = Length.Percent(Mathf.Clamp01(spell.AiMinRange / scale) * 100f);
