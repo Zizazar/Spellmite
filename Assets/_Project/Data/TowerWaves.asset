@@ -15,11 +15,13 @@ MonoBehaviour:
   <Floors>k__BackingField:
   - <MaxAlive>k__BackingField: 3
     <SpawnInterval>k__BackingField: 1
+    <NextGroupAt>k__BackingField: 2
     <Groups>k__BackingField:
     - <Prefab>k__BackingField: {fileID: 2768389401060891421, guid: 13b4398fc33ce664a8b2c90d15aa918e, type: 3}
-      <Count>k__BackingField: 5
+      <Count>k__BackingField: 2
   - <MaxAlive>k__BackingField: 4
     <SpawnInterval>k__BackingField: 1
+    <NextGroupAt>k__BackingField: 2
     <Groups>k__BackingField:
     - <Prefab>k__BackingField: {fileID: 2768389401060891421, guid: 13b4398fc33ce664a8b2c90d15aa918e, type: 3}
       <Count>k__BackingField: 5
@@ -27,6 +29,7 @@ MonoBehaviour:
       <Count>k__BackingField: 2
   - <MaxAlive>k__BackingField: 4
     <SpawnInterval>k__BackingField: 1
+    <NextGroupAt>k__BackingField: 2
     <Groups>k__BackingField:
     - <Prefab>k__BackingField: {fileID: 1117153652194171819, guid: 74d0e9a9834811f41b03d92fa5d7e452, type: 3}
       <Count>k__BackingField: 3
@@ -34,6 +37,7 @@ MonoBehaviour:
       <Count>k__BackingField: 6
   - <MaxAlive>k__BackingField: 5
     <SpawnInterval>k__BackingField: 1
+    <NextGroupAt>k__BackingField: 2
     <Groups>k__BackingField:
     - <Prefab>k__BackingField: {fileID: 2768389401060891421, guid: 13b4398fc33ce664a8b2c90d15aa918e, type: 3}
       <Count>k__BackingField: 6

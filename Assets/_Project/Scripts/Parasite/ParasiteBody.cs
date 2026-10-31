@@ -7,7 +7,8 @@ namespace Spellmite
 {
     public enum ParasiteState { Free, Leaping, Latching, Controlling }
 
-    // Kinematic wall-crawling parasite. Free -> Leaping -> Latching -> Controlling -> (exit leap) -> Leaping/Free.
+    // Kinematic crawling parasite. Free -> Leaping -> Latching -> Controlling -> (exit leap) -> Leaping/Free.
+    // It crawls on floors only; running into a wall scrambles a bit up it, then it slides off.
     // While controlling it forwards its brain's input to the host.
     [DefaultExecutionOrder(-10)]
     [RequireComponent(typeof(Health), typeof(SphereCollider))]
@@ -21,8 +22,16 @@ namespace Spellmite
         [Header("Crawling")]
         [SerializeField] private float radius = 0.2f;
         [SerializeField] private float groundSnapDistance = 0.3f;
-        [SerializeField, Tooltip("Min angle (deg) between surfaces to climb onto the one ahead")] private float climbAngle = 25f;
+        [SerializeField, Tooltip("Steeper surfaces are walls: no crawling on them, only a short scramble and a slide")] private float maxFloorAngle = 45f;
         [SerializeField] private float rotationSharpness = 15f;
+
+        [Header("Walls")]
+        [SerializeField, Tooltip("How far up a wall a full-sprint run carries the parasite (less when slower)")] private float maxScrambleHeight = 1f;
+        [SerializeField, Tooltip("Speed into the wall needed to scramble up it; slower just bumps")] private float minScrambleSpeed = 2.5f;
+        [SerializeField] private float wallGravity = 15f;
+        [SerializeField] private float wallSlideSpeed = 2f;
+        [SerializeField, Tooltip("How fast sideways speed fades on a wall")] private float wallSideFriction = 10f;
+        [SerializeField, Tooltip("Horizontal push of a wall jump; the upward part is the profile's jump")] private float wallJumpSpeed = 6f;
 
         [Header("Leap")]
         [SerializeField] private float leapSpeed = 24f;
@@ -58,8 +67,9 @@ namespace Spellmite
         private Vector3 velocity;
         private Vector3 up = Vector3.up;
         private bool onSurface;
-        private Quaternion moveFrame = Quaternion.identity;
-        private bool moveFrameActive;
+        private bool onWall;            // only meaningful while onSurface
+        private Vector3 wallUp;         // up along the wall
+        private Vector3 lastWallNormal; // wall jumped off since the last landing
         private int airLeaps;
         private float nextLeapTime;
         private float nextBiteTime;
@@ -82,7 +92,6 @@ namespace Spellmite
         public HostBody AimedHost { get; private set; }
         public Health Health => health;
         public Vector3 Velocity => velocity;
-        public Vector3 SurfaceUp => up;
         public bool IsOnSurface => State == ParasiteState.Free && onSurface;
         public bool IsHosted => State is ParasiteState.Latching or ParasiteState.Controlling;
 
@@ -153,7 +162,8 @@ namespace Spellmite
             if (TryLeapFromInput()) return;
             if (input.AttackPressed && Time.time >= nextBiteTime) Bite();
 
-            if (onSurface) Crawl(dt);
+            if (onSurface && onWall) UpdateWall(dt);
+            else if (onSurface) Crawl(dt);
             else Fly(dt, 1f, false);
         }
 
@@ -181,7 +191,9 @@ namespace Spellmite
                 return;
             }
 
-            Vector3 move = SurfaceMove(input.Move);
+            // Camera-relative input laid onto the floor (ramps included)
+            Vector3 move = Vector3.ProjectOnPlane(input.Move, up);
+            move = move.sqrMagnitude > 1e-4f ? move.normalized * input.Move.magnitude : Vector3.zero;
             float speed = (input.Sprint ? profile.SprintSpeed : profile.WalkSpeed) * (buffs != null ? buffs.SpeedMultiplier : 1f);
             float rate = move.sqrMagnitude > 0.01f ? profile.Acceleration : profile.Deceleration;
             velocity = Vector3.MoveTowards(Vector3.ProjectOnPlane(velocity, up), move * speed, rate * dt);
@@ -193,71 +205,43 @@ namespace Spellmite
                 Vector3 dir = step / distance;
                 if (Physics.SphereCast(transform.position, radius * 0.9f, dir, out var hit, distance, surfaceMask | hostMask, QueryTriggerInteraction.Ignore))
                 {
-                    if (IsHost(hit.collider))
+                    Vector3 contact = dir * Mathf.Max(0f, hit.distance - 0.01f);
+                    bool host = IsHost(hit.collider);
+
+                    if (!host && IsFloor(hit.normal))
                     {
-                        // Can't crawl through hosts
-                        velocity = Vector3.ProjectOnPlane(velocity, hit.normal);
-                        step = dir * Mathf.Max(0f, hit.distance - 0.01f);
-                    }
-                    else if (Vector3.Angle(hit.normal, up) >= climbAngle)
-                    {
-                        // Concave corner: climb onto the wall/ceiling ahead
-                        transform.position += dir * Mathf.Max(0f, hit.distance - 0.01f);
-                        ChangeSurface(hit.normal);
+                        // Ramp ahead: carry on along it
+                        transform.position += contact;
+                        speed = velocity.magnitude;
+                        up = hit.normal;
+                        velocity = Vector3.ProjectOnPlane(velocity, up).normalized * speed;
                         return;
                     }
+
+                    float into = Vector3.Dot(velocity, -HorizontalNormal(hit.normal));
+                    if (!host && IsWall(hit.normal) && into >= minScrambleSpeed)
+                    {
+                        // Ran into a wall: scramble up it, higher the faster the run
+                        transform.position += contact;
+                        StartWall(hit.normal, MaxClimbSpeed * Mathf.Clamp01(into / profile.SprintSpeed));
+                        return;
+                    }
+
+                    // Hosts, ceilings and slow bumps into walls just block
+                    velocity = Vector3.ProjectOnPlane(velocity, hit.normal);
+                    step = contact;
                 }
                 transform.position += step;
             }
 
-            if (!StickToSurface() && !WrapAroundEdge()) onSurface = false;
-
-            // Back on a floor: input is camera-relative again
-            if (Vector3.Dot(up, Vector3.up) > 0.7f) moveFrameActive = false;
-        }
-
-        // Camera-relative input mapped onto the current surface. Pushing into a wall climbs it.
-        // After crossing an edge or corner the mapping is carried along (moveFrame), so holding a direction keeps crawling around.
-        private Vector3 SurfaceMove(Vector3 worldMove)
-        {
-            Vector3 move;
-            if (moveFrameActive)
-            {
-                move = Vector3.ProjectOnPlane(moveFrame * worldMove, up);
-            }
-            else
-            {
-                move = Vector3.ProjectOnPlane(worldMove, up);
-                Vector3 wallUp = Vector3.ProjectOnPlane(Vector3.up, up); // zero on floors and ceilings
-                move += wallUp * Vector3.Dot(worldMove, -up);
-            }
-            return move.sqrMagnitude > 1e-4f ? move.normalized * worldMove.magnitude : Vector3.zero;
-        }
-
-        // Rotate velocity and the input mapping together with the surface
-        private void ChangeSurface(Vector3 newUp)
-        {
-            Quaternion turn = Quaternion.FromToRotation(up, newUp);
-            Vector3 move = SurfaceMove(input.Move);
-            float speed = velocity.magnitude;
-
-            up = newUp;
-            velocity = Vector3.ProjectOnPlane(turn * velocity, up).normalized * speed;
-
-            if (moveFrameActive)
-            {
-                moveFrame = turn * moveFrame;
-            }
-            else if (move.sqrMagnitude > 1e-4f)
-            {
-                moveFrame = Quaternion.FromToRotation(input.Move.normalized, (turn * move).normalized);
-                moveFrameActive = true;
-            }
+            // Walking off a ledge falls
+            if (!StickToSurface()) onSurface = false;
         }
 
         private bool StickToSurface()
         {
-            if (!Physics.Raycast(transform.position, -up, out var hit, radius + groundSnapDistance, surfaceMask, QueryTriggerInteraction.Ignore))
+            if (!Physics.Raycast(transform.position, -up, out var hit, radius + groundSnapDistance, surfaceMask, QueryTriggerInteraction.Ignore)
+                || !IsFloor(hit.normal))
                 return false;
 
             up = hit.normal;
@@ -265,19 +249,114 @@ namespace Spellmite
             return true;
         }
 
-        // Convex edge: look back under the edge and continue on the face below it
-        private bool WrapAroundEdge()
-        {
-            Vector3 tangent = Vector3.ProjectOnPlane(velocity, up);
-            if (tangent.sqrMagnitude < 0.01f) return false;
+        // ---------- Walls ----------
 
-            Vector3 origin = transform.position - up * (radius + groundSnapDistance);
-            if (!Physics.Raycast(origin, -tangent.normalized, out var hit, radius * 4f, surfaceMask, QueryTriggerInteraction.Ignore))
+        private float MaxClimbSpeed => Mathf.Sqrt(2f * wallGravity * maxScrambleHeight);
+
+        private bool IsFloor(Vector3 normal) => Vector3.Angle(normal, Vector3.up) <= maxFloorAngle;
+
+        private bool IsWall(Vector3 normal) => !IsFloor(normal) && normal.y > -0.3f;
+
+        private static Vector3 HorizontalNormal(Vector3 normal) => Vector3.ProjectOnPlane(normal, Vector3.up).normalized;
+
+        private void StartWall(Vector3 normal, float climbSpeed)
+        {
+            onSurface = true;
+            onWall = true;
+            up = normal;
+            wallUp = Vector3.ProjectOnPlane(Vector3.up, normal).normalized;
+            lastWallNormal = normal;
+
+            Vector3 side = Vector3.ProjectOnPlane(velocity, normal);
+            side -= wallUp * Vector3.Dot(side, wallUp);
+            velocity = side + wallUp * climbSpeed;
+
+            if (State == ParasiteState.Leaping)
+            {
+                State = ParasiteState.Free;
+                leapTarget = null;
+            }
+        }
+
+        // Scramble up while the run's momentum lasts, then slide down slowly and drop off
+        private void UpdateWall(float dt)
+        {
+            if (input.JumpPressed)
+            {
+                WallJump();
+                return;
+            }
+
+            // Pulling away from the wall lets go
+            if (Vector3.Dot(input.Move, up) > 0.5f)
+            {
+                onSurface = false;
+                return;
+            }
+
+            float climb = Mathf.Max(Vector3.Dot(velocity, wallUp) - wallGravity * dt, -wallSlideSpeed);
+            Vector3 side = Vector3.ProjectOnPlane(velocity, up);
+            side -= wallUp * Vector3.Dot(side, wallUp);
+            side = Vector3.MoveTowards(side, Vector3.zero, wallSideFriction * dt);
+            velocity = side + wallUp * climb;
+
+            Vector3 step = velocity * dt;
+            float distance = step.magnitude;
+            if (distance > 1e-5f)
+            {
+                Vector3 dir = step / distance;
+                if (Physics.SphereCast(transform.position, radius * 0.9f, dir, out var hit, distance, surfaceMask | hostMask, QueryTriggerInteraction.Ignore))
+                {
+                    transform.position += dir * Mathf.Max(0f, hit.distance - 0.01f);
+                    if (!IsHost(hit.collider) && IsFloor(hit.normal)) Land(hit.normal);
+                    else velocity = Vector3.ProjectOnPlane(velocity, hit.normal);
+                    return;
+                }
+                transform.position += step;
+            }
+
+            if (StickToWall()) return;
+
+            // Ran out of wall: over the top onto the ledge, otherwise fall
+            if (climb <= 0f || !TryMantle()) onSurface = false;
+        }
+
+        private bool StickToWall()
+        {
+            if (!Physics.Raycast(transform.position, -up, out var hit, radius + groundSnapDistance, surfaceMask, QueryTriggerInteraction.Ignore)
+                || !IsWall(hit.normal))
                 return false;
 
+            up = hit.normal;
+            wallUp = Vector3.ProjectOnPlane(Vector3.up, up).normalized;
             transform.position = hit.point + hit.normal * radius;
-            ChangeSurface(hit.normal);
             return true;
+        }
+
+        // Scrambled past the top of a low wall: step onto the ledge
+        private bool TryMantle()
+        {
+            Vector3 over = transform.position - HorizontalNormal(up) * (radius * 1.5f) + Vector3.up * radius;
+            if (!Physics.Raycast(over, Vector3.down, out var hit, radius * 3f, surfaceMask, QueryTriggerInteraction.Ignore)
+                || !IsFloor(hit.normal))
+                return false;
+
+            velocity = -HorizontalNormal(up) * (profile.WalkSpeed * 0.5f);
+            transform.position = hit.point + hit.normal * radius;
+            Land(hit.normal);
+            return true;
+        }
+
+        // Up and away from the wall, steered by the input (or the camera without input), never back into it
+        private void WallJump()
+        {
+            Vector3 away = HorizontalNormal(up);
+            Vector3 steer = input.Move.sqrMagnitude > 0.01f ? input.Move : Vector3.ProjectOnPlane(input.Aim, Vector3.up);
+            steer -= away * Mathf.Min(0f, Vector3.Dot(steer, away));
+
+            velocity = (away + steer.normalized).normalized * wallJumpSpeed + Vector3.up * profile.JumpSpeed;
+            onSurface = false;
+            Punch(new Vector3(-0.15f, 0.3f, -0.15f));
         }
 
         private void Fly(float dt, float gravityScale, bool leaping)
@@ -315,7 +394,22 @@ namespace Spellmite
                     return;
                 }
 
-                Land(hit.normal);
+                if (IsFloor(hit.normal))
+                {
+                    Land(hit.normal);
+                }
+                else if (IsWall(hit.normal))
+                {
+                    // Jumping into a wall carries on up it a little; the wall just jumped off gives no extra height
+                    float climb = Mathf.Min(velocity.y, MaxClimbSpeed);
+                    if (Vector3.Dot(hit.normal, lastWallNormal) > 0.9f) climb = Mathf.Min(climb, 0f);
+                    StartWall(hit.normal, climb);
+                }
+                else
+                {
+                    // Ceiling: bump along it
+                    velocity = Vector3.ProjectOnPlane(velocity, hit.normal);
+                }
                 return;
             }
 
@@ -325,8 +419,9 @@ namespace Spellmite
         private void Land(Vector3 normal)
         {
             onSurface = true;
+            onWall = false;
+            lastWallNormal = Vector3.zero;
             up = normal;
-            moveFrameActive = false;
             airLeaps = maxAirLeaps;
             velocity = Vector3.ProjectOnPlane(velocity, up);
             if (State == ParasiteState.Leaping)
@@ -340,7 +435,7 @@ namespace Spellmite
         private void Bite()
         {
             nextBiteTime = Time.time + biteCooldown;
-            Vector3 aim = Vector3.ProjectOnPlane(input.Aim, onSurface ? up : Vector3.up);
+            Vector3 aim = Vector3.ProjectOnPlane(input.Aim, onSurface && !onWall ? up : Vector3.up);
             aim = aim.sqrMagnitude > 1e-4f ? aim.normalized : transform.forward;
             velocity += aim * biteLunge;
             Punch(new Vector3(-0.15f, -0.15f, 0.4f));
@@ -531,7 +626,8 @@ namespace Spellmite
         private void UpdateRotation(float dt)
         {
             Vector3 targetUp = onSurface ? up : Vector3.up;
-            Vector3 forward = Vector3.ProjectOnPlane(velocity, targetUp);
+            // On a wall the head always points up, also while sliding down
+            Vector3 forward = onSurface && onWall ? wallUp : Vector3.ProjectOnPlane(velocity, targetUp);
             if (forward.sqrMagnitude < 0.04f) forward = Vector3.ProjectOnPlane(transform.forward, targetUp);
             if (forward.sqrMagnitude < 1e-4f) forward = Vector3.ProjectOnPlane(-transform.up, targetUp);
             if (forward.sqrMagnitude < 1e-4f) return;

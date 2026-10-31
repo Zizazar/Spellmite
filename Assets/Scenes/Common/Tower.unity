@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 95675873}
   - component: {fileID: 95675872}
   - component: {fileID: 95675871}
+  - component: {fileID: 95675875}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -289,6 +290,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &95675875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 95675869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb40f64758203b540a93e2f9225f6801, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.PsxCamera
+  verticalResolution: 240
+  colorBits: 5
+  dither: 1
+  vertexSnapHeight: 240
+  affineMapping: 1
 --- !u!114 &208582562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -467,7 +485,7 @@ MonoBehaviour:
   AvoidObstacles:
     Enabled: 1
     DistanceLimit: 0
-    MinimumOcclusionTime: 0
+    MinimumOcclusionTime: 0.1
     CameraRadius: 0.25
     UseFollowTarget:
       Enabled: 0
@@ -476,7 +494,7 @@ MonoBehaviour:
     MaximumEffort: 4
     SmoothingTime: 0.2
     Damping: 0.5
-    DampingWhenOccluded: 0
+    DampingWhenOccluded: 0.15
   ShotQualityEvaluation:
     Enabled: 0
     OptimalDistance: 10
@@ -1605,11 +1623,7 @@ MonoBehaviour:
   speedSmoothing: 3
   mouseSensitivity: 0.1
   gamepadSensitivity: 180
-  surfaceUpSharpness: 6
-  recenterDelay: 0.5
-  recenterSharpness: 3
-  recenterMinSpeed: 0.5
-  recenterMaxAngle: 135
+  verticalSharpness: 8
 --- !u!114 &1818499099
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -21,8 +21,8 @@ MonoBehaviour:
   <JumpHeight>k__BackingField: 1.6
   <Gravity>k__BackingField: 30
   <Mass>k__BackingField: 0.3
-  <CameraDistance>k__BackingField: 2.6
-  <CameraHeight>k__BackingField: 0.5
+  <CameraDistance>k__BackingField: 3.2
+  <CameraHeight>k__BackingField: 0.7
   <CameraFov>k__BackingField: 65
-  <CameraSpeedDistance>k__BackingField: 0.6
-  <CameraSpeedFov>k__BackingField: 8
+  <CameraSpeedDistance>k__BackingField: 0.3
+  <CameraSpeedFov>k__BackingField: 3
