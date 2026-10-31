@@ -2507,6 +2507,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2921572089299003239}
+  - component: {fileID: 6933404191098895788}
   m_Layer: 0
   m_Name: Tower
   m_TagString: Untagged
@@ -2536,6 +2537,26 @@ Transform:
   - {fileID: 341253571436088669}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6933404191098895788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2915366424784982337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6540c83aed0947e4fa435cbe849fa080, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.WaveSpawner
+  waves: {fileID: 11400000, guid: 9f3920d0a36a8d846acfcd0776b4b0db, type: 2}
+  spawnPoints:
+  - {fileID: 9092215157892687833}
+  - {fileID: 8385595073446579764}
+  - {fileID: 2157028627226471052}
+  - {fileID: 5743533167057529145}
+  - {fileID: 5940124023720498719}
+  minPlayerDistance: 6
 --- !u!1 &3088075684106992425
 GameObject:
   m_ObjectHideFlags: 0
@@ -5444,6 +5465,7 @@ MonoBehaviour:
   platformRadius: 2.9
   speed: 2.5
   departDelay: 1
+  waves: {fileID: 6933404191098895788}
   floorLights:
   - {fileID: 4053045895597871015}
   - {fileID: 609238319070656492}

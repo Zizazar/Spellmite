@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace Spellmite
 {
-    // Lift in the middle of the tower. Takes the player up one floor once every enemy on the current floor is dead,
-    // and comes back down for them if they drop to a lower floor. Only the floor the player is on is lit:
+    // Lift in the middle of the tower. The floor's wave starts when the player steps off; the lift takes them up one
+    // floor once the wave is over and every enemy on the floor is dead, and comes back down if they drop to a lower floor. Only the floor the player is on is lit:
     // the WebGL quality level gives each object 4 lights, and the floors above and below would take them.
     public class TowerElevator : MonoBehaviour
     {
@@ -13,6 +13,7 @@ namespace Spellmite
         [SerializeField] private float platformRadius = 2.9f;
         [SerializeField] private float speed = 2.5f;
         [SerializeField, Tooltip("Seconds the player stands on the platform before it moves")] private float departDelay = 1f;
+        [SerializeField, Tooltip("Empty = no waves, only the enemies placed in the scene")] private WaveSpawner waves;
 
         [Header("Per floor, same order as the heights")]
         [SerializeField, Tooltip("Torches and other lights. Only the player's floor is on")] private GameObject[] floorLights;
@@ -46,8 +47,10 @@ namespace Spellmite
             if (!IsOnPlatform(body))
             {
                 standTime = 0f;
-                // Fell down the shaft: the floors below are cleared, so just go and fetch them
                 int playerFloor = FloorOf(body.position.y);
+                // Stepped off onto this floor: its wave begins (once)
+                if (playerFloor == currentFloor && waves != null) waves.StartWave(currentFloor);
+                // Fell down the shaft: the floors below are cleared, so just go and fetch them
                 if (playerFloor < currentFloor) RideTo(playerFloor).Forget();
                 return;
             }
@@ -121,6 +124,7 @@ namespace Spellmite
 
         private bool IsFloorCleared(int floor)
         {
+            if (waves != null && !waves.IsWaveDone(floor)) return false;
             foreach (var enemy in EnemyBrain.All)
             {
                 if (enemy.IsThinking && FloorOf(enemy.transform.position.y) == floor) return false;
