@@ -124,6 +124,9 @@ namespace Spellmite
 
         private bool IsFloorCleared(int floor)
         {
+#if UNITY_EDITOR
+            if (Cheats.NoWaves) return true;
+#endif
             if (waves != null && !waves.IsWaveDone(floor)) return false;
             foreach (var enemy in EnemyBrain.All)
             {

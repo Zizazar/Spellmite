@@ -11,6 +11,7 @@ Shader "Spellmite/PSX Lit"
         [MainTexture] _BaseMap("Base Map", 2D) = "white" {}
         [MainColor] _BaseColor("Base Color", Color) = (1, 1, 1, 1)
         [HDR] _EmissionColor("Emission", Color) = (0, 0, 0, 1)
+        [NoScaleOffset] _EmissionMap("Emission Map (x Emission, uses Base Map UVs)", 2D) = "white" {}
         [HDR] _RimColor("Rim Color (per vertex, black = off)", Color) = (0, 0, 0, 1)
         _RimPower("Rim Power", Range(0.5, 8)) = 2.5
         [Toggle(_POINT_FILTER)] _PointFilter("Point Filter (no texture smoothing)", Float) = 1
@@ -30,6 +31,7 @@ Shader "Spellmite/PSX Lit"
 
         TEXTURE2D(_BaseMap);
         SAMPLER(sampler_BaseMap); // sampler_PointRepeat comes from the core GlobalSamplers
+        TEXTURE2D(_EmissionMap);
 
         CBUFFER_START(UnityPerMaterial)
             float4 _BaseMap_ST;
@@ -72,6 +74,15 @@ Shader "Spellmite/PSX Lit"
                 return SAMPLE_TEXTURE2D(_BaseMap, sampler_PointRepeat, uv) * _BaseColor;
             #else
                 return SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, uv) * _BaseColor;
+            #endif
+        }
+
+        half3 PsxSampleEmission(float2 uv)
+        {
+            #if defined(_POINT_FILTER)
+                return SAMPLE_TEXTURE2D(_EmissionMap, sampler_PointRepeat, uv).rgb * _EmissionColor.rgb;
+            #else
+                return SAMPLE_TEXTURE2D(_EmissionMap, sampler_BaseMap, uv).rgb * _EmissionColor.rgb;
             #endif
         }
 
@@ -204,7 +215,8 @@ Shader "Spellmite/PSX Lit"
 
             half4 Frag(Varyings input) : SV_Target
             {
-                half4 albedo = PsxSampleBase(PsxResolveUV(input.uv, input.affineUV));
+                float2 uv = PsxResolveUV(input.uv, input.affineUV);
+                half4 albedo = PsxSampleBase(uv);
                 PsxAlphaClip(albedo.a);
 
                 half shadow = 1;
@@ -212,7 +224,7 @@ Shader "Spellmite/PSX Lit"
                     shadow = MainLightRealtimeShadow(TransformWorldToShadowCoord(input.positionWS));
                 #endif
 
-                half3 color = albedo.rgb * input.color * (input.mainLight * shadow + input.otherLight) + _EmissionColor.rgb + input.rim;
+                half3 color = albedo.rgb * input.color * (input.mainLight * shadow + input.otherLight) + PsxSampleEmission(uv) + input.rim;
                 color = MixFog(color, input.fogFactor);
                 return half4(color, 1);
             }

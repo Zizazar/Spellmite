@@ -180,7 +180,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Spellmite.EnemyBrain
   aggressive: 0
-  detectRadius: 12
   attackRange: 2
   wanderRadius: 5
   wanderPause: 3
@@ -191,6 +190,12 @@ MonoBehaviour:
   holdRangeFraction: 0.8
   strafeSpeed: 0.6
   strafeSwitchTime: {x: 0.8, y: 2}
+  slotAngleRange: {x: 15, y: 35}
+  slotTolerance: 10
+  rangeJitter: 0.2
+  separationRadius: 3
+  separationWeight: 1
+  probeDistance: 1.2
   barks: []
   barkChance: 0.6
   barkVolume: 1
@@ -283,6 +288,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 683c1e9da38668c44b9f42aeaa0eb7d9, type: 2}
   - {fileID: 11400000, guid: 451f086651ed28d49baaa17592eaf8ab, type: 2}
   aimDistance: 100
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!1 &8136788350279379748
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,54 +369,106 @@ PrefabInstance:
       propertyPath: m_UpdateWhenOffscreen
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7675297742767476757, guid: d86113069f289914bb485389dcdcd948, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f9e13ccd782f7e4eaf8530d04410190, type: 2}
     - target: {fileID: -7259057986624776183, guid: d86113069f289914bb485389dcdcd948, type: 3}
       propertyPath: m_UpdateWhenOffscreen
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7259057986624776183, guid: d86113069f289914bb485389dcdcd948, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f9e13ccd782f7e4eaf8530d04410190, type: 2}
     - target: {fileID: -7093599373302100178, guid: d86113069f289914bb485389dcdcd948, type: 3}
       propertyPath: m_UpdateWhenOffscreen
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7093599373302100178, guid: d86113069f289914bb485389dcdcd948, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f9e13ccd782f7e4eaf8530d04410190, type: 2}
     - target: {fileID: -7072097242602060297, guid: d86113069f289914bb485389dcdcd948, type: 3}
       propertyPath: m_UpdateWhenOffscreen
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7072097242602060297, guid: d86113069f289914bb485389dcdcd948, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f9e13ccd782f7e4eaf8530d04410190, type: 2}
     - target: {fileID: -6646929401163881195, guid: d86113069f289914bb485389dcdcd948, type: 3}
       propertyPath: m_UpdateWhenOffscreen
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -6646929401163881195, guid: d86113069f289914bb485389dcdcd948, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f9e13ccd782f7e4eaf8530d04410190, type: 2}
     - target: {fileID: -5026528108880680176, guid: d86113069f289914bb485389dcdcd948, type: 3}
       propertyPath: m_UpdateWhenOffscreen
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -5026528108880680176, guid: d86113069f289914bb485389dcdcd948, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f9e13ccd782f7e4eaf8530d04410190, type: 2}
     - target: {fileID: -4606987304998258073, guid: d86113069f289914bb485389dcdcd948, type: 3}
       propertyPath: m_UpdateWhenOffscreen
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -4606987304998258073, guid: d86113069f289914bb485389dcdcd948, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f9e13ccd782f7e4eaf8530d04410190, type: 2}
     - target: {fileID: -3742482076327718667, guid: d86113069f289914bb485389dcdcd948, type: 3}
       propertyPath: m_UpdateWhenOffscreen
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -3742482076327718667, guid: d86113069f289914bb485389dcdcd948, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f9e13ccd782f7e4eaf8530d04410190, type: 2}
     - target: {fileID: -3093290310626004024, guid: d86113069f289914bb485389dcdcd948, type: 3}
       propertyPath: m_UpdateWhenOffscreen
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -3093290310626004024, guid: d86113069f289914bb485389dcdcd948, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f9e13ccd782f7e4eaf8530d04410190, type: 2}
     - target: {fileID: -866218495776568168, guid: d86113069f289914bb485389dcdcd948, type: 3}
       propertyPath: m_UpdateWhenOffscreen
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -866218495776568168, guid: d86113069f289914bb485389dcdcd948, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f9e13ccd782f7e4eaf8530d04410190, type: 2}
     - target: {fileID: -267014135047166642, guid: d86113069f289914bb485389dcdcd948, type: 3}
       propertyPath: m_UpdateWhenOffscreen
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -267014135047166642, guid: d86113069f289914bb485389dcdcd948, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f9e13ccd782f7e4eaf8530d04410190, type: 2}
     - target: {fileID: 1331021156131002539, guid: d86113069f289914bb485389dcdcd948, type: 3}
       propertyPath: m_UpdateWhenOffscreen
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1331021156131002539, guid: d86113069f289914bb485389dcdcd948, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f9e13ccd782f7e4eaf8530d04410190, type: 2}
     - target: {fileID: 1350687672884568202, guid: d86113069f289914bb485389dcdcd948, type: 3}
       propertyPath: m_UpdateWhenOffscreen
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1350687672884568202, guid: d86113069f289914bb485389dcdcd948, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f9e13ccd782f7e4eaf8530d04410190, type: 2}
     - target: {fileID: 1359807540711761377, guid: d86113069f289914bb485389dcdcd948, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -453,6 +513,10 @@ PrefabInstance:
       propertyPath: m_UpdateWhenOffscreen
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2044059958487471237, guid: d86113069f289914bb485389dcdcd948, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f9e13ccd782f7e4eaf8530d04410190, type: 2}
     - target: {fileID: 3445542050043496534, guid: d86113069f289914bb485389dcdcd948, type: 3}
       propertyPath: m_Name
       value: Model
@@ -461,30 +525,58 @@ PrefabInstance:
       propertyPath: m_UpdateWhenOffscreen
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3550246348697459205, guid: d86113069f289914bb485389dcdcd948, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f9e13ccd782f7e4eaf8530d04410190, type: 2}
     - target: {fileID: 3888826658386959256, guid: d86113069f289914bb485389dcdcd948, type: 3}
       propertyPath: m_UpdateWhenOffscreen
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3888826658386959256, guid: d86113069f289914bb485389dcdcd948, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f9e13ccd782f7e4eaf8530d04410190, type: 2}
     - target: {fileID: 6233696766397398128, guid: d86113069f289914bb485389dcdcd948, type: 3}
       propertyPath: m_UpdateWhenOffscreen
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6233696766397398128, guid: d86113069f289914bb485389dcdcd948, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f9e13ccd782f7e4eaf8530d04410190, type: 2}
     - target: {fileID: 6521679754674791487, guid: d86113069f289914bb485389dcdcd948, type: 3}
       propertyPath: m_UpdateWhenOffscreen
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6521679754674791487, guid: d86113069f289914bb485389dcdcd948, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f9e13ccd782f7e4eaf8530d04410190, type: 2}
     - target: {fileID: 6537663192559010872, guid: d86113069f289914bb485389dcdcd948, type: 3}
       propertyPath: m_UpdateWhenOffscreen
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6537663192559010872, guid: d86113069f289914bb485389dcdcd948, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f9e13ccd782f7e4eaf8530d04410190, type: 2}
     - target: {fileID: 8395268414754478094, guid: d86113069f289914bb485389dcdcd948, type: 3}
       propertyPath: m_UpdateWhenOffscreen
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8395268414754478094, guid: d86113069f289914bb485389dcdcd948, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f9e13ccd782f7e4eaf8530d04410190, type: 2}
     - target: {fileID: 8819057312663420246, guid: d86113069f289914bb485389dcdcd948, type: 3}
       propertyPath: m_UpdateWhenOffscreen
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8819057312663420246, guid: d86113069f289914bb485389dcdcd948, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f9e13ccd782f7e4eaf8530d04410190, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

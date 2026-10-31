@@ -140,6 +140,14 @@ namespace Spellmite
                 UpdateAimRing(null);
                 return;
             }
+#if UNITY_EDITOR
+            if (Cheats.NoEnemyAI)
+            {
+                UpdateAimRing(null);
+                body.SetInput(default);
+                return;
+            }
+#endif
 
             var input = new ControlInput
             {

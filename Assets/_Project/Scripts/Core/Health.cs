@@ -25,6 +25,9 @@ namespace Spellmite
         public void TakeDamage(float amount, Vector3 impulse)
         {
             if (IsDead || Invulnerable) return;
+#if UNITY_EDITOR
+            if (Cheats.GodMode && IsPlayer()) return;
+#endif
             amount *= DamageTakenMultiplier;
             if (amount <= 0f) return;
 
@@ -43,5 +46,9 @@ namespace Spellmite
         {
             Current = maxHealth;
         }
+
+#if UNITY_EDITOR
+        private bool IsPlayer() => TryGetComponent(out ParasiteBody _) || (TryGetComponent(out HostBody host) && host.IsPossessed);
+#endif
     }
 }

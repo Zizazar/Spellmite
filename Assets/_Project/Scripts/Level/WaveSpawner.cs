@@ -45,6 +45,9 @@ namespace Spellmite
 
         public void StartWave(int floor)
         {
+#if UNITY_EDITOR
+            if (Cheats.NoWaves) return;
+#endif
             if (!HasWave(floor) || !started.Add(floor)) return;
             if (floor >= spawnPoints.Length || spawnPoints[floor] == null || spawnPoints[floor].childCount == 0)
             {
@@ -82,6 +85,9 @@ namespace Spellmite
                     if (Wave().Groups[g].Prefab == null) break;
                     await UniTask.WaitUntil(() => AliveCount < Wave().MaxAlive, cancellationToken: token);
                     if (SpawnedCount > 0) await UniTask.Delay(TimeSpan.FromSeconds(Wave().SpawnInterval), cancellationToken: token);
+#if UNITY_EDITOR
+                    await UniTask.WaitUntil(() => !Cheats.NoWaves, cancellationToken: token);
+#endif
                     if (g >= Wave().Groups.Count || Wave().Groups[g].Prefab == null) break;
                     Spawn(Wave().Groups[g].Prefab, floor);
                 }
