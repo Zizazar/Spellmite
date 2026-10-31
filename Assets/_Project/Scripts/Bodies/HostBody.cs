@@ -18,6 +18,7 @@ namespace Spellmite
         private static readonly int HitHash = Animator.StringToHash("Hit");
         private static readonly int DeathHash = Animator.StringToHash("Death");
         private static readonly int CastHash = Animator.StringToHash("Cast");
+        private static readonly int SpeedHash = Animator.StringToHash("Speed");
 
         [SerializeField] private BodyProfile profile;
         [SerializeField] private Transform latchPoint;
@@ -37,7 +38,7 @@ namespace Spellmite
         [SerializeField] private float attackKnockback = 8f;
 
         [Header("Visuals")]
-        [SerializeField, Tooltip("Optional. Uses triggers AttackLeft, AttackRight, Hit, Death, Cast")] private Animator animator;
+        [SerializeField, Tooltip("Optional. Uses triggers AttackLeft, AttackRight, Hit, Death, Cast and float Speed")] private Animator animator;
         [SerializeField, Tooltip("Punched on hits/attacks when there is no Animator")] private Transform visual;
         [SerializeField] private float destroyDelayAfterDeath = 4f;
 
@@ -150,6 +151,7 @@ namespace Spellmite
                 Attack().Forget();
 
             UpdateFacing(horizontal, dt);
+            if (animator != null) animator.SetFloat(SpeedHash, horizontal.magnitude);
         }
 
         private void UpdateFacing(Vector3 horizontal, float dt)

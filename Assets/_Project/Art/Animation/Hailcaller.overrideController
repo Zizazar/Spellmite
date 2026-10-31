@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Hailcaller
+  m_Controller: {fileID: 9100000, guid: b3541b6f26a53da46877b29f92b4044d, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 8548388428953429836, guid: 8a82e599383708c41a60b0f6415a26e9, type: 3}
+    m_OverrideClip: {fileID: -5624545281902316504, guid: 8a82e599383708c41a60b0f6415a26e9, type: 3}
+  - m_OriginalClip: {fileID: 9199159565531482307, guid: 8a82e599383708c41a60b0f6415a26e9, type: 3}
+    m_OverrideClip: {fileID: 2667949614841947897, guid: 8a82e599383708c41a60b0f6415a26e9, type: 3}
+  - m_OriginalClip: {fileID: 6192624407232528602, guid: 8a82e599383708c41a60b0f6415a26e9, type: 3}
+    m_OverrideClip: {fileID: 7947417338564511749, guid: 8a82e599383708c41a60b0f6415a26e9, type: 3}
+  - m_OriginalClip: {fileID: -1969879699852600037, guid: 8a82e599383708c41a60b0f6415a26e9, type: 3}
+    m_OverrideClip: {fileID: 1094607713326964426, guid: 8a82e599383708c41a60b0f6415a26e9, type: 3}
+  - m_OriginalClip: {fileID: -8329453844697678848, guid: 8a82e599383708c41a60b0f6415a26e9, type: 3}
+    m_OverrideClip: {fileID: -284150613467886740, guid: 8a82e599383708c41a60b0f6415a26e9, type: 3}
+  - m_OriginalClip: {fileID: 2459399059993892034, guid: 8a82e599383708c41a60b0f6415a26e9, type: 3}
+    m_OverrideClip: {fileID: 746715337626929376, guid: 8a82e599383708c41a60b0f6415a26e9, type: 3}
+  - m_OriginalClip: {fileID: -1923750366902163184, guid: 8a82e599383708c41a60b0f6415a26e9, type: 3}
+    m_OverrideClip: {fileID: 3311174667178009610, guid: 8a82e599383708c41a60b0f6415a26e9, type: 3}
