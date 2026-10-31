@@ -15,6 +15,7 @@ Speed and a playable build matter more than architecture.
    After a change, check the console for compile errors only, then end with a **"Verify in Play Mode"** checklist:
    concrete steps for the user (what to press, what should happen, what to look at).
 4. Don't commit unless asked.
+5. Write anything in project only in English.
 
 ## Unity Editor access (Unity MCP)
 
