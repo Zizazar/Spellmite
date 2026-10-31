@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8e66e32b2059544bbe83ab10b199e0d, type: 3}
+  m_Name: ArcaneScatter
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.SpellData
+  <NameKey>k__BackingField: spell.arcane_scatter
+  <Icon>k__BackingField: {fileID: 0}
+  <Tags>k__BackingField:
+  - {fileID: 11400000, guid: 18e3864f781c36b4facc9cb682afe5b4, type: 2}
+  - {fileID: 11400000, guid: 89ec77dd291eff245823573c2dcb344e, type: 2}
+  <Kind>k__BackingField: 0
+  <Cooldown>k__BackingField: 4
+  <CastTime>k__BackingField: 0.3
+  <ResistanceCost>k__BackingField: 0.1
+  <CastVfx>k__BackingField: {fileID: 7515734976404840579, guid: 94892a1d93b0f3a40aebdea8694f74f9, type: 3}
+  <SelfBuff>k__BackingField: {fileID: 0}
+  <Damage>k__BackingField: 5
+  <Speed>k__BackingField: 30
+  <Gravity>k__BackingField: 0
+  <Lifetime>k__BackingField: 0.35
+  <Radius>k__BackingField: 0.15
+  <Knockback>k__BackingField: 4
+  <Count>k__BackingField: 5
+  <SpreadAngle>k__BackingField: 35
+  <HomingTurnRate>k__BackingField: 0
+  <HomingRange>k__BackingField: 15
+  <SplashRadius>k__BackingField: 0
+  <HitBuff>k__BackingField: {fileID: 0}
+  <AreaVfx>k__BackingField: {fileID: 0}
+  <BarrageHeight>k__BackingField: 8
+  <BarrageDelay>k__BackingField: 0.7
+  <BarrageInterval>k__BackingField: 0.15
+  <ProjectileVfx>k__BackingField: {fileID: 2593062369330208301, guid: 7e904a23be6fb46479f811b7b73e0b45, type: 3}
+  <ImpactVfx>k__BackingField: {fileID: 5965820935706640275, guid: 9b5efee877114e8448c9d73afad87c95, type: 3}
+  <MuzzleVfx>k__BackingField: {fileID: 5057489667540838586, guid: 0faf4520737ce5e409fc29d39e6685b9, type: 3}
+  <AiUse>k__BackingField: 0
+  <AiMinRange>k__BackingField: 0
+  <AiMaxRange>k__BackingField: 8
+  <AiHealthBelow>k__BackingField: 0.5
+  <AiTokenCost>k__BackingField: 1

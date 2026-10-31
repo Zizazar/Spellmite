@@ -43,6 +43,7 @@ namespace Spellmite
         [field: Header("Area (Nova, Barrage) — uses Damage, Knockback, Splash Radius, Hit Buff")]
         [field: SerializeField, Tooltip("Nova: at the caster's feet (Combat/Damage). Barrage: above the target point, pointing down (Combat/Barrage)")] public GameObject AreaVfx { get; private set; }
         [field: SerializeField, Tooltip("Barrage: the VFX starts this high above the target point")] public float BarrageHeight { get; private set; } = 8f;
+        [field: SerializeField, Tooltip("Barrage: spawn the VFX upright on the target point instead (Combat/Orbital). Height is ignored")] public bool BarrageVfxOnGround { get; private set; }
         [field: SerializeField, Tooltip("Barrage: seconds from firing to the first hit (fall time)")] public float BarrageDelay { get; private set; } = 0.7f;
         [field: SerializeField, Tooltip("Barrage: seconds between its Count hits")] public float BarrageInterval { get; private set; } = 0.15f;
 

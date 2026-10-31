@@ -130,6 +130,7 @@ namespace Spellmite
             {
                 Field(so, "Count", "Hits"),
                 Field(so, "BarrageHeight", "Height"),
+                Field(so, "BarrageVfxOnGround", "VFX on ground"),
                 Field(so, "BarrageDelay", "Fall time, s"),
                 Field(so, "BarrageInterval", "Between hits, s"),
             };

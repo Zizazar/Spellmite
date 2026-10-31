@@ -166,6 +166,8 @@ MonoBehaviour:
   spells:
   - {fileID: 11400000, guid: 05228b6e7f7ba1a4cba282b224ec89bc, type: 2}
   - {fileID: 11400000, guid: 94e9f197fdf903d4fa1be82289880e99, type: 2}
+  - {fileID: 11400000, guid: 9bdeae56439d32a439337670381a4c50, type: 2}
+  - {fileID: 11400000, guid: 61c8d0fa44fcf054ea345e6159db887c, type: 2}
   aimDistance: 100
   groundMask:
     serializedVersion: 2

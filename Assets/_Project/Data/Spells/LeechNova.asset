@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8e66e32b2059544bbe83ab10b199e0d, type: 3}
+  m_Name: LeechNova
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.SpellData
+  <NameKey>k__BackingField: spell.leech_nova
+  <Icon>k__BackingField: {fileID: 0}
+  <Tags>k__BackingField:
+  - {fileID: 11400000, guid: 7d7d5b812bd9829488449146fe84ea44, type: 2}
+  - {fileID: 11400000, guid: f3f5245d1fb441e42b5bd1e1b1444515, type: 2}
+  - {fileID: 11400000, guid: b9525ebeb722f4c4cb73570641cd265e, type: 2}
+  <Kind>k__BackingField: 2
+  <Cooldown>k__BackingField: 9
+  <CastTime>k__BackingField: 0.5
+  <ResistanceCost>k__BackingField: 0.1
+  <CastVfx>k__BackingField: {fileID: 780422899590546167, guid: 13a4cb697e4720f448fb19f3ebb39c5b, type: 3}
+  <SelfBuff>k__BackingField: {fileID: 11400000, guid: 26857f4679f32cc429d3358dd868b9e9, type: 2}
+  <Damage>k__BackingField: 12
+  <Speed>k__BackingField: 20
+  <Gravity>k__BackingField: 0
+  <Lifetime>k__BackingField: 3
+  <Radius>k__BackingField: 0.2
+  <Knockback>k__BackingField: 4
+  <Count>k__BackingField: 1
+  <SpreadAngle>k__BackingField: 20
+  <HomingTurnRate>k__BackingField: 0
+  <HomingRange>k__BackingField: 15
+  <SplashRadius>k__BackingField: 3.5
+  <HitBuff>k__BackingField: {fileID: 0}
+  <AreaVfx>k__BackingField: {fileID: 6581929814701111924, guid: aadbe9e2ca9766d4da85b7f8d9e0bd9b, type: 3}
+  <BarrageHeight>k__BackingField: 8
+  <BarrageDelay>k__BackingField: 0.7
+  <BarrageInterval>k__BackingField: 0.15
+  <ProjectileVfx>k__BackingField: {fileID: 0}
+  <ImpactVfx>k__BackingField: {fileID: 0}
+  <MuzzleVfx>k__BackingField: {fileID: 0}
+  <AiUse>k__BackingField: 0
+  <AiMinRange>k__BackingField: 0
+  <AiMaxRange>k__BackingField: 3
+  <AiHealthBelow>k__BackingField: 0.5
+  <AiTokenCost>k__BackingField: 1

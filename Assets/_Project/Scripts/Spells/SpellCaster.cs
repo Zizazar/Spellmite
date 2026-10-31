@@ -122,8 +122,14 @@ namespace Spellmite
         // The point is locked when the spell fires: the VFX falls from above, Count area hits land after BarrageDelay
         private async UniTaskVoid Barrage(SpellData spell, Vector3 point, bool fromPlayer, CancellationToken token)
         {
-            // Euler(90, 0, 0) points the VFX's forward down
-            if (spell.AreaVfx != null) Destroy(Instantiate(spell.AreaVfx, point + Vector3.up * spell.BarrageHeight, Quaternion.Euler(90f, 0f, 0f)), 5f);
+            // Euler(90, 0, 0) points the VFX's forward down. 8 s: the orbital beam lingers for about 6
+            if (spell.AreaVfx != null)
+            {
+                var vfx = spell.BarrageVfxOnGround
+                    ? Instantiate(spell.AreaVfx, point, Quaternion.identity)
+                    : Instantiate(spell.AreaVfx, point + Vector3.up * spell.BarrageHeight, Quaternion.Euler(90f, 0f, 0f));
+                Destroy(vfx, 8f);
+            }
             await UniTask.Delay(TimeSpan.FromSeconds(spell.BarrageDelay), cancellationToken: token);
             for (int i = 0; i < spell.Count; i++)
             {

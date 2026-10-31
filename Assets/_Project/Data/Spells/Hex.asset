@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8e66e32b2059544bbe83ab10b199e0d, type: 3}
+  m_Name: Hex
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.SpellData
+  <NameKey>k__BackingField: spell.hex
+  <Icon>k__BackingField: {fileID: 0}
+  <Tags>k__BackingField:
+  - {fileID: 11400000, guid: 7d7d5b812bd9829488449146fe84ea44, type: 2}
+  - {fileID: 11400000, guid: 89ec77dd291eff245823573c2dcb344e, type: 2}
+  <Kind>k__BackingField: 0
+  <Cooldown>k__BackingField: 6
+  <CastTime>k__BackingField: 0.5
+  <ResistanceCost>k__BackingField: 0.1
+  <CastVfx>k__BackingField: {fileID: 7515734976404840579, guid: 94892a1d93b0f3a40aebdea8694f74f9, type: 3}
+  <SelfBuff>k__BackingField: {fileID: 0}
+  <Damage>k__BackingField: 4
+  <Speed>k__BackingField: 14
+  <Gravity>k__BackingField: 0
+  <Lifetime>k__BackingField: 3
+  <Radius>k__BackingField: 0.3
+  <Knockback>k__BackingField: 1
+  <Count>k__BackingField: 1
+  <SpreadAngle>k__BackingField: 20
+  <HomingTurnRate>k__BackingField: 120
+  <HomingRange>k__BackingField: 15
+  <SplashRadius>k__BackingField: 0
+  <HitBuff>k__BackingField: {fileID: 11400000, guid: 3a744a35e59f5ad4e9244b485264a87a, type: 2}
+  <AreaVfx>k__BackingField: {fileID: 0}
+  <BarrageHeight>k__BackingField: 8
+  <BarrageDelay>k__BackingField: 0.7
+  <BarrageInterval>k__BackingField: 0.15
+  <ProjectileVfx>k__BackingField: {fileID: 437769674007439996, guid: ba4d88fda243a524584d84df894b63d4, type: 3}
+  <ImpactVfx>k__BackingField: {fileID: 4840211767313866835, guid: 9ac5c3555aaa6f944becc8399d581672, type: 3}
+  <MuzzleVfx>k__BackingField: {fileID: 3199901728887553809, guid: f9d869cb692321d4bb5eaa163ae61ecc, type: 3}
+  <AiUse>k__BackingField: 0
+  <AiMinRange>k__BackingField: 3
+  <AiMaxRange>k__BackingField: 15
+  <AiHealthBelow>k__BackingField: 0.5
+  <AiTokenCost>k__BackingField: 1

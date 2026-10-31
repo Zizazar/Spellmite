@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8e66e32b2059544bbe83ab10b199e0d, type: 3}
+  m_Name: BlackHole
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.SpellData
+  <NameKey>k__BackingField: spell.black_hole
+  <Icon>k__BackingField: {fileID: 0}
+  <Tags>k__BackingField:
+  - {fileID: 11400000, guid: 7d7d5b812bd9829488449146fe84ea44, type: 2}
+  - {fileID: 11400000, guid: f3f5245d1fb441e42b5bd1e1b1444515, type: 2}
+  <Kind>k__BackingField: 0
+  <Cooldown>k__BackingField: 10
+  <CastTime>k__BackingField: 0.7
+  <ResistanceCost>k__BackingField: 0.1
+  <CastVfx>k__BackingField: {fileID: 5470109155017864947, guid: be42671cb61c12b4bba2e8beaa998ec4, type: 3}
+  <SelfBuff>k__BackingField: {fileID: 0}
+  <Damage>k__BackingField: 8
+  <Speed>k__BackingField: 6
+  <Gravity>k__BackingField: 0
+  <Lifetime>k__BackingField: 3
+  <Radius>k__BackingField: 0.4
+  <Knockback>k__BackingField: -8
+  <Count>k__BackingField: 1
+  <SpreadAngle>k__BackingField: 20
+  <HomingTurnRate>k__BackingField: 0
+  <HomingRange>k__BackingField: 15
+  <SplashRadius>k__BackingField: 5
+  <HitBuff>k__BackingField: {fileID: 0}
+  <AreaVfx>k__BackingField: {fileID: 0}
+  <BarrageHeight>k__BackingField: 8
+  <BarrageDelay>k__BackingField: 0.7
+  <BarrageInterval>k__BackingField: 0.15
+  <ProjectileVfx>k__BackingField: {fileID: 4342055861898439711, guid: 61ce45f97d8eafb42b161cb0bdb222a4, type: 3}
+  <ImpactVfx>k__BackingField: {fileID: 2782069568082390294, guid: b512323560c91754790e68c0f94fd5d4, type: 3}
+  <MuzzleVfx>k__BackingField: {fileID: 2142482693563172369, guid: de6085a89fa12214ebcc91ddeb3d1cca, type: 3}
+  <AiUse>k__BackingField: 0
+  <AiMinRange>k__BackingField: 3
+  <AiMaxRange>k__BackingField: 12
+  <AiHealthBelow>k__BackingField: 0.5
+  <AiTokenCost>k__BackingField: 1

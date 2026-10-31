@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8e66e32b2059544bbe83ab10b199e0d, type: 3}
+  m_Name: ToxicSpit
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.SpellData
+  <NameKey>k__BackingField: spell.toxic_spit
+  <Icon>k__BackingField: {fileID: 0}
+  <Tags>k__BackingField:
+  - {fileID: 11400000, guid: 62ac077b57cb23f42a431aec79763076, type: 2}
+  - {fileID: 11400000, guid: 89ec77dd291eff245823573c2dcb344e, type: 2}
+  - {fileID: 11400000, guid: f3f5245d1fb441e42b5bd1e1b1444515, type: 2}
+  <Kind>k__BackingField: 0
+  <Cooldown>k__BackingField: 3
+  <CastTime>k__BackingField: 0.5
+  <ResistanceCost>k__BackingField: 0.1
+  <CastVfx>k__BackingField: {fileID: 6308758188975051715, guid: 3ca2957386a6f7341828e0089b523103, type: 3}
+  <SelfBuff>k__BackingField: {fileID: 0}
+  <Damage>k__BackingField: 6
+  <Speed>k__BackingField: 14
+  <Gravity>k__BackingField: 5
+  <Lifetime>k__BackingField: 3
+  <Radius>k__BackingField: 0.25
+  <Knockback>k__BackingField: 3
+  <Count>k__BackingField: 1
+  <SpreadAngle>k__BackingField: 20
+  <HomingTurnRate>k__BackingField: 0
+  <HomingRange>k__BackingField: 15
+  <SplashRadius>k__BackingField: 2.5
+  <HitBuff>k__BackingField: {fileID: 11400000, guid: 76bc67da90632cb4fb2ea63a21ad47dc, type: 2}
+  <AreaVfx>k__BackingField: {fileID: 0}
+  <BarrageHeight>k__BackingField: 8
+  <BarrageDelay>k__BackingField: 0.7
+  <BarrageInterval>k__BackingField: 0.15
+  <ProjectileVfx>k__BackingField: {fileID: 3260385576940821322, guid: 0ddf0370d40badf4da58f005efa3627b, type: 3}
+  <ImpactVfx>k__BackingField: {fileID: 962637631272231507, guid: 0c506ffd7c995cb4daee9084c8499b43, type: 3}
+  <MuzzleVfx>k__BackingField: {fileID: 8761027195105394178, guid: 2ba8640322b798245a4c2d2f60858718, type: 3}
+  <AiUse>k__BackingField: 0
+  <AiMinRange>k__BackingField: 3
+  <AiMaxRange>k__BackingField: 10
+  <AiHealthBelow>k__BackingField: 0.5
+  <AiTokenCost>k__BackingField: 1
