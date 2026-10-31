@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: ItchPublisher.Editor::GameJam.ItchPublisher.ItchProjectSettings
   itchUser: zizazr
-  gameSlug: test
-  gameId: 5145831
+  gameSlug: spellmite
+  gameId: 5274067
   targets:
   - enabled: 1
     target: 19
