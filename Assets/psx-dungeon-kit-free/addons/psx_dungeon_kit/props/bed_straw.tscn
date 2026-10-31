@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://addons/psx_dungeon_kit/models/bed_straw_model.glb" id="1"]
+
+[sub_resource type="BoxShape3D" id="box0"]
+size = Vector3(1.0600, 0.2350, 2.0600)
+
+[node name="bed_straw" instance=ExtResource("1")]
+
+[node name="Collision" type="StaticBody3D" parent="bed_straw"]
+
+[node name="Box" type="CollisionShape3D" parent="bed_straw/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0000, 0.1175, -0.0000)
+shape = SubResource("box0")

@@ -1,0 +1,1189 @@
+{
+ "atlas": 1024,
+ "atlas_used": 256,
+ "fps": 30,
+ "props": [
+  {
+   "name": "floor_stone",
+   "title": "Flagstone Floor",
+   "group": "floors",
+   "place": "floor",
+   "note": "big worn flags, 2 x 2 m",
+   "tris": 8,
+   "size": [
+    2.0,
+    2.0,
+    0.0
+   ],
+   "min": [
+    -1.0,
+    -1.0,
+    0.0
+   ],
+   "max": [
+    1.0,
+    1.0,
+    0.0
+   ],
+   "parts": [
+    {
+     "name": "floor_stone",
+     "parent": null,
+     "pivot": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "tris": 8,
+     "min": [
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     "max": [
+      1.0,
+      1.0,
+      0.0
+     ]
+    }
+   ],
+   "anims": []
+  },
+  {
+   "name": "floor_straw",
+   "title": "Straw Floor",
+   "group": "floors",
+   "place": "floor",
+   "note": "old straw over the flags: a cell, a stable",
+   "tris": 8,
+   "size": [
+    2.0,
+    2.0,
+    0.0
+   ],
+   "min": [
+    -1.0,
+    -1.0,
+    0.0
+   ],
+   "max": [
+    1.0,
+    1.0,
+    0.0
+   ],
+   "parts": [
+    {
+     "name": "floor_straw",
+     "parent": null,
+     "pivot": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "tris": 8,
+     "min": [
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     "max": [
+      1.0,
+      1.0,
+      0.0
+     ]
+    }
+   ],
+   "anims": []
+  },
+  {
+   "name": "ceiling_stone",
+   "title": "Stone Ceiling",
+   "group": "ceilings",
+   "place": "floor",
+   "note": "flat, at 3 m",
+   "tris": 8,
+   "size": [
+    2.0,
+    2.0,
+    0.0
+   ],
+   "min": [
+    -1.0,
+    -1.0,
+    3.0
+   ],
+   "max": [
+    1.0,
+    1.0,
+    3.0
+   ],
+   "parts": [
+    {
+     "name": "ceiling_stone",
+     "parent": null,
+     "pivot": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "tris": 8,
+     "min": [
+      -1.0,
+      -1.0,
+      3.0
+     ],
+     "max": [
+      1.0,
+      1.0,
+      3.0
+     ]
+    }
+   ],
+   "anims": []
+  },
+  {
+   "name": "wall_stone",
+   "title": "Stone Wall",
+   "group": "walls",
+   "place": "floor",
+   "note": "dark blocks, damp low down; stone both sides",
+   "tris": 28,
+   "size": [
+    2.0,
+    0.2,
+    3.0
+   ],
+   "min": [
+    -1.0,
+    -0.1,
+    0.0
+   ],
+   "max": [
+    1.0,
+    0.1,
+    3.0
+   ],
+   "parts": [
+    {
+     "name": "wall_stone",
+     "parent": null,
+     "pivot": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "tris": 28,
+     "min": [
+      -1.0,
+      -0.1,
+      0.0
+     ],
+     "max": [
+      1.0,
+      0.1,
+      3.0
+     ]
+    }
+   ],
+   "anims": []
+  },
+  {
+   "name": "wall_rough",
+   "title": "Rubble Wall",
+   "group": "walls",
+   "place": "floor",
+   "note": "rough stone: the cells and the crypt",
+   "tris": 28,
+   "size": [
+    2.0,
+    0.2,
+    3.0
+   ],
+   "min": [
+    -1.0,
+    -0.1,
+    0.0
+   ],
+   "max": [
+    1.0,
+    0.1,
+    3.0
+   ],
+   "parts": [
+    {
+     "name": "wall_rough",
+     "parent": null,
+     "pivot": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "tris": 28,
+     "min": [
+      -1.0,
+      -0.1,
+      0.0
+     ],
+     "max": [
+      1.0,
+      0.1,
+      3.0
+     ]
+    }
+   ],
+   "anims": []
+  },
+  {
+   "name": "wall_doorway_stone",
+   "title": "Arched Doorway",
+   "group": "walls",
+   "place": "floor",
+   "note": "a round-headed doorway, 1 m; fits this kit's doors",
+   "tris": 108,
+   "size": [
+    2.0,
+    0.2,
+    3.0
+   ],
+   "min": [
+    -1.0,
+    -0.1,
+    0.0
+   ],
+   "max": [
+    1.0,
+    0.1,
+    3.0
+   ],
+   "parts": [
+    {
+     "name": "wall_doorway_stone",
+     "parent": null,
+     "pivot": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "tris": 18,
+     "min": [
+      -1.0,
+      -0.1,
+      0.0
+     ],
+     "max": [
+      -0.5,
+      0.1,
+      3.0
+     ]
+    },
+    {
+     "name": "wall_doorway_stone_1",
+     "parent": "wall_doorway_stone",
+     "pivot": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "tris": 72,
+     "min": [
+      -0.5,
+      -0.1,
+      1.8
+     ],
+     "max": [
+      0.5,
+      0.1,
+      3.0
+     ]
+    },
+    {
+     "name": "wall_doorway_stone_2",
+     "parent": "wall_doorway_stone",
+     "pivot": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "tris": 18,
+     "min": [
+      0.5,
+      -0.1,
+      0.0
+     ],
+     "max": [
+      1.0,
+      0.1,
+      3.0
+     ]
+    }
+   ],
+   "anims": []
+  },
+  {
+   "name": "wall_bars_door",
+   "title": "Cell Bars, Door",
+   "group": "walls",
+   "place": "floor",
+   "note": "the bars round the cell door's gap",
+   "tris": 448,
+   "size": [
+    2.04,
+    0.05,
+    3.0
+   ],
+   "min": [
+    -1.02,
+    -0.025,
+    0.0
+   ],
+   "max": [
+    1.02,
+    0.025,
+    3.0
+   ],
+   "parts": [
+    {
+     "name": "wall_bars_door",
+     "parent": null,
+     "pivot": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "tris": 116,
+     "min": [
+      -1.02,
+      -0.025,
+      0.0
+     ],
+     "max": [
+      -0.51,
+      0.025,
+      3.0
+     ]
+    },
+    {
+     "name": "wall_bars_door_1",
+     "parent": "wall_bars_door",
+     "pivot": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "tris": 116,
+     "min": [
+      0.51,
+      -0.025,
+      0.0
+     ],
+     "max": [
+      1.02,
+      0.025,
+      3.0
+     ]
+    },
+    {
+     "name": "wall_bars_door_2",
+     "parent": "wall_bars_door",
+     "pivot": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "tris": 216,
+     "min": [
+      -0.55,
+      -0.025,
+      2.24
+     ],
+     "max": [
+      0.55,
+      0.025,
+      3.0
+     ]
+    }
+   ],
+   "anims": []
+  },
+  {
+   "name": "wall_post_stone",
+   "title": "Stone Post",
+   "group": "walls",
+   "place": "floor",
+   "note": "fills the corner where walls meet",
+   "tris": 26,
+   "size": [
+    0.2,
+    0.2,
+    3.0
+   ],
+   "min": [
+    -0.1,
+    -0.1,
+    0.0
+   ],
+   "max": [
+    0.1,
+    0.1,
+    3.0
+   ],
+   "parts": [
+    {
+     "name": "wall_post_stone",
+     "parent": null,
+     "pivot": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "tris": 26,
+     "min": [
+      -0.1,
+      -0.1,
+      0.0
+     ],
+     "max": [
+      0.1,
+      0.1,
+      3.0
+     ]
+    }
+   ],
+   "anims": []
+  },
+  {
+   "name": "door_dungeon",
+   "title": "Dungeon Door",
+   "group": "doors",
+   "place": "floor",
+   "note": "oak and iron, round-headed; swings open",
+   "tris": 236,
+   "size": [
+    1.1,
+    0.24,
+    2.28
+   ],
+   "min": [
+    -0.55,
+    -0.12,
+    0.0
+   ],
+   "max": [
+    0.55,
+    0.12,
+    2.28
+   ],
+   "parts": [
+    {
+     "name": "door_dungeon",
+     "parent": null,
+     "pivot": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "tris": 12,
+     "min": [
+      -0.55,
+      -0.12,
+      0.0
+     ],
+     "max": [
+      0.55,
+      0.12,
+      0.02
+     ]
+    },
+    {
+     "name": "door_dungeon_leaf",
+     "parent": "door_dungeon",
+     "pivot": [
+      -0.48,
+      0.0,
+      0.0
+     ],
+     "tris": 224,
+     "min": [
+      -0.48,
+      -0.069,
+      0.01
+     ],
+     "max": [
+      0.48,
+      0.069,
+      2.28
+     ]
+    }
+   ],
+   "anims": [
+    {
+     "name": "open",
+     "seconds": 2.6,
+     "loop": false
+    }
+   ]
+  },
+  {
+   "name": "door_cell",
+   "title": "Cell Door",
+   "group": "doors",
+   "place": "floor",
+   "note": "in the cell bars' gap; swings open",
+   "tris": 188,
+   "size": [
+    1.07,
+    0.13,
+    2.16
+   ],
+   "min": [
+    -0.5,
+    -0.11,
+    0.02
+   ],
+   "max": [
+    0.57,
+    0.02,
+    2.18
+   ],
+   "parts": [
+    {
+     "name": "door_cell",
+     "parent": null,
+     "pivot": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "tris": 12,
+     "min": [
+      0.49,
+      -0.11,
+      0.97
+     ],
+     "max": [
+      0.57,
+      -0.01,
+      1.13
+     ]
+    },
+    {
+     "name": "door_cell_leaf",
+     "parent": "door_cell",
+     "pivot": [
+      -0.5,
+      0.0,
+      0.0
+     ],
+     "tris": 176,
+     "min": [
+      -0.5,
+      -0.02,
+      0.02
+     ],
+     "max": [
+      0.48,
+      0.02,
+      2.18
+     ]
+    }
+   ],
+   "anims": [
+    {
+     "name": "open",
+     "seconds": 2.0,
+     "loop": false
+    }
+   ]
+  },
+  {
+   "name": "chest_wood",
+   "title": "Wooden Chest",
+   "group": "treasure",
+   "place": "floor",
+   "note": "oak and iron; opens and shuts",
+   "tris": 256,
+   "size": [
+    0.836,
+    0.522,
+    0.58
+   ],
+   "min": [
+    -0.418,
+    -0.262,
+    0.0
+   ],
+   "max": [
+    0.418,
+    0.26,
+    0.58
+   ],
+   "parts": [
+    {
+     "name": "chest_wood",
+     "parent": null,
+     "pivot": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "tris": 224,
+     "min": [
+      -0.418,
+      -0.262,
+      0.0
+     ],
+     "max": [
+      0.418,
+      0.26,
+      0.42
+     ]
+    },
+    {
+     "name": "chest_wood_lid",
+     "parent": "chest_wood",
+     "pivot": [
+      0.0,
+      0.25,
+      0.42
+     ],
+     "tris": 32,
+     "min": [
+      -0.4,
+      -0.25,
+      0.42
+     ],
+     "max": [
+      0.4,
+      0.25,
+      0.58
+     ]
+    }
+   ],
+   "anims": [
+    {
+     "name": "open",
+     "seconds": 1.4,
+     "loop": false
+    }
+   ],
+   "use": {
+    "kind": "switch",
+    "clip": "open"
+   }
+  },
+  {
+   "name": "torch_wall",
+   "title": "Wall Torch",
+   "group": "hall",
+   "place": "wall",
+   "note": "a torch in an iron bracket, burning",
+   "tris": 164,
+   "size": [
+    0.189,
+    0.203,
+    0.807
+   ],
+   "min": [
+    -0.1,
+    -0.203,
+    1.48
+   ],
+   "max": [
+    0.089,
+    0.0,
+    2.287
+   ],
+   "parts": [
+    {
+     "name": "torch_wall",
+     "parent": null,
+     "pivot": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "tris": 128,
+     "min": [
+      -0.053,
+      -0.203,
+      1.4801
+     ],
+     "max": [
+      0.053,
+      0.0,
+      2.0787
+     ]
+    },
+    {
+     "name": "torch_wall_flame0",
+     "parent": "torch_wall",
+     "pivot": [
+      0.0,
+      -0.0689,
+      2.0315
+     ],
+     "tris": 12,
+     "min": [
+      -0.1002,
+      -0.1062,
+      2.0315
+     ],
+     "max": [
+      0.0201,
+      -0.0116,
+      2.2875
+     ]
+    },
+    {
+     "name": "torch_wall_flame1",
+     "parent": "torch_wall",
+     "pivot": [
+      0.0,
+      -0.0689,
+      2.0315
+     ],
+     "tris": 12,
+     "min": [
+      -0.0369,
+      -0.1319,
+      2.0315
+     ],
+     "max": [
+      0.0368,
+      -0.0059,
+      2.2491
+     ]
+    },
+    {
+     "name": "torch_wall_flame2",
+     "parent": "torch_wall",
+     "pivot": [
+      0.0,
+      -0.0689,
+      2.0315
+     ],
+     "tris": 12,
+     "min": [
+      -0.0451,
+      -0.1102,
+      2.0315
+     ],
+     "max": [
+      0.089,
+      -0.0278,
+      2.2235
+     ]
+    }
+   ],
+   "anims": [
+    {
+     "name": "burn",
+     "seconds": 1.2,
+     "loop": true
+    }
+   ]
+  },
+  {
+   "name": "banner_red",
+   "title": "Red Banner",
+   "group": "hall",
+   "place": "wall",
+   "note": "the house's tower on red; it stirs",
+   "tris": 108,
+   "size": [
+    1.12,
+    0.13,
+    1.865
+   ],
+   "min": [
+    -0.56,
+    -0.13,
+    0.87
+   ],
+   "max": [
+    0.56,
+    0.0,
+    2.735
+   ],
+   "parts": [
+    {
+     "name": "banner_red",
+     "parent": null,
+     "pivot": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "tris": 92,
+     "min": [
+      -0.56,
+      -0.1303,
+      2.665
+     ],
+     "max": [
+      0.56,
+      0.0,
+      2.735
+     ]
+    },
+    {
+     "name": "banner_red_cloth",
+     "parent": "banner_red",
+     "pivot": [
+      0.0,
+      -0.1,
+      2.7
+     ],
+     "tris": 16,
+     "min": [
+      -0.4,
+      -0.105,
+      0.87
+     ],
+     "max": [
+      0.4,
+      -0.095,
+      2.67
+     ]
+    }
+   ],
+   "anims": [
+    {
+     "name": "stir",
+     "seconds": 5.0,
+     "loop": true
+    }
+   ]
+  },
+  {
+   "name": "bed_straw",
+   "title": "Straw Bed",
+   "group": "cells",
+   "place": "floor",
+   "note": "straw and a ragged blanket",
+   "tris": 48,
+   "size": [
+    1.06,
+    2.06,
+    0.235
+   ],
+   "min": [
+    -0.53,
+    -1.03,
+    0.0
+   ],
+   "max": [
+    0.53,
+    1.03,
+    0.235
+   ],
+   "parts": [
+    {
+     "name": "bed_straw",
+     "parent": null,
+     "pivot": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "tris": 48,
+     "min": [
+      -0.53,
+      -1.03,
+      0.0
+     ],
+     "max": [
+      0.53,
+      1.03,
+      0.235
+     ]
+    }
+   ],
+   "anims": []
+  },
+  {
+   "name": "skeleton_chained",
+   "title": "Chained Skeleton",
+   "group": "cells",
+   "place": "wall",
+   "note": "sat against the wall, arms up in irons",
+   "tris": 688,
+   "size": [
+    0.71,
+    1.13,
+    1.5
+   ],
+   "min": [
+    -0.355,
+    -1.13,
+    0.0
+   ],
+   "max": [
+    0.355,
+    0.0,
+    1.5
+   ],
+   "parts": [
+    {
+     "name": "skeleton_chained",
+     "parent": null,
+     "pivot": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "tris": 688,
+     "min": [
+      -0.355,
+      -1.13,
+      0.0
+     ],
+     "max": [
+      0.355,
+      0.0003,
+      1.5
+     ],
+     "boxes": [
+      [
+       [
+        -0.13,
+        -0.28,
+        0.03
+       ],
+       [
+        0.13,
+        -0.12,
+        0.13
+       ]
+      ],
+      [
+       [
+        -0.02,
+        -0.15,
+        0.138
+       ],
+       [
+        0.02,
+        -0.11,
+        0.705
+       ]
+      ],
+      [
+       [
+        -0.127,
+        -0.288,
+        0.402
+       ],
+       [
+        0.125,
+        -0.121,
+        0.693
+       ]
+      ],
+      [
+       [
+        -0.163,
+        -0.278,
+        0.671
+       ],
+       [
+        0.165,
+        -0.172,
+        0.699
+       ]
+      ],
+      [
+       [
+        -0.057,
+        -0.255,
+        0.754
+       ],
+       [
+        0.06,
+        -0.094,
+        0.882
+       ]
+      ],
+      [
+       [
+        -0.336,
+        -0.183,
+        0.672
+       ],
+       [
+        -0.149,
+        -0.014,
+        1.253
+       ]
+      ],
+      [
+       [
+        -0.355,
+        -0.06,
+        1.22
+       ],
+       [
+        -0.285,
+        0.0,
+        1.28
+       ]
+      ],
+      [
+       [
+        -0.35,
+        -0.04,
+        1.279
+       ],
+       [
+        -0.29,
+        0.0,
+        1.5
+       ]
+      ],
+      [
+       [
+        -0.17,
+        -1.007,
+        0.021
+       ],
+       [
+        -0.08,
+        -0.215,
+        0.2
+       ]
+      ],
+      [
+       [
+        -0.185,
+        -1.13,
+        0.0
+       ],
+       [
+        -0.115,
+        -0.97,
+        0.04
+       ]
+      ],
+      [
+       [
+        0.149,
+        -0.183,
+        0.672
+       ],
+       [
+        0.336,
+        -0.014,
+        1.253
+       ]
+      ],
+      [
+       [
+        0.285,
+        -0.06,
+        1.22
+       ],
+       [
+        0.355,
+        0.0,
+        1.28
+       ]
+      ],
+      [
+       [
+        0.31,
+        -0.04,
+        1.279
+       ],
+       [
+        0.33,
+        -0.0,
+        1.451
+       ]
+      ],
+      [
+       [
+        0.29,
+        -0.02,
+        1.44
+       ],
+       [
+        0.35,
+        0.0,
+        1.5
+       ]
+      ],
+      [
+       [
+        0.08,
+        -1.007,
+        0.021
+       ],
+       [
+        0.17,
+        -0.215,
+        0.2
+       ]
+      ],
+      [
+       [
+        0.115,
+        -1.13,
+        0.0
+       ],
+       [
+        0.185,
+        -0.97,
+        0.04
+       ]
+      ]
+     ]
+    }
+   ],
+   "anims": []
+  }
+ ],
+ "textures": {
+  "dungeon_base": [
+   0,
+   0,
+   128,
+   128
+  ],
+  "dungeon_rough": [
+   128,
+   0,
+   128,
+   128
+  ],
+  "dungeon_rough_base": [
+   256,
+   0,
+   128,
+   128
+  ],
+  "dungeon_stone": [
+   384,
+   0,
+   128,
+   128
+  ],
+  "flags": [
+   512,
+   0,
+   128,
+   128
+  ],
+  "straw": [
+   640,
+   0,
+   128,
+   128
+  ],
+  "vault_stone": [
+   896,
+   0,
+   128,
+   128
+  ]
+ }
+}

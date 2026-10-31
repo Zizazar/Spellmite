@@ -1,0 +1,119 @@
+[gd_scene load_steps=18 format=3]
+
+[ext_resource type="PackedScene" path="res://addons/psx_dungeon_kit/models/skeleton_chained_model.glb" id="1"]
+
+[sub_resource type="BoxShape3D" id="box0"]
+size = Vector3(0.2600, 0.1000, 0.1600)
+
+[sub_resource type="BoxShape3D" id="box0_1"]
+size = Vector3(0.0400, 0.5670, 0.0400)
+
+[sub_resource type="BoxShape3D" id="box0_2"]
+size = Vector3(0.2520, 0.2910, 0.1670)
+
+[sub_resource type="BoxShape3D" id="box0_3"]
+size = Vector3(0.3280, 0.0280, 0.1060)
+
+[sub_resource type="BoxShape3D" id="box0_4"]
+size = Vector3(0.1170, 0.1280, 0.1610)
+
+[sub_resource type="BoxShape3D" id="box0_5"]
+size = Vector3(0.1870, 0.5810, 0.1690)
+
+[sub_resource type="BoxShape3D" id="box0_6"]
+size = Vector3(0.0700, 0.0600, 0.0600)
+
+[sub_resource type="BoxShape3D" id="box0_7"]
+size = Vector3(0.0600, 0.2210, 0.0400)
+
+[sub_resource type="BoxShape3D" id="box0_8"]
+size = Vector3(0.0900, 0.1790, 0.7920)
+
+[sub_resource type="BoxShape3D" id="box0_9"]
+size = Vector3(0.0700, 0.0400, 0.1600)
+
+[sub_resource type="BoxShape3D" id="box0_10"]
+size = Vector3(0.1870, 0.5810, 0.1690)
+
+[sub_resource type="BoxShape3D" id="box0_11"]
+size = Vector3(0.0700, 0.0600, 0.0600)
+
+[sub_resource type="BoxShape3D" id="box0_12"]
+size = Vector3(0.0200, 0.1720, 0.0400)
+
+[sub_resource type="BoxShape3D" id="box0_13"]
+size = Vector3(0.0600, 0.0600, 0.0200)
+
+[sub_resource type="BoxShape3D" id="box0_14"]
+size = Vector3(0.0900, 0.1790, 0.7920)
+
+[sub_resource type="BoxShape3D" id="box0_15"]
+size = Vector3(0.0700, 0.0400, 0.1600)
+
+[node name="skeleton_chained" instance=ExtResource("1")]
+
+[node name="Collision" type="StaticBody3D" parent="skeleton_chained"]
+
+[node name="Box" type="CollisionShape3D" parent="skeleton_chained/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0000, 0.0800, 0.2000)
+shape = SubResource("box0")
+
+[node name="Box2" type="CollisionShape3D" parent="skeleton_chained/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0000, 0.4215, 0.1300)
+shape = SubResource("box0_1")
+
+[node name="Box3" type="CollisionShape3D" parent="skeleton_chained/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0010, 0.5475, 0.2045)
+shape = SubResource("box0_2")
+
+[node name="Box4" type="CollisionShape3D" parent="skeleton_chained/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0010, 0.6850, 0.2250)
+shape = SubResource("box0_3")
+
+[node name="Box5" type="CollisionShape3D" parent="skeleton_chained/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0015, 0.8180, 0.1745)
+shape = SubResource("box0_4")
+
+[node name="Box6" type="CollisionShape3D" parent="skeleton_chained/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2425, 0.9625, 0.0985)
+shape = SubResource("box0_5")
+
+[node name="Box7" type="CollisionShape3D" parent="skeleton_chained/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3200, 1.2500, 0.0300)
+shape = SubResource("box0_6")
+
+[node name="Box8" type="CollisionShape3D" parent="skeleton_chained/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3200, 1.3895, 0.0200)
+shape = SubResource("box0_7")
+
+[node name="Box9" type="CollisionShape3D" parent="skeleton_chained/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1250, 0.1105, 0.6110)
+shape = SubResource("box0_8")
+
+[node name="Box10" type="CollisionShape3D" parent="skeleton_chained/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1500, 0.0200, 1.0500)
+shape = SubResource("box0_9")
+
+[node name="Box11" type="CollisionShape3D" parent="skeleton_chained/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2425, 0.9625, 0.0985)
+shape = SubResource("box0_10")
+
+[node name="Box12" type="CollisionShape3D" parent="skeleton_chained/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3200, 1.2500, 0.0300)
+shape = SubResource("box0_11")
+
+[node name="Box13" type="CollisionShape3D" parent="skeleton_chained/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3200, 1.3650, 0.0200)
+shape = SubResource("box0_12")
+
+[node name="Box14" type="CollisionShape3D" parent="skeleton_chained/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3200, 1.4700, 0.0100)
+shape = SubResource("box0_13")
+
+[node name="Box15" type="CollisionShape3D" parent="skeleton_chained/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1250, 0.1105, 0.6110)
+shape = SubResource("box0_14")
+
+[node name="Box16" type="CollisionShape3D" parent="skeleton_chained/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1500, 0.0200, 1.0500)
+shape = SubResource("box0_15")

@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" path="res://addons/psx_dungeon_kit/models/chest_wood_model.glb" id="1"]
+[ext_resource type="Script" path="res://addons/psx_dungeon_kit/machine.gd" id="2"]
+
+[sub_resource type="BoxShape3D" id="box0"]
+size = Vector3(0.8360, 0.4200, 0.5220)
+
+[sub_resource type="BoxShape3D" id="box1"]
+size = Vector3(0.8000, 0.1600, 0.5000)
+
+[node name="chest_wood" instance=ExtResource("1")]
+script = ExtResource("2")
+kind = "switch"
+clip = "open"
+
+[node name="Collision" type="StaticBody3D" parent="chest_wood"]
+
+[node name="Box" type="CollisionShape3D" parent="chest_wood/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0000, 0.2100, 0.0010)
+shape = SubResource("box0")
+
+[node name="Collision" type="StaticBody3D" parent="chest_wood/chest_wood_lid"]
+
+[node name="Box" type="CollisionShape3D" parent="chest_wood/chest_wood_lid/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0000, 0.0800, 0.2500)
+shape = SubResource("box1")
