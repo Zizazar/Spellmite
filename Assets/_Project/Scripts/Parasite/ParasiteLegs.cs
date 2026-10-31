@@ -2,17 +2,27 @@ using UnityEngine;
 
 namespace Spellmite
 {
-    // Procedural spider legs for the parasite: built from primitives at runtime, 2-bone IK, tripod gait on any surface.
+    // Procedural spider legs for the parasite: 2-bone IK, alternating gait on any surface.
+    // Legs are either built from primitives at runtime or, if bone legs are set, the bones of a rigged model are posed.
     [DefaultExecutionOrder(-8)]
     public class ParasiteLegs : MonoBehaviour
     {
+        [System.Serializable]
+        private class LegBones
+        {
+            public Transform Upper;
+            public Transform Lower;
+            public Transform End;
+        }
+
         [SerializeField] private ParasiteBody parasite;
+        [SerializeField, Tooltip("Rigged model legs ordered front to back: left, right, left, right... Leave empty to build capsule legs")] private LegBones[] boneLegs;
         [SerializeField, Tooltip("Legs are parented here so they hide with the body")] private Transform legRoot;
         [SerializeField] private Material legMaterial;
         [SerializeField] private LayerMask surfaceMask = 1;
 
         [Header("Shape")]
-        [SerializeField] private int legPairs = 3;
+        [SerializeField, Tooltip("Capsule legs only; with bone legs it's their count / 2")] private int legPairs = 3;
         [SerializeField] private float hipSpread = 0.12f;
         [SerializeField] private float footSpread = 0.38f;
         [SerializeField] private float bodyHeight = 0.2f;
@@ -37,6 +47,9 @@ namespace Spellmite
             public float StepT = 1f;
             public Transform Upper;
             public Transform Lower;
+            public LegBones Bones;
+            public Quaternion UpperRest;
+            public Quaternion LowerRest;
             public bool Stepping => StepT < 1f;
         }
 
@@ -44,10 +57,12 @@ namespace Spellmite
 
         private void Awake()
         {
-            legs = new Leg[legPairs * 2];
-            for (int pair = 0; pair < legPairs; pair++)
+            bool rigged = boneLegs != null && boneLegs.Length >= 2;
+            int pairs = rigged ? boneLegs.Length / 2 : legPairs;
+            legs = new Leg[pairs * 2];
+            for (int pair = 0; pair < pairs; pair++)
             {
-                float t = legPairs > 1 ? pair / (legPairs - 1f) : 0.5f;
+                float t = pairs > 1 ? pair / (pairs - 1f) : 0.5f;
                 float angle = Mathf.Lerp(40f, 140f, t) * Mathf.Deg2Rad; // front to back
                 for (int side = 0; side < 2; side++)
                 {
@@ -58,9 +73,19 @@ namespace Spellmite
                         HipLocal = dir * hipSpread,
                         FootLocal = dir * footSpread + Vector3.down * bodyHeight,
                         Group = (pair + side) % 2,
-                        Upper = CreateSegment($"Leg{pair}{side}_Upper"),
-                        Lower = CreateSegment($"Leg{pair}{side}_Lower"),
                     };
+                    if (rigged)
+                    {
+                        leg.Bones = boneLegs[pair * 2 + side];
+                        leg.HipLocal = transform.InverseTransformPoint(leg.Bones.Upper.position);
+                        leg.UpperRest = leg.Bones.Upper.localRotation;
+                        leg.LowerRest = leg.Bones.Lower.localRotation;
+                    }
+                    else
+                    {
+                        leg.Upper = CreateSegment($"Leg{pair}{side}_Upper");
+                        leg.Lower = CreateSegment($"Leg{pair}{side}_Lower");
+                    }
                     leg.Foot = transform.TransformPoint(leg.FootLocal);
                     legs[pair * 2 + side] = leg;
                 }
@@ -100,8 +125,18 @@ namespace Spellmite
                     leg.StepT = 1f;
                 }
 
-                Vector3 outward = (hip - body.position).normalized;
-                PlaceSegments(leg, hip, leg.Foot, up + outward * 0.6f);
+                if (leg.Bones != null)
+                {
+                    // Start from the rest pose every frame so the incremental IK rotations don't drift
+                    leg.Bones.Upper.localRotation = leg.UpperRest;
+                    leg.Bones.Lower.localRotation = leg.LowerRest;
+                    TwoBoneIK.Solve(leg.Bones.Upper, leg.Bones.Lower, leg.Bones.End, leg.Foot, hip + up, 1f);
+                }
+                else
+                {
+                    Vector3 outward = (hip - body.position).normalized;
+                    PlaceSegments(leg, hip, leg.Foot, up + outward * 0.6f);
+                }
             }
         }
 

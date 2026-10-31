@@ -11,6 +11,8 @@ Shader "Spellmite/PSX Lit"
         [MainTexture] _BaseMap("Base Map", 2D) = "white" {}
         [MainColor] _BaseColor("Base Color", Color) = (1, 1, 1, 1)
         [HDR] _EmissionColor("Emission", Color) = (0, 0, 0, 1)
+        [HDR] _RimColor("Rim Color (per vertex, black = off)", Color) = (0, 0, 0, 1)
+        _RimPower("Rim Power", Range(0.5, 8)) = 2.5
         [Toggle(_POINT_FILTER)] _PointFilter("Point Filter (no texture smoothing)", Float) = 1
         [Toggle(_VERTEX_COLOR)] _VertexColor("Vertex Color (multiply)", Float) = 0
         [Toggle(_ALPHATEST_ON)] _AlphaClip("Alpha Clip", Float) = 0
@@ -33,6 +35,8 @@ Shader "Spellmite/PSX Lit"
             float4 _BaseMap_ST;
             half4 _BaseColor;
             half4 _EmissionColor;
+            half4 _RimColor;
+            half _RimPower;
             half _Cutoff;
         CBUFFER_END
 
@@ -147,6 +151,7 @@ Shader "Spellmite/PSX Lit"
                 half3 otherLight : TEXCOORD4;  // ambient + additional lights
                 half fogFactor : TEXCOORD5;
                 half3 color : TEXCOORD6;
+                half3 rim : TEXCOORD7;         // Gouraud fresnel glow, keeps the silhouette readable
             };
 
             Varyings Vert(Attributes input)
@@ -185,6 +190,9 @@ Shader "Spellmite/PSX Lit"
                 #endif
                 output.otherLight = otherLight;
 
+                half facing = saturate(dot(normalWS, GetWorldSpaceNormalizeViewDir(position.positionWS)));
+                output.rim = _RimColor.rgb * pow(1 - facing, _RimPower);
+
                 output.fogFactor = ComputeFogFactor(position.positionCS.z);
                 #if defined(_VERTEX_COLOR)
                     output.color = input.color.rgb;
@@ -204,7 +212,7 @@ Shader "Spellmite/PSX Lit"
                     shadow = MainLightRealtimeShadow(TransformWorldToShadowCoord(input.positionWS));
                 #endif
 
-                half3 color = albedo.rgb * input.color * (input.mainLight * shadow + input.otherLight) + _EmissionColor.rgb;
+                half3 color = albedo.rgb * input.color * (input.mainLight * shadow + input.otherLight) + _EmissionColor.rgb + input.rim;
                 color = MixFog(color, input.fogFactor);
                 return half4(color, 1);
             }
