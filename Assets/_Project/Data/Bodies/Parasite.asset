@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8921a10e9bcb0b4d82005063089d7df, type: 3}
+  m_Name: Parasite
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.BodyProfile
+  <WalkSpeed>k__BackingField: 6
+  <SprintSpeed>k__BackingField: 10
+  <Acceleration>k__BackingField: 70
+  <Deceleration>k__BackingField: 60
+  <AirControl>k__BackingField: 0.5
+  <TurnSpeed>k__BackingField: 900
+  <JumpHeight>k__BackingField: 1.6
+  <Gravity>k__BackingField: 30
+  <Mass>k__BackingField: 0.3
+  <CameraDistance>k__BackingField: 2.6
+  <CameraHeight>k__BackingField: 0.5
+  <CameraFov>k__BackingField: 65
+  <CameraSpeedDistance>k__BackingField: 0.6
+  <CameraSpeedFov>k__BackingField: 8
