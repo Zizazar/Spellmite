@@ -4,13 +4,14 @@ using UnityEngine;
 namespace Spellmite
 {
     // Lift in the middle of the tower. The floor's wave starts when the player steps off; the lift takes them up one
-    // floor once the wave is over and every enemy on the floor is dead, and comes back down if they drop to a lower floor. Only the floor the player is on is lit:
+    // floor once the wave is over and every enemy on the floor is dead. Falling off a floor respawns the player on the lift, never on a lower floor. Only the floor the player is on is lit:
     // the WebGL quality level gives each object 4 lights, and the floors above and below would take them.
     public class TowerElevator : MonoBehaviour
     {
         [SerializeField] private Transform platform;
         [SerializeField, Tooltip("Floor surface heights from the bottom up, relative to this object")] private float[] floorHeights = { 0f, 6f, 12f, 18f, 24f };
         [SerializeField] private float platformRadius = 2.9f;
+        [SerializeField, Tooltip("Below the floor's surface by this much counts as falling off: the player respawns on the lift")] private float fallDepth = 3f;
         [SerializeField] private float speed = 2.5f;
         [SerializeField, Tooltip("Seconds the player stands on the platform before it moves")] private float departDelay = 1f;
         [SerializeField, Tooltip("Empty = no waves, only the enemies placed in the scene")] private WaveSpawner waves;
@@ -69,6 +70,8 @@ namespace Spellmite
         {
             if (moving || player == null) return;
 
+            CheckFall();
+
             bool cleared = IsFloorCleared(currentFloor);
             if (statusLight != null) statusLight.color = cleared ? readyColor : lockedColor;
 
@@ -79,8 +82,6 @@ namespace Spellmite
                 int playerFloor = FloorOf(body.position.y);
                 // Stepped off onto this floor: its wave begins (once)
                 if (playerFloor == currentFloor && waves != null) waves.StartWave(currentFloor);
-                // Fell down the shaft: the floors below are cleared, so just go and fetch them
-                if (playerFloor < currentFloor) RideTo(playerFloor).Forget();
                 return;
             }
 
@@ -92,6 +93,30 @@ namespace Spellmite
 
             standTime += Time.deltaTime;
             if (standTime >= departDelay) RideTo(currentFloor + 1).Forget();
+        }
+
+        // Fell off the floor (the shaft, over the edge): the parasite comes back on the lift of this floor, never on a lower one.
+        // In a host, the host dies first; the parasite is thrown out below the floor and dies next, which respawns it
+        private void CheckFall()
+        {
+            Health parasiteHealth = player.Health;
+            if (parasiteHealth.IsDead) return;
+
+            Transform body = player.ActiveBody;
+            if (body.position.y > transform.position.y + floorHeights[currentFloor] - fallDepth) return;
+
+            player.SetSpawnPoint(platform.position + transform.up);
+            if (player.IsHosted && player.Host != null)
+            {
+                if (!player.Host.Health.IsDead) Kill(player.Host.Health);
+            }
+            else Kill(parasiteHealth);
+        }
+
+        private static void Kill(Health health)
+        {
+            health.Invulnerable = false;
+            health.TakeDamage(float.MaxValue, Vector3.zero);
         }
 
         private async UniTaskVoid RideTo(int floor)
@@ -118,6 +143,8 @@ namespace Spellmite
 
             currentFloor = floor;
             UpdateFloors(floor, floor);
+            // Dying on this floor must not send the player back down to the first one
+            player.SetSpawnPoint(platform.position + transform.up);
             moving = false;
         }
 

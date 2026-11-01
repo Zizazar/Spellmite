@@ -221,7 +221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 856e3bc438694444ab3a782693443bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Spellmite.EnemyBrain
-  aggressive: 0
+  aggressive: 1
   attackRange: 2
   wanderRadius: 5
   wanderPause: 3
@@ -241,7 +241,7 @@ MonoBehaviour:
   barks: []
   barkChance: 0.6
   barkVolume: 1
-  aimRingMaterial: {fileID: 2100000, guid: fcecc1dce7ecf4b4da2e3b9751028a2e, type: 2}
+  aimRingMaterial: {fileID: 0}
   aimRingWidth: 0.08
 --- !u!114 &3609786086768035441
 MonoBehaviour:

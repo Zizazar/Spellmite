@@ -389,6 +389,15 @@ namespace GameJam.ItchPublisher
                 }
                 Directory.CreateDirectory(dir);
 
+                // BuildPlayer doesn't switch before the build callbacks run, and URP picks the shader variants
+                // for the active platform, so another platform's build would get the wrong ones.
+                if (EditorUserBuildSettings.activeBuildTarget != t.target)
+                {
+                    AppendLog("Switching the editor to " + TargetInfo.DisplayName(t.target));
+                    if (!EditorUserBuildSettings.SwitchActiveBuildTarget(TargetInfo.Group(t.target), t.target))
+                        throw new InvalidOperationException($"Couldn't switch the editor to {TargetInfo.DisplayName(t.target)}.");
+                }
+
                 var options = new BuildPlayerOptions
                 {
                     scenes = EditorBuildSettings.scenes.Where(s => s.enabled).Select(s => s.path).ToArray(),

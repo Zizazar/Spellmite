@@ -1081,6 +1081,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Parasite
       objectReference: {fileID: 0}
+    - target: {fileID: 4684706782709077201, guid: 2fb2a2b6d104f3b4c9c46ef582d120bb, type: 3}
+      propertyPath: m_Volume
+      value: 0.549
+      objectReference: {fileID: 0}
     - target: {fileID: 8356111419245858079, guid: 2fb2a2b6d104f3b4c9c46ef582d120bb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -5289,6 +5293,8 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 2743097474529525286, guid: 3a716248f7d2842439ec14cdc5fc5bbd, type: 3}
     - {fileID: 4129259795871637566, guid: 3a716248f7d2842439ec14cdc5fc5bbd, type: 3}
+    - {fileID: 6055068599498307130, guid: 3a716248f7d2842439ec14cdc5fc5bbd, type: 3}
+    - {fileID: 6695384596883870833, guid: 3a716248f7d2842439ec14cdc5fc5bbd, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a716248f7d2842439ec14cdc5fc5bbd, type: 3}
