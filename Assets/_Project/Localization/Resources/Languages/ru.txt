@@ -3,6 +3,8 @@
 # Main menu
 menu.play=Играть
 menu.quit=Выход
+menu.press_any_key=Нажмите любую клавишу, чтобы начать
+menu.language=Язык
 
 # HUD
 hud.score=Очки: {0}
@@ -16,6 +18,13 @@ hud.objective.boss=Вселяйтесь в скелетов, чтобы рани
 hud.control=Контроль
 hud.hint.possess=<color=#FF8CC0>{0}</color>  вселиться
 hud.hint.no_spells=Вселитесь во врага, чтобы колдовать
+
+# End screen
+end.title=Победа
+end.time=Время: {0}
+end.best=Рекорд: {0}
+end.record=Новый рекорд!
+end.restart=Играть снова
 
 # Tutorial
 tutorial.title=Канализация

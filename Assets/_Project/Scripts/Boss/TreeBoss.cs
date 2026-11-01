@@ -135,6 +135,8 @@ namespace Spellmite
         public Health Health => health;
         public bool IsFightActive { get; private set; }
         public bool IsDefeated => health.IsDead;
+        // Time.timeSinceLevelLoad of the killing hit: the run time
+        public float DefeatTime { get; private set; }
         public float IntroDuration => introDuration;
         public int PhaseCount => phases.Length;
         public float PhaseThreshold(int phase) => phases[phase].Below;
@@ -519,9 +521,10 @@ namespace Spellmite
         }
 
         // Stops fighting; its skeletons fall with it (the one the player sits in dies when they leave it, as at the end
-        // of a wave). The death itself (animation, effects) is still to come
+        // of a wave). The burning and the end screen are BossEnding's
         private void OnDied()
         {
+            DefeatTime = Time.timeSinceLevelLoad;
             IsFightActive = false;
             fightCts?.Cancel();
             foreach (var host in skeletons)

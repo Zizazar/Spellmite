@@ -66,6 +66,9 @@ namespace Spellmite
         private int shownDone = -1;
         private bool? shownLeave;
 
+        // The room is beaten and the drain is open; nothing turns this back
+        public bool IsRoomCleared => step == Step.Drain;
+
         private void Start()
         {
             crates = crateHeap.GetComponentsInChildren<BurnableCrate>();

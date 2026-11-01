@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Zizazr/Tutorial.unity
+    guid: db82531914f625942bc2dae9ba85e810
+  - enabled: 1
     path: Assets/Scenes/Common/Tower.unity
     guid: f00f5ba154cad454c916f02fa68dce0b
   m_configObjects:

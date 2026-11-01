@@ -3,6 +3,8 @@
 # Main menu
 menu.play=Play
 menu.quit=Quit
+menu.press_any_key=Press any key to start
+menu.language=Language
 
 # HUD
 hud.score=Score: {0}
@@ -16,6 +18,13 @@ hud.objective.boss=Possess skeletons to wound the <color=#FF6A5A>Demon Tree</col
 hud.control=Control
 hud.hint.possess=<color=#FF8CC0>{0}</color>  possess
 hud.hint.no_spells=Possess an enemy to cast spells
+
+# End screen
+end.title=Victory
+end.time=Time: {0}
+end.best=Best: {0}
+end.record=New record!
+end.restart=Play again
 
 # Tutorial
 tutorial.title=Sewers

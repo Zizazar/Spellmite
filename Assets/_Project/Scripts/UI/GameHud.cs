@@ -136,7 +136,8 @@ namespace Spellmite
 
         private void UpdateFloor()
         {
-            float t = Time.timeSinceLevelLoad;
+            // Stops on the boss's death: that's the run time
+            float t = boss != null && boss.IsDefeated ? boss.DefeatTime : Time.timeSinceLevelLoad;
             timerText.SetText("{0:00}:{1:00}<size=60%>.{2:00}</size>", Mathf.Floor(t / 60f), Mathf.Floor(t % 60f), Mathf.Floor(t * 100f % 100f)); // noloc
 
             int floor = elevator.CurrentFloor;

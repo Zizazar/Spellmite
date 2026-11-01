@@ -11646,6 +11646,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5644460842427130953, guid: 022788a173b320f4aadc59a0e8e3044e, type: 3}
+      propertyPath: m_Height
+      value: 4.200001
+      objectReference: {fileID: 0}
+    - target: {fileID: 5644460842427130953, guid: 022788a173b320f4aadc59a0e8e3044e, type: 3}
+      propertyPath: m_Radius
+      value: 1.2927231
+      objectReference: {fileID: 0}
+    - target: {fileID: 5644460842427130953, guid: 022788a173b320f4aadc59a0e8e3044e, type: 3}
+      propertyPath: m_Center.x
+      value: -5.7877456e-15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5644460842427130953, guid: 022788a173b320f4aadc59a0e8e3044e, type: 3}
+      propertyPath: m_Center.z
+      value: 1.5927231
+      objectReference: {fileID: 0}
     - target: {fileID: 6170600145206517660, guid: 022788a173b320f4aadc59a0e8e3044e, type: 3}
       propertyPath: spawnPoints
       value: 
@@ -11653,6 +11669,22 @@ PrefabInstance:
     - target: {fileID: 6775168453329944227, guid: 022788a173b320f4aadc59a0e8e3044e, type: 3}
       propertyPath: m_Name
       value: DemonTreeBoss
+      objectReference: {fileID: 0}
+    - target: {fileID: 7079002179045956013, guid: 022788a173b320f4aadc59a0e8e3044e, type: 3}
+      propertyPath: m_Height
+      value: 6.4000006
+      objectReference: {fileID: 0}
+    - target: {fileID: 7079002179045956013, guid: 022788a173b320f4aadc59a0e8e3044e, type: 3}
+      propertyPath: m_Radius
+      value: 1.0772014
+      objectReference: {fileID: 0}
+    - target: {fileID: 7079002179045956013, guid: 022788a173b320f4aadc59a0e8e3044e, type: 3}
+      propertyPath: m_Center.x
+      value: -1.7450708e-15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7079002179045956013, guid: 022788a173b320f4aadc59a0e8e3044e, type: 3}
+      propertyPath: m_Center.z
+      value: 0.37720144
       objectReference: {fileID: 0}
     - target: {fileID: 8983861451111007771, guid: 022788a173b320f4aadc59a0e8e3044e, type: 3}
       propertyPath: m_LocalPosition.x
