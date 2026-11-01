@@ -27,6 +27,7 @@ namespace Spellmite
             Cheats.NoWaves = SessionState.GetBool(nameof(Cheats.NoWaves), false);
             Cheats.NoEnemyAI = SessionState.GetBool(nameof(Cheats.NoEnemyAI), false);
             Cheats.GodMode = SessionState.GetBool(nameof(Cheats.GodMode), false);
+            Cheats.StartFloor = SessionState.GetInt(nameof(Cheats.StartFloor), 0);
         }
 
         private void OnEnable() => LoadEnemyPrefabs();
@@ -39,6 +40,18 @@ namespace Spellmite
                 nameof(Cheats.NoWaves), Cheats.NoWaves);
             Cheats.NoEnemyAI = Toggle("Enemy AI off", "Free enemies stand still and do nothing", nameof(Cheats.NoEnemyAI), Cheats.NoEnemyAI);
             Cheats.GodMode = Toggle("God mode", "The parasite and the host it controls take no damage", nameof(Cheats.GodMode), Cheats.GodMode);
+
+            EditorGUILayout.Space();
+            EditorGUILayout.LabelField("Tower", EditorStyles.boldLabel);
+            // Shown 1-based like the HUD, stored 0-based
+            int floor = Mathf.Max(1, EditorGUILayout.IntField(new GUIContent("Start on floor",
+                "The lift and the player start on this floor when Play Mode starts, the parasite respawns there. 1 = normal start"),
+                Cheats.StartFloor + 1)) - 1;
+            if (floor != Cheats.StartFloor)
+            {
+                Cheats.StartFloor = floor;
+                SessionState.SetInt(nameof(Cheats.StartFloor), floor);
+            }
 
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("Enemies", EditorStyles.boldLabel);

@@ -12,6 +12,7 @@ hud.objective.clear=Defeat the enemies on this floor
 hud.objective.wave=Defeat the enemies {0}/{1}
 hud.objective.lift=Ride the <color=#7FB8FF>lift</color> up
 hud.objective.top=The tower is cleared
+hud.objective.boss=Possess skeletons to wound the <color=#FF6A5A>Demon Tree</color>
 hud.control=Control
 hud.hint.possess=<color=#FF8CC0>{0}</color>  possess
 hud.hint.no_spells=Possess an enemy to cast spells
@@ -31,6 +32,8 @@ body.grunt=Grunt
 body.hailcaller=Hailcaller
 body.slammer=Slammer
 body.seeker=Seeker
+boss.demon_tree=Demon Tree
+boss.demon_tree.subtitle=Root of the Tower
 coins.one={0} coin
 coins.other={0} coins
 

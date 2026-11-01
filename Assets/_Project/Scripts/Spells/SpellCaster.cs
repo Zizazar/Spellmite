@@ -47,7 +47,7 @@ namespace Spellmite
         // Seconds until the slot is ready again (HUD), 0 = ready
         public float CooldownRemaining(int slot) => GetSpell(slot) != null ? Mathf.Max(0f, readyTimes[slot] - Time.time) : 0f;
 
-        // Runtime only (Spellbook "Slot 1" test button): puts a spell into a slot, ready to cast
+        // Runtime only (Spellbook "Slot 1" test button, the boss's skeletons): puts a spell into a slot, ready to cast
         public void SetSpell(int slot, SpellData spell)
         {
             while (spells.Count <= slot) spells.Add(null);
@@ -108,10 +108,10 @@ namespace Spellmite
                     break;
                 case SpellKind.Nova:
                     if (spell.AreaVfx != null) Destroy(Instantiate(spell.AreaVfx, transform.position, Quaternion.identity), 5f);
-                    SpellProjectile.DamageArea(spell, body.Health, body.IsPossessed, body.Center);
+                    SpellProjectile.DamageArea(spell, body.Health, body.IsPossessed, body.Center, body.DamageScale);
                     break;
                 case SpellKind.Barrage:
-                    Barrage(spell, GroundPoint(AimPoint()), body.IsPossessed, destroyCancellationToken).Forget();
+                    Barrage(spell, GroundPoint(AimPoint()), body.IsPossessed, body.DamageScale, destroyCancellationToken).Forget();
                     break;
             }
         }
@@ -127,12 +127,12 @@ namespace Spellmite
             for (int i = 0; i < spell.Count; i++)
             {
                 float angle = spell.Count > 1 ? Mathf.Lerp(-0.5f, 0.5f, i / (spell.Count - 1f)) * spell.SpreadAngle : 0f;
-                SpellProjectile.Launch(spell, body, body.IsPossessed, origin, Quaternion.AngleAxis(angle, Vector3.up) * dir);
+                SpellProjectile.Launch(spell, body.Health, body.IsPossessed, origin, Quaternion.AngleAxis(angle, Vector3.up) * dir, body.DamageScale);
             }
         }
 
         // The point is locked when the spell fires: the VFX falls from above, Count area hits land after BarrageDelay
-        private async UniTaskVoid Barrage(SpellData spell, Vector3 point, bool fromPlayer, CancellationToken token)
+        private async UniTaskVoid Barrage(SpellData spell, Vector3 point, bool fromPlayer, float damageScale, CancellationToken token)
         {
             // Euler(90, 0, 0) points the VFX's forward down. 8 s: the orbital beam lingers for about 6
             if (spell.AreaVfx != null)
@@ -146,7 +146,7 @@ namespace Spellmite
             for (int i = 0; i < spell.Count; i++)
             {
                 if (i > 0) await UniTask.Delay(TimeSpan.FromSeconds(spell.BarrageInterval), cancellationToken: token);
-                SpellProjectile.DamageArea(spell, body.Health, fromPlayer, point + Vector3.up * 0.5f);
+                SpellProjectile.DamageArea(spell, body.Health, fromPlayer, point + Vector3.up * 0.5f, damageScale);
             }
         }
 

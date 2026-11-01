@@ -12,6 +12,7 @@ hud.objective.clear=Победите врагов на этаже
 hud.objective.wave=Победите врагов {0}/{1}
 hud.objective.lift=Поднимитесь на <color=#7FB8FF>лифте</color>
 hud.objective.top=Башня зачищена
+hud.objective.boss=Вселяйтесь в скелетов, чтобы ранить <color=#FF6A5A>Древо-Демона</color>
 hud.control=Контроль
 hud.hint.possess=<color=#FF8CC0>{0}</color>  вселиться
 hud.hint.no_spells=Вселитесь во врага, чтобы колдовать
@@ -31,6 +32,8 @@ body.grunt=Громила
 body.hailcaller=Градовик
 body.slammer=Крушитель
 body.seeker=Искатель
+boss.demon_tree=Древо-Демон
+boss.demon_tree.subtitle=Корень башни
 coins.one={0} монета
 coins.few={0} монеты
 coins.many={0} монет

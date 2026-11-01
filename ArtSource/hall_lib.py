@@ -569,12 +569,7 @@ def build_trims(coll):
         arch_frame(bm, place_x(yc), 1.5, 7.6, 1.9, 0.3, X_END - 0.2, X_END + 0.05, RO, n=5)
         box_place(bm, place_x(yc), -0.1, 0.1, 1.8, 9.55, X_END + 0.55, X_END + 0.95, RO)
 
-    # dais and altar in front of the far wall
-    box_xyz(bm, X_END - 7.0, X_END + 0.2, -6.0, 6.0, 0.0, 0.25, RO)
-    box_xyz(bm, X_END - 6.2, X_END + 0.2, -5.4, 5.4, 0.25, 0.5, RO)
-    box_xyz(bm, X_END - 5.4, X_END + 0.2, -4.8, 4.8, 0.5, 0.75, RO)
-    box_xyz(bm, X_END - 3.0, X_END - 1.4, -1.6, 1.6, 0.75, 1.85, WA)
-    box_xyz(bm, X_END - 3.1, X_END - 1.3, -1.75, 1.75, 1.85, 2.0, RO)
+    # no dais in front of the far wall: the boss tree grows there from a planter (props_lib build_planter)
 
     ob = new_obj("Trims", bm, coll)
     hall_uvs(ob)

@@ -1,0 +1,23 @@
+{
+    "id": "20261101-154155-000719",
+    "sceneGuid": "f00f5ba154cad454c916f02fa68dce0b",
+    "kind": 0,
+    "text": "Босс",
+    "author": "Zizazr",
+    "assignee": "",
+    "createdUtc": "2026-11-01T15:41:55.2330908Z",
+    "resolved": false,
+    "resolvedBy": "",
+    "position": {
+        "x": -42.321048736572269,
+        "y": 38.10840606689453,
+        "z": -0.6789894700050354
+    },
+    "offset": {
+        "x": -4.343048095703125,
+        "y": -0.4115943908691406,
+        "z": -1.4379894733428956
+    },
+    "anchorId": "GlobalObjectId_V1-2-f00f5ba154cad454c916f02fa68dce0b-1046298303-0",
+    "anchorName": "AltarLight (1)"
+}

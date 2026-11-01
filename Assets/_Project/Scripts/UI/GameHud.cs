@@ -12,6 +12,7 @@ namespace Spellmite
         [SerializeField] private ParasiteBody parasite;
         [SerializeField, Tooltip("Empty = no floor panel")] private TowerElevator elevator;
         [SerializeField] private WaveSpawner waves;
+        [SerializeField, Tooltip("Boss on the top floor. Empty = none")] private TreeBoss boss;
 
         [Header("Health")]
         [SerializeField, Tooltip("Name of the body: the host's NameKey, or parasiteNameKey when free")] private LocText bodyName;
@@ -135,10 +136,16 @@ namespace Spellmite
                 floorText.SetArgs(floor + 1);
             }
 
-            bool cleared = elevator.IsCurrentFloorCleared;
+            // The boss floor isn't cleared while the boss lives, even before the fight starts
+            bool bossAlive = boss != null && !boss.IsDefeated && floor >= elevator.FloorCount - 1;
+            bool cleared = elevator.IsCurrentFloorCleared && !bossAlive;
             string key;
             int done = 0, total = 0;
-            if (cleared)
+            if (bossAlive)
+            {
+                key = "hud.objective.boss";
+            }
+            else if (cleared)
             {
                 key = floor >= elevator.FloorCount - 1 ? "hud.objective.top" : "hud.objective.lift";
             }

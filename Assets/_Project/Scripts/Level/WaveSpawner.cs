@@ -115,22 +115,23 @@ namespace Spellmite
 
         private void Spawn(EnemyBrain prefab, int floor)
         {
-            Transform point = PickPoint(spawnPoints[floor]);
+            Vector3 playerPosition = player != null ? player.ActiveBody.position : spawnPoints[floor].position;
+            Transform point = PickPoint(spawnPoints[floor], playerPosition, minPlayerDistance);
             spawned.Add(Instantiate(prefab, point.position, point.rotation));
             SpawnedCount++;
         }
 
-        // A random point away from the player, or the farthest one when all are close
-        private Transform PickPoint(Transform parent)
+        // A random child of parent at least minDistance from the player, or the farthest one when all are close.
+        // The boss spawns its skeletons with it too
+        public static Transform PickPoint(Transform parent, Vector3 playerPosition, float minDistance)
         {
-            Vector3 playerPosition = player != null ? player.ActiveBody.position : parent.position;
             var far = new List<Transform>();
             Transform farthest = parent.GetChild(0);
             float maxDistance = -1f;
             foreach (Transform point in parent)
             {
                 float distance = Vector3.Distance(point.position, playerPosition);
-                if (distance >= minPlayerDistance) far.Add(point);
+                if (distance >= minDistance) far.Add(point);
                 if (distance > maxDistance)
                 {
                     maxDistance = distance;

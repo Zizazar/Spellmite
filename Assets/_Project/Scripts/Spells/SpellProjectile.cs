@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Spellmite
 {
-    // A flying spell, created at runtime by SpellCaster. The Retro Arsenal prefabs are only its visuals.
+    // A flying spell, created at runtime by SpellCaster (and the boss). The Retro Arsenal prefabs are only its visuals.
     // Flies through its own side and plain triggers, stops at walls and enemies of the caster.
     public class SpellProjectile : MonoBehaviour
     {
@@ -16,19 +16,22 @@ namespace Spellmite
         private SpellData spell;
         private Health ownerHealth;
         private bool fromPlayer;
+        private float damageScale = 1f;
         private Vector3 velocity;
         private float dieTime;
         private Collider homingTarget;
         private GameObject vfx;
 
-        public static void Launch(SpellData spell, HostBody owner, bool fromPlayer, Vector3 position, Vector3 direction)
+        // damageScale: multiplier on the spell's Damage (HostBody.DamageScale)
+        public static void Launch(SpellData spell, Health owner, bool fromPlayer, Vector3 position, Vector3 direction, float damageScale = 1f)
         {
             var rotation = Quaternion.LookRotation(direction);
             var projectile = new GameObject(spell.name).AddComponent<SpellProjectile>();
             projectile.transform.SetPositionAndRotation(position, rotation);
             projectile.spell = spell;
-            projectile.ownerHealth = owner.Health;
+            projectile.ownerHealth = owner;
             projectile.fromPlayer = fromPlayer;
+            projectile.damageScale = damageScale;
             projectile.velocity = direction * spell.Speed;
             projectile.dieTime = Time.time + spell.Lifetime;
             if (spell.ProjectileVfx != null) projectile.vfx = Instantiate(spell.ProjectileVfx, position, rotation, projectile.transform);
@@ -103,8 +106,8 @@ namespace Spellmite
 
             damaged.Clear();
             var directHealth = direct.GetComponentInParent<Health>();
-            if (directHealth != null) Damage(spell, directHealth, point, velocity);
-            if (spell.SplashRadius > 0f) Splash(spell, ownerHealth, fromPlayer, point, velocity);
+            if (directHealth != null) Damage(spell, directHealth, point, velocity, damageScale);
+            if (spell.SplashRadius > 0f) Splash(spell, ownerHealth, fromPlayer, point, velocity, damageScale);
             BurnableCrate.IgniteAround(spell, point);
             // Plain hits shake a little too
             BodyCamera.ShakeExplosion(point, Mathf.Max(spell.SplashRadius, 0.5f));
@@ -113,32 +116,32 @@ namespace Spellmite
         }
 
         // Every enemy of the caster within the spell's SplashRadius of the point. Area spells (Nova, Barrage) hit with this
-        public static void DamageArea(SpellData spell, Health owner, bool fromPlayer, Vector3 point)
+        public static void DamageArea(SpellData spell, Health owner, bool fromPlayer, Vector3 point, float damageScale = 1f)
         {
             damaged.Clear();
-            Splash(spell, owner, fromPlayer, point, Vector3.zero);
+            Splash(spell, owner, fromPlayer, point, Vector3.zero, damageScale);
             BurnableCrate.IgniteAround(spell, point);
             BodyCamera.ShakeExplosion(point, spell.SplashRadius);
         }
 
-        private static void Splash(SpellData spell, Health owner, bool fromPlayer, Vector3 point, Vector3 pushFallback)
+        private static void Splash(SpellData spell, Health owner, bool fromPlayer, Vector3 point, Vector3 pushFallback, float damageScale)
         {
             int count = Physics.OverlapSphereNonAlloc(point, spell.SplashRadius, overlapBuffer, ~0, QueryTriggerInteraction.Collide);
             for (int i = 0; i < count; i++)
             {
                 var health = overlapBuffer[i].GetComponentInParent<Health>();
-                if (health != null && CanHit(overlapBuffer[i], owner, fromPlayer)) Damage(spell, health, point, pushFallback);
+                if (health != null && CanHit(overlapBuffer[i], owner, fromPlayer)) Damage(spell, health, point, pushFallback, damageScale);
             }
         }
 
         // pushFallback: knockback direction when the target stands right on the point
-        private static void Damage(SpellData spell, Health target, Vector3 point, Vector3 pushFallback)
+        private static void Damage(SpellData spell, Health target, Vector3 point, Vector3 pushFallback, float damageScale)
         {
             if (target.Invulnerable || !damaged.Add(target)) return;
 
             Vector3 away = Vector3.ProjectOnPlane(target.transform.position - point, Vector3.up);
             if (away.sqrMagnitude < 0.01f) away = Vector3.ProjectOnPlane(pushFallback, Vector3.up);
-            target.TakeDamage(spell.Damage, (away.normalized + Vector3.up * 0.4f) * spell.Knockback);
+            target.TakeDamage(spell.Damage * damageScale, (away.normalized + Vector3.up * 0.4f) * spell.Knockback);
 
             if (spell.HitBuff != null && target.TryGetComponent(out BuffHolder buffs)) buffs.Apply(spell.HitBuff);
         }

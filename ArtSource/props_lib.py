@@ -4,9 +4,9 @@ import bpy, bmesh, math
 import numpy as np
 from mathutils import Vector, Matrix
 
-PROP_MATS = ["M_Tower_Statue", "M_Tower_Iron", "M_Tower_Wax", "M_Tower_Flame", "M_Tower_Clay", "M_Tower_Wall", "M_Tower_Rough", "M_Tower_Void"]
-ST, IRN, WAX, FLM, CLY, WAL, RGH, VOD = range(len(PROP_MATS))
-PROP_TILE = [1.0, 1.0, 0.5, 1.0, 1.0, 1.5, 1.5, 1.0]
+PROP_MATS = ["M_Tower_Statue", "M_Tower_Iron", "M_Tower_Wax", "M_Tower_Flame", "M_Tower_Clay", "M_Tower_Wall", "M_Tower_Rough", "M_Tower_Void", "M_Tower_Soil"]
+ST, IRN, WAX, FLM, CLY, WAL, RGH, VOD, SOI = range(len(PROP_MATS))
+PROP_TILE = [1.0, 1.0, 0.5, 1.0, 1.0, 1.5, 1.5, 1.0, 1.0]
 
 
 def noise_texture(name, base, var, blotch, seed):
@@ -43,6 +43,7 @@ def color_material(name, color):
 def ensure_prop_materials():
     textured_material("M_Tower_Statue", noise_texture("statue_stone", (0.58, 0.56, 0.52), 0.08, 0.12, 3))
     textured_material("M_Tower_Clay", noise_texture("clay", (0.42, 0.26, 0.18), 0.1, 0.15, 5))
+    textured_material("M_Tower_Soil", noise_texture("soil", (0.22, 0.15, 0.1), 0.2, 0.22, 41))
     color_material("M_Tower_Wax", (0.85, 0.78, 0.62, 1))
     emission_material("M_Tower_Flame", None, (1.0, 0.62, 0.22, 1))
 
@@ -278,8 +279,36 @@ def build_column_drum(coll):
     b.ring_solid(rings + [broken], WAL, True, True)
     return b.finish("Column_Drum", coll)
 
+def build_planter(coll):
+    """Octagonal stone bed full of earth in front of the far wall, where the boss tree grows. A flat side faces -y."""
+    b = Builder()
+    ph = math.pi / 8
+    b.lathe([(3.95, 0.0), (3.95, 0.12), (3.85, 0.12), (3.85, 0.4), (3.92, 0.4), (3.92, 0.48), (3.45, 0.48), (3.45, 0.0)],
+            8, RGH, phase=ph, cap=False)
+    # earth: 16 points round the inner octagon, scaled in towards a mound in the middle
+    rng = np.random.default_rng(51)
+    edge = []
+    for i in range(8):
+        a0, a1 = ph + 2 * math.pi * i / 8, ph + 2 * math.pi * (i + 1) / 8
+        p0 = Vector((math.cos(a0), math.sin(a0), 0)) * 3.45
+        p1 = Vector((math.cos(a1), math.sin(a1), 0)) * 3.45
+        edge += [p0, (p0 + p1) / 2]
+    rings = []
+    for k, z in ((1.0, 0.36), (0.75, 0.44), (0.5, 0.52), (0.25, 0.58)):
+        jitter = 0.0 if k == 1.0 else 0.04
+        rings.append(b.verts([Vector((p.x * k, p.y * k, z + rng.uniform(-jitter, jitter))) for p in edge]))
+    top = b.verts([Vector((0, 0, 0.62))])[0]
+    n = len(edge)
+    for r0, r1 in zip(rings, rings[1:]):
+        for i in range(n):
+            j = (i + 1) % n
+            b.bm.faces.new((r0[i], r0[j], r1[j], r1[i])).material_index = SOI
+    for i in range(n):
+        b.bm.faces.new((rings[-1][i], rings[-1][(i + 1) % n], top)).material_index = SOI
+    return b.finish("Planter", coll)
+
 PROP_BUILDERS = [build_knight, build_fallen_knight, build_saint, build_candelabrum, build_chandelier, build_candles,
-                 build_urn, build_rubble, build_column_drum]
+                 build_urn, build_rubble, build_column_drum, build_planter]
 
 def build_props():
     ensure_prop_materials()

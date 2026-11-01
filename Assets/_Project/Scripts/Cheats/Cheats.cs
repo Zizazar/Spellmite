@@ -11,6 +11,8 @@ namespace Spellmite
         public static bool NoEnemyAI;
         // The parasite and the host it controls take no damage
         public static bool GodMode;
+        // Tower floor (0-based) the lift and the player start on, the parasite respawns there too. 0 = normal start
+        public static int StartFloor;
     }
 }
 #endif

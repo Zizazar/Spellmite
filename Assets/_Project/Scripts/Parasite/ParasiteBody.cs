@@ -522,7 +522,8 @@ namespace Spellmite
             for (int i = 0; i < count; i++)
             {
                 var target = overlapBuffer[i].GetComponentInParent<Health>();
-                if (target != null && target != health) target.TakeDamage(biteDamage, aim * 2f);
+                // The boss tree's bark is too hard for teeth: only possessed bodies hurt it
+                if (target != null && target != health && !target.TryGetComponent(out TreeBoss _)) target.TakeDamage(biteDamage, aim * 2f);
             }
         }
 

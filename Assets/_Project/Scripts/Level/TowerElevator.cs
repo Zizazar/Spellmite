@@ -37,9 +37,33 @@ namespace Spellmite
         private void Start()
         {
             player = FindAnyObjectByType<ParasiteBody>();
+#if UNITY_EDITOR
+            currentFloor = Mathf.Clamp(Cheats.StartFloor, 0, floorHeights.Length - 1);
+#endif
             SetPlatformHeight(floorHeights[currentFloor]);
             UpdateFloors(currentFloor, currentFloor);
+#if UNITY_EDITOR
+            if (currentFloor > 0 && player != null) PutPlayerOnPlatform();
+#endif
         }
+
+#if UNITY_EDITOR
+        // Start floor cheat: drop the player onto the deck, it respawns there too
+        private void PutPlayerOnPlatform()
+        {
+            Transform body = player.ActiveBody;
+            Vector3 position = platform.position + transform.up;
+            if (body.TryGetComponent(out CharacterController controller))
+            {
+                controller.enabled = false;
+                body.position = position;
+                controller.enabled = true;
+            }
+            else body.position = position;
+            player.SetSpawnPoint(position);
+            Physics.SyncTransforms();
+        }
+#endif
 
         private void Update()
         {

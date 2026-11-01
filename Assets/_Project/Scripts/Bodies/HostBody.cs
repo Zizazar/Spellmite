@@ -92,6 +92,9 @@ namespace Spellmite
         public float Resistance01 => resistance;
         // Tutorial: possessing this body never runs out and its spells cost no resistance
         public bool EndlessPossession { get; set; }
+        // Boss skeletons: their spells and swings do this fraction of damage while free, full once possessed
+        public float FreeDamageScale { get; set; } = 1f;
+        public float DamageScale => IsPossessed ? 1f : FreeDamageScale;
         // Player only: right after a cast or a swing, while the body should look where the crosshair is
         public bool IsAiming => IsPossessed && (Time.time < aimModeUntil || IsCasting);
         // Player only: when the last cast or swing went off (PlayerBrain drops the sprint on it)
@@ -306,7 +309,7 @@ namespace Spellmite
                 if (target == null || target == health || !damaged.Add(target)) continue;
 
                 Vector3 push = (Vector3.ProjectOnPlane(target.transform.position - transform.position, Vector3.up).normalized + Vector3.up * 0.4f) * attackKnockback;
-                target.TakeDamage(attackDamage, push);
+                target.TakeDamage(attackDamage * DamageScale, push);
             }
             if (IsPossessed && damaged.Count > 0) BodyCamera.ShakeMeleeHit();
         }

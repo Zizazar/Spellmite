@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8e66e32b2059544bbe83ab10b199e0d, type: 3}
+  m_Name: BossOrb
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.SpellData
+  <NameKey>k__BackingField: 
+  <Icon>k__BackingField: {fileID: 0}
+  <Tags>k__BackingField: []
+  <Kind>k__BackingField: 0
+  <Cooldown>k__BackingField: 0
+  <CastTime>k__BackingField: 1
+  <ResistanceCost>k__BackingField: 0
+  <CastVfx>k__BackingField: {fileID: 2028918925722539701, guid: efc6c94c270ee2a4e9983eb20ccb423f, type: 3}
+  <SelfBuff>k__BackingField: {fileID: 0}
+  <CameraKick>k__BackingField: 0
+  <Damage>k__BackingField: 15
+  <Speed>k__BackingField: 10
+  <Gravity>k__BackingField: 0
+  <Lifetime>k__BackingField: 7
+  <Radius>k__BackingField: 0.45
+  <Knockback>k__BackingField: 6
+  <Count>k__BackingField: 1
+  <SpreadAngle>k__BackingField: 20
+  <HomingTurnRate>k__BackingField: 30
+  <HomingRange>k__BackingField: 40
+  <SplashRadius>k__BackingField: 1.5
+  <HitBuff>k__BackingField: {fileID: 0}
+  <AreaVfx>k__BackingField: {fileID: 0}
+  <BarrageHeight>k__BackingField: 8
+  <BarrageVfxOnGround>k__BackingField: 0
+  <BarrageDelay>k__BackingField: 0.7
+  <BarrageInterval>k__BackingField: 0.15
+  <ProjectileVfx>k__BackingField: {fileID: 7514803667682831432, guid: 84ffeb7a8666f664c825a5a7c2ca9fa8, type: 3}
+  <ImpactVfx>k__BackingField: {fileID: 7402715140474612981, guid: 82274052f8682994a89395c57c139bfa, type: 3}
+  <MuzzleVfx>k__BackingField: {fileID: 0}
+  <AiUse>k__BackingField: 0
+  <AiMinRange>k__BackingField: 0
+  <AiMaxRange>k__BackingField: 12
+  <AiHealthBelow>k__BackingField: 0.5
+  <AiTokenCost>k__BackingField: 0
