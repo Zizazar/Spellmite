@@ -108,10 +108,10 @@ namespace Spellmite
                     break;
                 case SpellKind.Nova:
                     if (spell.AreaVfx != null) Destroy(Instantiate(spell.AreaVfx, transform.position, Quaternion.identity), 5f);
-                    SpellProjectile.DamageArea(spell, body.Health, body.IsPossessed, body.Center, body.DamageScale);
+                    SpellProjectile.DamageArea(spell, body.Health, body.IsPossessed, body.Center, body.SpellDamageScale);
                     break;
                 case SpellKind.Barrage:
-                    Barrage(spell, GroundPoint(AimPoint()), body.IsPossessed, body.DamageScale, destroyCancellationToken).Forget();
+                    Barrage(spell, GroundPoint(AimPoint()), body.IsPossessed, body.SpellDamageScale, destroyCancellationToken).Forget();
                     break;
             }
         }
@@ -127,7 +127,7 @@ namespace Spellmite
             for (int i = 0; i < spell.Count; i++)
             {
                 float angle = spell.Count > 1 ? Mathf.Lerp(-0.5f, 0.5f, i / (spell.Count - 1f)) * spell.SpreadAngle : 0f;
-                SpellProjectile.Launch(spell, body.Health, body.IsPossessed, origin, Quaternion.AngleAxis(angle, Vector3.up) * dir, body.DamageScale);
+                SpellProjectile.Launch(spell, body.Health, body.IsPossessed, origin, Quaternion.AngleAxis(angle, Vector3.up) * dir, body.SpellDamageScale);
             }
         }
 

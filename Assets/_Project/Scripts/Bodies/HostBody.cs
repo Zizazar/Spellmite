@@ -95,9 +95,12 @@ namespace Spellmite
         public float Resistance01 => resistance;
         // Tutorial: possessing this body never runs out and its spells cost no resistance
         public bool EndlessPossession { get; set; }
-        // Boss skeletons: their spells and swings do this fraction of damage while free, full once possessed
+        // Boss skeletons: their spells and swings do this fraction of damage while free, full once possessed,
+        // and their spells this multiple once possessed
         public float FreeDamageScale { get; set; } = 1f;
+        public float PossessedSpellScale { get; set; } = 1f;
         public float DamageScale => IsPossessed ? 1f : FreeDamageScale;
+        public float SpellDamageScale => IsPossessed ? PossessedSpellScale : FreeDamageScale;
         // Player only: right after a cast or a swing, while the body should look where the crosshair is
         public bool IsAiming => IsPossessed && (Time.time < aimModeUntil || IsCasting);
         // Player only: when the last cast or swing went off (PlayerBrain drops the sprint on it)

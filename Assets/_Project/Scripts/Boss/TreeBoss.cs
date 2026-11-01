@@ -72,7 +72,8 @@ namespace Spellmite
         [SerializeField, Tooltip("Points closer to the player than this are skipped while there are others")] private float minSpawnDistance = 6f;
         [SerializeField, Tooltip("Seconds between two new skeletons")] private float spawnInterval = 2f;
         [SerializeField, Range(0f, 1f), Tooltip("A free skeleton's damage (spells and swings), fraction of normal")] private float skeletonDamageScale = 0.15f;
-        [SerializeField, Tooltip("Skeletons roll their spells from these. Slot 1 always gets an Attack one, so a possessed skeleton can hurt the tree")] private List<SpellData> skeletonSpells = new();
+        [SerializeField, Min(0f), Tooltip("A possessed skeleton's spell damage, multiple of normal (swings stay normal)")] private float possessedSpellDamageScale = 1.5f;
+        [SerializeField, Tooltip("Skeletons roll their spells from these, heals skipped. Slot 1 always gets an Attack one, so a possessed skeleton can hurt the tree")] private List<SpellData> skeletonSpells = new();
         [SerializeField, Min(1)] private int spellsPerSkeleton = 3;
 
         [Header("Orbs")]
@@ -480,13 +481,15 @@ namespace Spellmite
             var brain = Instantiate(skeletonPrefab, point.position, point.rotation);
             var host = brain.GetComponent<HostBody>();
             host.FreeDamageScale = skeletonDamageScale;
+            host.PossessedSpellScale = possessedSpellDamageScale;
             if (brain.TryGetComponent(out SpellCaster caster)) RollSpells(caster);
             skeletons.Add(host);
         }
 
         private void RollSpells(SpellCaster caster)
         {
-            var pool = skeletonSpells.FindAll(spell => spell != null);
+            // No heals (Mend, LeechNova): the hall's skeletons would just outlast the player
+            var pool = skeletonSpells.FindAll(spell => spell != null && !Heals(spell));
             var attacks = pool.FindAll(spell => spell.AiUse == SpellAiUse.Attack);
             for (int slot = 0; slot < spellsPerSkeleton && pool.Count > 0; slot++)
             {
@@ -495,6 +498,9 @@ namespace Spellmite
                 caster.SetSpell(slot, spell);
             }
         }
+
+        private static bool Heals(SpellData spell) =>
+            spell.AiUse == SpellAiUse.HealWhenHurt || (spell.SelfBuff != null && spell.SelfBuff.HealthPerTick > 0f);
 
         // ---------- Hits and death ----------
 
