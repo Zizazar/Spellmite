@@ -120,6 +120,7 @@ MonoBehaviour:
   ejectSpeed: 9
   relatchBlockTime: 0.6
   exitInvulnerability: 0.3
+  latchVfx: {fileID: 9039825399239159426, guid: 965fd7c1cdc8c8e428bfb4731988540a, type: 3}
   lowControl: 0.25
   criticalControl: 0.1
   thrownOffHitstop: 0.12

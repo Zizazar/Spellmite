@@ -70,7 +70,7 @@ namespace Spellmite
 
         [Header("Damage")]
         [SerializeField, Tooltip("Cap on knockback speed, so the light parasite isn't launched across the map")] private float maxKnockbackSpeed = 6f;
-        [SerializeField] private float respawnDelay = 1.5f;
+        [SerializeField, Tooltip("Only without a DeathTransition in the scene; it sets its own timing")] private float respawnDelay = 1.5f;
 
         [Header("Spawn pockets")]
         [SerializeField, Tooltip("Push out of an EnemyPocket at its back wall, in multiples of the body's acceleration. Walking in, the push wins past 1/this of the depth")] private float pocketPush = 4f;
@@ -836,20 +836,38 @@ namespace Spellmite
 
         private void OnDied() => Respawn().Forget();
 
+        // With a DeathTransition in the scene the move happens under its black, so the player never sees the teleport
         private async UniTaskVoid Respawn()
         {
-            visual.gameObject.SetActive(false);
             State = ParasiteState.Free;
             velocity = Vector3.zero;
             onSurface = false;
 
-            await UniTask.Delay(TimeSpan.FromSeconds(respawnDelay), cancellationToken: destroyCancellationToken);
+            DeathTransition transition = DeathTransition.Instance;
+            if (transition != null)
+            {
+                punchTween.Stop();
+                punchTween = Tween.Scale(visual, Vector3.zero, 0.2f, Ease.InBack, useUnscaledTime: true);
+                await transition.Cover().AttachExternalCancellation(destroyCancellationToken);
+            }
+            else
+            {
+                await UniTask.Delay(TimeSpan.FromSeconds(respawnDelay), cancellationToken: destroyCancellationToken);
+            }
+            visual.gameObject.SetActive(false);
 
             transform.position = spawnPosition;
             up = Vector3.up;
+            velocity = Vector3.zero;
             health.ResetHealth();
             invulnerableUntil = Time.time + 1f;
+            punchTween.Stop();
+            visual.localScale = visualBaseScale;
             visual.gameObject.SetActive(true);
+
+            if (transition == null) return;
+            await transition.Reveal().AttachExternalCancellation(destroyCancellationToken);
+            Punch(new Vector3(0.5f, 0.5f, 0.5f));
         }
 
         private void OnDrawGizmosSelected()
