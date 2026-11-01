@@ -11253,10 +11253,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 536959345084208087, guid: 022788a173b320f4aadc59a0e8e3044e, type: 3}
-      propertyPath: maxHealth
-      value: 600
-      objectReference: {fileID: 0}
     - target: {fileID: 6170600145206517660, guid: 022788a173b320f4aadc59a0e8e3044e, type: 3}
       propertyPath: spawnPoints
       value: 
