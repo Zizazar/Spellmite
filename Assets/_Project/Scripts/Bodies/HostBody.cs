@@ -37,6 +37,10 @@ namespace Spellmite
         [SerializeField] private float attackCooldown = 0.8f;
         [SerializeField] private float attackKnockback = 8f;
 
+        [Header("Input forgiveness")]
+        [SerializeField, Tooltip("Player only: a press while busy, on cooldown or in the air still fires within this many seconds")] private float inputBuffer = 0.15f;
+        [SerializeField, Tooltip("Jump still works this long after leaving the ground")] private float coyoteTime = 0.12f;
+
         [Header("Visuals")]
         [SerializeField, Tooltip("Optional. Uses triggers AttackLeft, AttackRight, Hit, Death, Cast and float Speed")] private Animator animator;
         [SerializeField, Tooltip("Punched on hits/attacks when there is no Animator")] private Transform visual;
@@ -53,6 +57,12 @@ namespace Spellmite
         private float nextAttackTime;
         private float attackFacingUntil;
         private bool nextAttackLeft = true;
+        // Buffered presses: valid while Time.time <= the time, -1 = none
+        private float jumpBufferedUntil = -1f;
+        private float attackBufferedUntil = -1f;
+        private float castBufferedUntil = -1f;
+        private int bufferedCastSlot;
+        private float lastGroundedTime = -1f;
         private Tween visualTween;
         private Vector3 visualBaseScale = Vector3.one;
         private readonly Collider[] hitBuffer = new Collider[16];
@@ -91,13 +101,33 @@ namespace Spellmite
         {
             IsPossessed = true;
             input = default;
+            ClearBuffers();
         }
 
         public void Release()
         {
             IsPossessed = false;
             input = default;
+            ClearBuffers();
             Stun(stunAfterRelease);
+        }
+
+        private void ClearBuffers()
+        {
+            jumpBufferedUntil = attackBufferedUntil = castBufferedUntil = -1f;
+        }
+
+        // Enemies get no buffer, so they act exactly when their brain (and AttackDirector) says so
+        private void BufferPresses()
+        {
+            float until = Time.time + (IsPossessed ? inputBuffer : 0f);
+            if (input.JumpPressed) jumpBufferedUntil = until;
+            if (input.AttackPressed) attackBufferedUntil = until;
+            if (input.CastSlot > 0)
+            {
+                castBufferedUntil = until;
+                bufferedCastSlot = input.CastSlot;
+            }
         }
 
         public void Stun(float duration)
@@ -125,8 +155,10 @@ namespace Spellmite
                 ? Mathf.Max(0f, resistance - dt / resistDuration)
                 : Mathf.Min(1f, resistance + dt * resistRecovery);
 
+            BufferPresses();
             Vector3 move = canAct ? input.Move : Vector3.zero;
             bool grounded = controller.isGrounded;
+            if (grounded) lastGroundedTime = Time.time;
 
             // Horizontal
             Vector3 horizontal = new(velocity.x, 0f, velocity.z);
@@ -138,17 +170,30 @@ namespace Spellmite
             // Vertical
             float vertical = velocity.y;
             if (grounded && vertical < 0f) vertical = -2f;
-            if (canAct && grounded && input.JumpPressed) vertical = profile.JumpSpeed;
+            // isGrounded flickers on uneven floors, and a jump just after a ledge should still count
+            if (canAct && Time.time <= jumpBufferedUntil && Time.time - lastGroundedTime <= coyoteTime)
+            {
+                vertical = profile.JumpSpeed;
+                jumpBufferedUntil = -1f;
+                lastGroundedTime = -1f;
+            }
             vertical -= profile.Gravity * dt;
 
             velocity = new Vector3(horizontal.x, vertical, horizontal.z);
             controller.Move(velocity * dt);
 
-            if (canAct && input.CastSlot > 0 && caster != null && caster.TryCast(input.CastSlot - 1, input.CastTimeScale))
+            if (canAct && Time.time <= castBufferedUntil && caster != null && caster.TryCast(bufferedCastSlot - 1, input.CastTimeScale))
+            {
+                castBufferedUntil = -1f;
+                SnapToAim();
                 PlayCast();
+            }
 
-            if (canAct && input.AttackPressed && Time.time >= nextAttackTime && !IsCasting)
+            if (canAct && Time.time <= attackBufferedUntil && Time.time >= nextAttackTime && !IsCasting)
+            {
+                attackBufferedUntil = -1f;
                 Attack().Forget();
+            }
 
             UpdateFacing(horizontal, dt);
             if (animator != null) animator.SetFloat(SpeedHash, horizontal.magnitude);
@@ -166,10 +211,20 @@ namespace Spellmite
             transform.rotation = Quaternion.RotateTowards(transform.rotation, target, profile.TurnSpeed * dt);
         }
 
+        // The player's body faces the crosshair at once, so spells and swings leave towards the target.
+        // Enemies keep turning at TurnSpeed, which keeps their attacks readable
+        private void SnapToAim()
+        {
+            if (!IsPossessed) return;
+            Vector3 face = Vector3.ProjectOnPlane(input.Aim, Vector3.up);
+            if (face.sqrMagnitude > 1e-4f) transform.rotation = Quaternion.LookRotation(face.normalized, Vector3.up);
+        }
+
         private async UniTaskVoid Attack()
         {
             nextAttackTime = Time.time + attackCooldown;
             attackFacingUntil = Time.time + attackHitDelay;
+            SnapToAim();
 
             if (animator != null)
             {

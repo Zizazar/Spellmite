@@ -57,6 +57,10 @@ namespace Spellmite
         [SerializeField] private float biteCooldown = 0.4f;
         [SerializeField] private float biteLunge = 5f;
 
+        [Header("Input forgiveness")]
+        [SerializeField, Tooltip("A press while busy, on cooldown or without a target still fires within this many seconds")] private float inputBuffer = 0.15f;
+        [SerializeField, Tooltip("Jump still works this long after crawling off a floor")] private float coyoteTime = 0.12f;
+
         [Header("Damage")]
         [SerializeField, Tooltip("Cap on knockback speed, so the light parasite isn't launched across the map")] private float maxKnockbackSpeed = 6f;
         [SerializeField] private float respawnDelay = 1.5f;
@@ -79,6 +83,11 @@ namespace Spellmite
         private float leapEndTime;
         private float invulnerableUntil;
         private float blockUntil;
+        // Buffered presses: valid while Time.time <= the time, -1 = none
+        private float jumpBufferedUntil = -1f;
+        private float biteBufferedUntil = -1f;
+        private float leapBufferedUntil = -1f;
+        private float lastFloorTime = -1f;
         private float latchTimer;
         private HostBody leapTarget;
         private HostBody blockedHost;
@@ -127,6 +136,7 @@ namespace Spellmite
             float dt = Time.deltaTime;
             health.Invulnerable = IsHosted || Time.time < invulnerableUntil;
             if (State == ParasiteState.Free && buffs != null && buffs.IsStunned) input = default;
+            BufferPresses();
             PushOutOfPockets(dt);
 
             switch (State)
@@ -177,21 +187,32 @@ namespace Spellmite
             velocity += push;
         }
 
+        private void BufferPresses()
+        {
+            float until = Time.time + inputBuffer;
+            if (input.JumpPressed) jumpBufferedUntil = until;
+            if (input.AttackPressed) biteBufferedUntil = until;
+            if (input.LeapPressed) leapBufferedUntil = until;
+        }
+
+        private bool JumpBuffered => Time.time <= jumpBufferedUntil;
+
         // ---------- Free ----------
 
         private void UpdateFree(float dt)
         {
             if (TryLeapFromInput()) return;
-            if (input.AttackPressed && Time.time >= nextBiteTime) Bite();
+            if (Time.time <= biteBufferedUntil && Time.time >= nextBiteTime) Bite();
 
             if (onSurface && onWall) UpdateWall(dt);
             else if (onSurface) Crawl(dt);
-            else Fly(dt, 1f, false);
+            else if (!TryCoyoteJump()) Fly(dt, 1f, false);
         }
 
+        // A buffered press keeps trying while it lasts, so RMB a moment before a host enters the crosshair still leaps
         private bool TryLeapFromInput()
         {
-            if (!input.LeapPressed || Time.time < nextLeapTime) return false;
+            if (Time.time > leapBufferedUntil || Time.time < nextLeapTime) return false;
             bool airborne = !onSurface || State == ParasiteState.Leaping;
             if (airborne && airLeaps <= 0) return false;
 
@@ -200,16 +221,17 @@ namespace Spellmite
             if (target == null) return false;
 
             if (airborne) airLeaps--;
+            leapBufferedUntil = -1f;
             StartLeap(target, Vector3.zero);
             return true;
         }
 
         private void Crawl(float dt)
         {
-            if (input.JumpPressed)
+            lastFloorTime = Time.time;
+            if (JumpBuffered)
             {
-                velocity = Vector3.ProjectOnPlane(velocity, up) + (up + Vector3.up * 0.3f).normalized * profile.JumpSpeed;
-                onSurface = false;
+                FloorJump();
                 return;
             }
 
@@ -260,6 +282,23 @@ namespace Spellmite
             if (!StickToSurface()) onSurface = false;
         }
 
+        // Off the floor along its normal (up keeps the last floor's normal after crawling off it)
+        private void FloorJump()
+        {
+            velocity = Vector3.ProjectOnPlane(velocity, up) + (up + Vector3.up * 0.3f).normalized * profile.JumpSpeed;
+            onSurface = false;
+            jumpBufferedUntil = -1f;
+            lastFloorTime = -1f;
+        }
+
+        // Crawled off a ledge a moment ago: still jumps as if on the floor
+        private bool TryCoyoteJump()
+        {
+            if (!JumpBuffered || Time.time - lastFloorTime > coyoteTime) return false;
+            FloorJump();
+            return true;
+        }
+
         private bool StickToSurface()
         {
             if (!Physics.Raycast(transform.position, -up, out var hit, radius + groundSnapDistance, surfaceMask, QueryTriggerInteraction.Ignore)
@@ -303,7 +342,7 @@ namespace Spellmite
         // Scramble up while the run's momentum lasts, then slide down slowly and drop off
         private void UpdateWall(float dt)
         {
-            if (input.JumpPressed)
+            if (JumpBuffered)
             {
                 WallJump();
                 return;
@@ -378,6 +417,7 @@ namespace Spellmite
 
             velocity = (away + steer.normalized).normalized * wallJumpSpeed + Vector3.up * profile.JumpSpeed;
             onSurface = false;
+            jumpBufferedUntil = -1f;
             Punch(new Vector3(-0.15f, 0.3f, -0.15f));
         }
 
@@ -457,6 +497,7 @@ namespace Spellmite
         private void Bite()
         {
             nextBiteTime = Time.time + biteCooldown;
+            biteBufferedUntil = -1f;
             Vector3 aim = Vector3.ProjectOnPlane(input.Aim, onSurface && !onWall ? up : Vector3.up);
             aim = aim.sqrMagnitude > 1e-4f ? aim.normalized : transform.forward;
             velocity += aim * biteLunge;
@@ -478,6 +519,7 @@ namespace Spellmite
             State = ParasiteState.Leaping;
             leapTarget = target;
             onSurface = false;
+            lastFloorTime = -1f;
             velocity = target != null ? (target.LatchPoint.position - transform.position).normalized * leapSpeed : launchVelocity;
             leapEndTime = Time.time + leapMaxTime;
             nextLeapTime = Time.time + leapCooldown;
@@ -593,8 +635,9 @@ namespace Spellmite
                 return;
             }
 
-            if (input.LeapPressed)
+            if (Time.time <= leapBufferedUntil)
             {
+                leapBufferedUntil = -1f;
                 ExitHost();
                 return;
             }
@@ -638,6 +681,8 @@ namespace Spellmite
             blockedHost = host;
             blockUntil = Time.time + relatchBlockTime;
             invulnerableUntil = Time.time + exitInvulnerability;
+            // Jump and attack presses made inside the host were the host's
+            jumpBufferedUntil = biteBufferedUntil = -1f;
             onSurface = false;
             airLeaps = maxAirLeaps;
             return host;
