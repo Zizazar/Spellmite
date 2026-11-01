@@ -1,0 +1,9 @@
+Gravewire Free — License
+Copyright (c) 2026 LESED (lesed.itch.io)
+
+1. You may use the font in personal and commercial projects: games, apps, videos, streams, printed and merchandise items, logos and titles.
+2. You may embed the font files in games and apps, and convert them to the formats your engine needs (bitmap fonts, atlases, SDF).
+3. You may not sell or share the font files themselves, alone or modified, including in other font or asset packs.
+4. You may not use the font to train or fine-tune generative AI models, or claim the design as your own.
+5. Credit is appreciated but not required.
+6. The font is provided "as is", without warranty of any kind.
