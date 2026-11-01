@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 2768389401060891421}
   - component: {fileID: 6908551560080853840}
   - component: {fileID: 5032602825340694824}
+  - component: {fileID: 999669058510158971}
+  - component: {fileID: 8541827069815478799}
   m_Layer: 7
   m_Name: Grunt
   m_TagString: Untagged
@@ -92,8 +94,11 @@ MonoBehaviour:
   profile: {fileID: 11400000, guid: 2279376bf144662498fd3f96e1841980, type: 2}
   nameKey: body.grunt
   latchPoint: {fileID: 5158305274187780275}
-  resistDuration: 8
   resistRecovery: 0.25
+  moveCostPerMeter: 0.003
+  sprintCostMultiplier: 1.5
+  jumpCost: 0.02
+  attackCost: 0.03
   stunAfterRelease: 1.5
   attackDamage: 10
   attackReach: 1.4
@@ -179,6 +184,123 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 1
+--- !u!82 &999669058510158971
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1364868255578534701}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 0
+  MinDistance: 2
+  MaxDistance: 25
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &8541827069815478799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1364868255578534701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b85e60915ed6ba848922214c96c1746f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.HostAudio
+  source: {fileID: 999669058510158971}
+  pitchRange: {x: 0.9, y: 1.1}
+  meleeHitClips:
+  - {fileID: 8300000, guid: aa00c3274f166bf46ac1adb09f31b8ff, type: 3}
+  - {fileID: 8300000, guid: 482deecd5f370024abf5a61740a3cd41, type: 3}
+  - {fileID: 8300000, guid: f80793d27863abf428f26c6bd49e517c, type: 3}
+  hurtClips: []
+  deathClips: []
 --- !u!1 &4716712716298064812
 GameObject:
   m_ObjectHideFlags: 0

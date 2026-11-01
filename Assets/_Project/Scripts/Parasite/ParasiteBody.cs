@@ -50,6 +50,7 @@ namespace Spellmite
         [SerializeField] private float ejectSpeed = 9f;
         [SerializeField, Tooltip("Can't re-latch the host you just left for this long")] private float relatchBlockTime = 0.6f;
         [SerializeField] private float exitInvulnerability = 0.3f;
+        [SerializeField, Tooltip("Blood burst at the host's latch point when the parasite bites in")] private GameObject latchVfx;
 
         [Header("Losing control")]
         [SerializeField, Range(0f, 1f), Tooltip("Below this the HUD warns: edge vignette, the leap slot pulses")] private float lowControl = 0.25f;
@@ -76,6 +77,7 @@ namespace Spellmite
 
         private Health health;
         private BuffHolder buffs;
+        private SphereCollider trigger;
         private ControlInput input;
         private Vector3 velocity;
         private Vector3 up = Vector3.up;
@@ -127,12 +129,15 @@ namespace Spellmite
         public HostBody SuggestedHost { get; private set; }
         // The host ran out of resistance and threw the parasite off (not on a manual exit or the host's death)
         public event Action ThrownOff;
+        // For ParasiteAudio
+        public event Action Bit;
+        public event Action Latched;
 
         private void Awake()
         {
             health = GetComponent<Health>();
             buffs = GetComponent<BuffHolder>();
-            var trigger = GetComponent<SphereCollider>();
+            trigger = GetComponent<SphereCollider>();
             trigger.isTrigger = true;
             trigger.radius = radius;
 
@@ -166,6 +171,7 @@ namespace Spellmite
             if (State == ParasiteState.Free && buffs != null && buffs.IsStunned) input = default;
             BufferPresses();
             PushOutOfPockets(dt);
+            if (!IsHosted) PushOutOfWalls();
 
             switch (State)
             {
@@ -214,6 +220,24 @@ namespace Spellmite
             // Crawling on the back wall the push is along its normal and would be projected away: let go instead
             if (onSurface && Vector3.Dot(push.normalized, up) > 0.5f) onSurface = false;
             velocity += push;
+        }
+
+        // SphereCast ignores colliders it starts inside of, so a parasite left overlapping a wall
+        // (crawling stops a hair closer than the full radius, latch points, knockback) would fly through it: step back out first
+        private void PushOutOfWalls()
+        {
+            int count = Physics.OverlapSphereNonAlloc(transform.position, radius, overlapBuffer, surfaceMask, QueryTriggerInteraction.Ignore);
+            for (int i = 0; i < count; i++)
+            {
+                var other = overlapBuffer[i];
+                if (!Physics.ComputePenetration(trigger, transform.position, transform.rotation,
+                        other, other.transform.position, other.transform.rotation, out var dir, out var depth))
+                    continue;
+                if (depth < 0.005f) continue; // just resting on it
+                transform.position += dir * (depth + 0.01f);
+                float into = Vector3.Dot(velocity, dir);
+                if (into < 0f) velocity -= dir * into;
+            }
         }
 
         private void BufferPresses()
@@ -531,6 +555,7 @@ namespace Spellmite
             aim = aim.sqrMagnitude > 1e-4f ? aim.normalized : transform.forward;
             velocity += aim * biteLunge;
             Punch(new Vector3(-0.15f, -0.15f, 0.4f));
+            Bit?.Invoke();
 
             Vector3 center = transform.position + aim * (radius + biteRadius * 0.5f);
             int count = Physics.OverlapSphereNonAlloc(center, biteRadius, overlapBuffer, ~0, QueryTriggerInteraction.Collide);
@@ -664,7 +689,9 @@ namespace Spellmite
             latchStartPosition = transform.position;
             latchStartRotation = transform.rotation;
             host.Possess();
+            if (latchVfx != null) Destroy(Instantiate(latchVfx, host.LatchPoint.position, host.LatchPoint.rotation), 3f);
             Punch(new Vector3(0.45f, -0.35f, 0.45f));
+            Latched?.Invoke();
         }
 
         private void UpdateHosted(float dt)
@@ -746,7 +773,11 @@ namespace Spellmite
         {
             HostBody host = Host;
             Host = null;
-            if (host != null) host.Release();
+            if (host != null)
+            {
+                host.Release();
+                LeaveBodyClear(host);
+            }
 
             blockedHost = host;
             blockUntil = Time.time + relatchBlockTime;
@@ -756,6 +787,18 @@ namespace Spellmite
             onSurface = false;
             airLeaps = maxAirLeaps;
             return host;
+        }
+
+        // The latch point can be inside a wall the host leans on: come out of the body only as far as the way is clear
+        private void LeaveBodyClear(HostBody host)
+        {
+            Vector3 from = host.Center;
+            Vector3 path = transform.position - from;
+            float length = path.magnitude;
+            if (length < 1e-4f) return;
+            Vector3 dir = path / length;
+            if (Physics.SphereCast(from, radius, dir, out var hit, length, surfaceMask, QueryTriggerInteraction.Ignore))
+                transform.position = from + dir * Mathf.Max(0f, hit.distance - 0.01f);
         }
 
         // ---------- Visuals / damage ----------

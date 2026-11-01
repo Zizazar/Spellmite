@@ -102,6 +102,8 @@ namespace Spellmite
         public bool IsAiming => IsPossessed && (Time.time < aimModeUntil || IsCasting);
         // Player only: when the last cast or swing went off (PlayerBrain drops the sprint on it)
         public float LastActionTime { get; private set; } = -1f;
+        // A melee swing hit at least one body (HostAudio)
+        public event Action MeleeHit;
 
         private bool IsCasting => caster != null && caster.IsCasting;
 
@@ -325,7 +327,9 @@ namespace Spellmite
                 Vector3 push = (Vector3.ProjectOnPlane(target.transform.position - transform.position, Vector3.up).normalized + Vector3.up * 0.4f) * attackKnockback;
                 target.TakeDamage(attackDamage * DamageScale, push);
             }
-            if (IsPossessed && damaged.Count > 0) BodyCamera.ShakeMeleeHit();
+            if (damaged.Count == 0) return;
+            MeleeHit?.Invoke();
+            if (IsPossessed) BodyCamera.ShakeMeleeHit();
         }
 
         private void PlayCast()
