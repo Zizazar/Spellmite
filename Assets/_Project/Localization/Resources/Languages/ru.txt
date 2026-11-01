@@ -16,6 +16,15 @@ hud.control=Контроль
 hud.hint.possess=<color=#FF8CC0>{0}</color>  вселиться
 hud.hint.no_spells=Вселитесь во врага, чтобы колдовать
 
+# Tutorial
+tutorial.title=Канализация
+tutorial.possess=Вселитесь в тело
+tutorial.burn=Сожгите ящики огненным шаром <color=#FF8CC0>{0}</color>
+tutorial.chasm=Перепрыгните в тело за пропастью <color=#FF8CC0>{0}</color>
+tutorial.drain=Заползите в слив
+tutorial.drain.leave=Покиньте тело <color=#FF8CC0>{0}</color> и заползите в слив
+tutorial.hint.resist=Тело сбрасывает вас! Перепрыгните в другое <color=#FF8CC0>{0}</color>
+
 # Bodies
 body.parasite=Паразит
 body.grunt=Громила

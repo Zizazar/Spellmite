@@ -104,7 +104,8 @@ namespace Spellmite
             }
         }
 
-        private async UniTaskVoid KillOnRelease(HostBody host, CancellationToken token)
+        // The tutorial room follows the same rule
+        public static async UniTaskVoid KillOnRelease(HostBody host, CancellationToken token)
         {
             await UniTask.WaitUntil(() => host == null || !host.IsPossessed, cancellationToken: token);
             if (host == null) return;

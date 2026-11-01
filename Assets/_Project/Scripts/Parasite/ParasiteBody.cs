@@ -131,6 +131,18 @@ namespace Spellmite
 
         public void SetInput(ControlInput value) => input = value;
 
+        // Where the parasite comes back after dying
+        public void SetSpawnPoint(Vector3 position) => spawnPosition = position;
+
+        // Straight into the host from wherever the parasite is (the tutorial puts it back into a body after a fall)
+        public void Possess(HostBody host)
+        {
+            if (health.IsDead || host == null || host.IsPossessed) return;
+            if (IsHosted) ReleaseHost();
+            transform.position = host.LatchPoint.position;
+            BeginLatch(host);
+        }
+
         private void Update()
         {
             if (health.IsDead) return;

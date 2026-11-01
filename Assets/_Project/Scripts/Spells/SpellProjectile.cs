@@ -105,6 +105,7 @@ namespace Spellmite
             var directHealth = direct.GetComponentInParent<Health>();
             if (directHealth != null) Damage(spell, directHealth, point, velocity);
             if (spell.SplashRadius > 0f) Splash(spell, ownerHealth, fromPlayer, point, velocity);
+            BurnableCrate.IgniteAround(spell, point);
             // Plain hits shake a little too
             BodyCamera.ShakeExplosion(point, Mathf.Max(spell.SplashRadius, 0.5f));
 
@@ -116,6 +117,7 @@ namespace Spellmite
         {
             damaged.Clear();
             Splash(spell, owner, fromPlayer, point, Vector3.zero);
+            BurnableCrate.IgniteAround(spell, point);
             BodyCamera.ShakeExplosion(point, spell.SplashRadius);
         }
 

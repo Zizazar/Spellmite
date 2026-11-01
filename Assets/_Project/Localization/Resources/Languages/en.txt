@@ -16,6 +16,15 @@ hud.control=Control
 hud.hint.possess=<color=#FF8CC0>{0}</color>  possess
 hud.hint.no_spells=Possess an enemy to cast spells
 
+# Tutorial
+tutorial.title=Sewers
+tutorial.possess=Possess a body
+tutorial.burn=Burn the crates with a Fireball <color=#FF8CC0>{0}</color>
+tutorial.chasm=Leap into a body across the chasm <color=#FF8CC0>{0}</color>
+tutorial.drain=Crawl into the drain
+tutorial.drain.leave=Leave the body <color=#FF8CC0>{0}</color> and crawl into the drain
+tutorial.hint.resist=The body is throwing you off! Leap into another one <color=#FF8CC0>{0}</color>
+
 # Bodies
 body.parasite=Parasite
 body.grunt=Grunt

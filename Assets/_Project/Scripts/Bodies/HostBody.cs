@@ -90,6 +90,8 @@ namespace Spellmite
         public bool IsPossessed { get; private set; }
         public bool IsStunned => Time.time < stunUntil || (buffs != null && buffs.IsStunned);
         public float Resistance01 => resistance;
+        // Tutorial: possessing this body never runs out and its spells cost no resistance
+        public bool EndlessPossession { get; set; }
         // Player only: right after a cast or a swing, while the body should look where the crosshair is
         public bool IsAiming => IsPossessed && (Time.time < aimModeUntil || IsCasting);
         // Player only: when the last cast or swing went off (PlayerBrain drops the sprint on it)
@@ -159,9 +161,19 @@ namespace Spellmite
             velocity += impulse / Mathf.Max(0.01f, profile.Mass);
         }
 
+        // Puts the body somewhere at once, standing still (the tutorial brings a fallen body back)
+        public void Teleport(Vector3 position, Quaternion rotation)
+        {
+            controller.enabled = false;
+            transform.SetPositionAndRotation(position, rotation);
+            controller.enabled = true;
+            velocity = Vector3.zero;
+        }
+
         // Spells cast while possessed cost resistance
         public void DrainResistance(float amount)
         {
+            if (EndlessPossession) return;
             resistance = Mathf.Max(0f, resistance - amount);
         }
 
@@ -170,9 +182,10 @@ namespace Spellmite
             float dt = Time.deltaTime;
             bool canAct = !health.IsDead && !IsStunned;
 
-            resistance = IsPossessed
-                ? Mathf.Max(0f, resistance - dt / resistDuration)
-                : Mathf.Min(1f, resistance + dt * resistRecovery);
+            if (!EndlessPossession)
+                resistance = IsPossessed
+                    ? Mathf.Max(0f, resistance - dt / resistDuration)
+                    : Mathf.Min(1f, resistance + dt * resistRecovery);
 
             BufferPresses();
             Vector3 move = canAct ? input.Move : Vector3.zero;
