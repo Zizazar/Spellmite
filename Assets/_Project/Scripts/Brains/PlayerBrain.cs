@@ -11,7 +11,10 @@ namespace Spellmite
         [SerializeField] private ParasiteBody parasite;
         [SerializeField] private Camera viewCamera;
         [SerializeField, Tooltip("Spell windup multiplier for the player. Enemies use DifficultySettings.EnemyCastTimeScale")] private float castTimeScale = 0.7f;
+        [SerializeField, Tooltip("Sprint drops when running further than this many degrees away from where the camera looks")] private float sprintMaxAimAngle = 60f;
 
+        private bool sprinting;
+        private float sprintStartTime;
         private InputAction moveAction;
         private InputAction jumpAction;
         private InputAction attackAction;
@@ -54,20 +57,37 @@ namespace Spellmite
             Transform cam = viewCamera.transform;
             Vector3 forward = Vector3.ProjectOnPlane(cam.forward, Vector3.up).normalized;
             Vector3 right = Vector3.Cross(Vector3.up, forward);
-            Vector2 move = moveAction.ReadValue<Vector2>();
+            Vector2 stick = moveAction.ReadValue<Vector2>();
+            Vector3 move = Vector3.ClampMagnitude(forward * stick.y + right * stick.x, 1f);
 
             return new ControlInput
             {
-                Move = Vector3.ClampMagnitude(forward * move.y + right * move.x, 1f),
+                Move = move,
                 Aim = cam.forward,
                 AimOrigin = cam.position,
-                Sprint = sprintAction.IsPressed(),
+                Sprint = UpdateSprint(move, forward),
                 JumpPressed = jumpAction.WasPressedThisFrame(),
                 AttackPressed = allowButtons && attackAction.WasPressedThisFrame(),
                 LeapPressed = allowButtons && leapAction.WasPressedThisFrame(),
                 CastSlot = allowButtons ? ReadCastSlot() : 0,
                 CastTimeScale = castTimeScale,
             };
+        }
+
+        // Sprint is a toggle, like in Risk of Rain. It drops when the body stops, runs too far away from the camera's look,
+        // or a cast or a swing goes off (a press on cooldown doesn't count; the parasite's bite doesn't either)
+        private bool UpdateSprint(Vector3 move, Vector3 forward)
+        {
+            if (sprintAction.WasPressedThisFrame())
+            {
+                sprinting = !sprinting;
+                sprintStartTime = Time.time;
+            }
+
+            HostBody host = parasite.State == ParasiteState.Controlling ? parasite.Host : null;
+            if (move.magnitude <= 0.5f || Vector3.Angle(forward, move) > sprintMaxAimAngle || (host != null && host.LastActionTime >= sprintStartTime))
+                sprinting = false;
+            return sprinting;
         }
 
         // 1-based slot of the cast key pressed this frame, 0 = none

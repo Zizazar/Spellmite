@@ -89,6 +89,8 @@ namespace Spellmite
         public float Resistance01 => resistance;
         // Player only: right after a cast or a swing, while the body should look where the crosshair is
         public bool IsAiming => IsPossessed && (Time.time < aimModeUntil || IsCasting);
+        // Player only: when the last cast or swing went off (PlayerBrain drops the sprint on it)
+        public float LastActionTime { get; private set; } = -1f;
 
         private bool IsCasting => caster != null && caster.IsCasting;
 
@@ -188,6 +190,8 @@ namespace Spellmite
             if (canAct && Time.time <= jumpBufferedUntil && Time.time - lastGroundedTime <= coyoteTime)
             {
                 vertical = profile.JumpSpeed;
+                // Like Risk of Rain: the jump goes where the stick points at full running speed, straight up with it released
+                horizontal = move.sqrMagnitude > 1e-4f ? move.normalized * speed : Vector3.zero;
                 jumpBufferedUntil = -1f;
                 lastGroundedTime = -1f;
             }
@@ -196,6 +200,9 @@ namespace Spellmite
             velocity = new Vector3(horizontal.x, vertical, horizontal.z);
             controller.Move(velocity * dt);
 
+            // Sprinting ends aim mode: the body turns to where it runs
+            if (input.Sprint) aimModeUntil = -1f;
+
             // Face the crosshair first: the player's spell leaves the cast point inside TryCast
             if (canAct && Time.time <= castBufferedUntil && caster != null && caster.CanCast(bufferedCastSlot - 1))
             {
@@ -203,7 +210,7 @@ namespace Spellmite
                 SnapToAim();
                 caster.TryCast(bufferedCastSlot - 1, input.CastTimeScale);
                 PlayCast();
-                aimModeUntil = Time.time + aimModeDuration;
+                MarkAction();
             }
 
             if (canAct && Time.time <= attackBufferedUntil && Time.time >= nextAttackTime && !IsCasting)
@@ -238,6 +245,13 @@ namespace Spellmite
             transform.rotation = Quaternion.RotateTowards(transform.rotation, target, profile.TurnSpeed * dt);
         }
 
+        // A cast or a swing went off: the body keeps facing the crosshair for a while, the player's sprint drops
+        private void MarkAction()
+        {
+            aimModeUntil = Time.time + aimModeDuration;
+            if (IsPossessed) LastActionTime = Time.time;
+        }
+
         // The player's body faces the crosshair at once, so spells and swings leave towards the target.
         // Enemies keep turning at TurnSpeed, which keeps their attacks readable
         private void SnapToAim()
@@ -251,7 +265,7 @@ namespace Spellmite
         {
             nextAttackTime = Time.time + attackCooldown;
             attackFacingUntil = Time.time + attackHitDelay;
-            aimModeUntil = Time.time + aimModeDuration;
+            MarkAction();
             SnapToAim();
 
             if (animator != null)
@@ -278,6 +292,7 @@ namespace Spellmite
                 Vector3 push = (Vector3.ProjectOnPlane(target.transform.position - transform.position, Vector3.up).normalized + Vector3.up * 0.4f) * attackKnockback;
                 target.TakeDamage(attackDamage, push);
             }
+            if (IsPossessed && damaged.Count > 0) BodyCamera.ShakeMeleeHit();
         }
 
         private void PlayCast()

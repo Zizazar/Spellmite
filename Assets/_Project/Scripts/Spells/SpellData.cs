@@ -25,6 +25,7 @@ namespace Spellmite
         [field: SerializeField, Range(0f, 1f), Tooltip("Resistance a possessed body loses per cast")] public float ResistanceCost { get; private set; } = 0.1f;
         [field: SerializeField, Tooltip("Telegraph at the cast point during the windup (Magic/AuraCast, Magic/Enchant...)")] public GameObject CastVfx { get; private set; }
         [field: SerializeField, Tooltip("Applied to the caster when the spell fires")] public BuffData SelfBuff { get; private set; }
+        [field: SerializeField, Tooltip("Player only: the camera kicks up about this many degrees when the spell fires, then springs back")] public float CameraKick { get; private set; } = 1.5f;
 
         [field: Header("Projectile")]
         [field: SerializeField] public float Damage { get; private set; } = 10f;

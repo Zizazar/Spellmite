@@ -528,7 +528,7 @@ MonoBehaviour:
   TargetOffset: {x: 0, y: 0, z: 0}
   TrackerSettings:
     BindingMode: 4
-    PositionDamping: {x: 0.1, y: 0.1, z: 0.1}
+    PositionDamping: {x: 0, y: 0, z: 0}
     AngularDampingMode: 0
     RotationDamping: {x: 1, y: 1, z: 1}
     QuaternionDamping: 1
@@ -559,7 +559,7 @@ MonoBehaviour:
   VerticalAxis:
     Value: 15
     Center: 15
-    Range: {x: -35, y: 75}
+    Range: {x: -70, y: 70}
     Wrap: 0
     Recentering:
       Enabled: 0
@@ -642,7 +642,7 @@ MonoBehaviour:
   AvoidObstacles:
     Enabled: 1
     DistanceLimit: 0
-    MinimumOcclusionTime: 0.1
+    MinimumOcclusionTime: 0
     CameraRadius: 0.25
     UseFollowTarget:
       Enabled: 0
@@ -651,7 +651,7 @@ MonoBehaviour:
     MaximumEffort: 4
     SmoothingTime: 0.2
     Damping: 0.5
-    DampingWhenOccluded: 0.15
+    DampingWhenOccluded: 0
   ShotQualityEvaluation:
     Enabled: 0
     OptimalDistance: 10
@@ -3523,11 +3523,24 @@ MonoBehaviour:
   anchor: {fileID: 1933356381}
   cinemachineCamera: {fileID: 212842631}
   orbit: {fileID: 212842630}
+  ceilingMask:
+    serializedVersion: 2
+    m_Bits: 1
   transitionTime: 0.4
-  speedSmoothing: 3
   mouseSensitivity: 0.1
   gamepadSensitivity: 180
-  verticalSharpness: 8
+  sprintFovMultiplier: 1.3
+  sprintFovSmoothTime: 0.2
+  sprintLookScale: 0.5
+  recoilReturnTime: 0.08
+  recoilFollowTime: 0.05
+  damageShake: 0.4
+  explosionShake: 0.08
+  explosionShakeRange: 25
+  meleeHitShake: 0.1
+  maxShake: 0.6
+  shakeDamping: 8
+  shakeFrequency: 25
 --- !u!114 &1818499099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3543,6 +3556,7 @@ MonoBehaviour:
   parasite: {fileID: 1384237456182149676}
   viewCamera: {fileID: 95675870}
   castTimeScale: 0.7
+  sprintMaxAimAngle: 60
 --- !u!4 &1818499100
 Transform:
   m_ObjectHideFlags: 0

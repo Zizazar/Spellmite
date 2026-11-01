@@ -111,6 +111,8 @@ namespace Spellmite
         public Transform ActiveBody => IsHosted && Host != null ? Host.transform : transform;
         public BodyProfile ActiveProfile => IsHosted && Host != null ? Host.Profile : profile;
         public Vector3 ActiveVelocity => IsHosted && Host != null ? Host.Velocity : velocity;
+        // The brain's sprint, for the camera (the host gets the same input)
+        public bool IsSprinting => input.Sprint;
 
         private void Awake()
         {

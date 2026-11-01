@@ -12,6 +12,7 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - _CAMERA_FADE
   - _POINT_FILTER
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -35,6 +36,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaClip: 0
+    - _CameraFade: 1
     - _Cull: 2
     - _Cutoff: 0.5
     - _PointFilter: 1
@@ -43,6 +45,7 @@ Material:
     - _VertexColor: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _CameraFadeRange: {r: 1, g: 4, b: 0, a: 0}
     - _EmissionColor: {r: 0.25, g: 0.25, b: 0.25, a: 1}
     - _RimColor: {r: 1, g: 0.45, b: 0.1, a: 1}
   m_BuildTextureStacks: []

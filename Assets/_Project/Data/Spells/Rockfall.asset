@@ -23,6 +23,7 @@ MonoBehaviour:
   <ResistanceCost>k__BackingField: 0.1
   <CastVfx>k__BackingField: {fileID: 8422093842481178720, guid: 8afeaf36cb64b474bb4c03063fd01fdd, type: 3}
   <SelfBuff>k__BackingField: {fileID: 0}
+  <CameraKick>k__BackingField: 1
   <Damage>k__BackingField: 12
   <Speed>k__BackingField: 20
   <Gravity>k__BackingField: 0
@@ -37,6 +38,7 @@ MonoBehaviour:
   <HitBuff>k__BackingField: {fileID: 11400000, guid: 45be64fe0a0481b44ae97d232c9dcfb1, type: 2}
   <AreaVfx>k__BackingField: {fileID: 3598875255766809, guid: f05b37fbf26f12844b511642a21703fb, type: 3}
   <BarrageHeight>k__BackingField: 8
+  <BarrageVfxOnGround>k__BackingField: 0
   <BarrageDelay>k__BackingField: 0.7
   <BarrageInterval>k__BackingField: 0.2
   <ProjectileVfx>k__BackingField: {fileID: 0}

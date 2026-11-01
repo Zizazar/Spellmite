@@ -20,11 +20,9 @@ namespace Spellmite
         [field: SerializeField, Tooltip("Heavier bodies get pushed less by hits")] public float Mass { get; private set; } = 1f;
 
         [field: Header("Camera")]
-        [field: SerializeField] public float CameraDistance { get; private set; } = 4f;
-        [field: SerializeField] public float CameraHeight { get; private set; } = 1.5f;
-        [field: SerializeField] public float CameraFov { get; private set; } = 60f;
-        [field: SerializeField, Tooltip("Extra distance at sprint speed")] public float CameraSpeedDistance { get; private set; } = 0.5f;
-        [field: SerializeField, Tooltip("Extra FOV at sprint speed")] public float CameraSpeedFov { get; private set; } = 6f;
+        [field: SerializeField, Tooltip("Nominal distance. Looking level the camera is at ~0.7 of it, closer looking up, further looking down")] public float CameraDistance { get; private set; } = 6f;
+        [field: SerializeField, Tooltip("Height of the camera pivot above the body's origin. Well above the head keeps the crosshair clear")] public float CameraHeight { get; private set; } = 3f;
+        [field: SerializeField, Tooltip("x1.3 while sprinting")] public float CameraFov { get; private set; } = 60f;
 
         public float JumpSpeed => Mathf.Sqrt(2f * Gravity * JumpHeight);
     }

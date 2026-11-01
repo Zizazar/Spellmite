@@ -91,7 +91,11 @@ namespace Spellmite
         private void Fire(int slot, SpellData spell)
         {
             readyTimes[slot] = Time.time + spell.Cooldown;
-            if (body.IsPossessed) body.DrainResistance(spell.ResistanceCost);
+            if (body.IsPossessed)
+            {
+                body.DrainResistance(spell.ResistanceCost);
+                BodyCamera.Kick(spell.CameraKick);
+            }
             if (spell.SelfBuff != null && buffs != null) buffs.Apply(spell.SelfBuff);
 
             switch (spell.Kind)
