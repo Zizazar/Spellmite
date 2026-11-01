@@ -42,15 +42,17 @@ namespace Spellmite
             int seconds = sprite != null && remaining > 0f ? Mathf.CeilToInt(remaining) : 0;
             if (seconds == shownSeconds) return;
             // Came off cooldown: a little punch, like Risk of Rain's ready flash
-            if (seconds == 0 && shownSeconds > 0)
-            {
-                readyPunch.Stop();
-                transform.localScale = Vector3.one;
-                readyPunch = Tween.PunchScale(transform, Vector3.one * 0.15f, 0.25f);
-            }
+            if (seconds == 0 && shownSeconds > 0) Punch(0.15f);
             shownSeconds = seconds;
             if (seconds > 0) cooldownText.SetText("{0}", seconds);
             else cooldownText.SetText("");
+        }
+
+        public void Punch(float strength)
+        {
+            readyPunch.Stop();
+            transform.localScale = Vector3.one;
+            readyPunch = Tween.PunchScale(transform, Vector3.one * strength, 0.25f);
         }
     }
 }

@@ -19,7 +19,7 @@ MonoBehaviour:
   <Kind>k__BackingField: 0
   <Cooldown>k__BackingField: 1.2
   <CastTime>k__BackingField: 0.25
-  <ResistanceCost>k__BackingField: 0.05
+  <ResistanceCost>k__BackingField: 0.03
   <CastVfx>k__BackingField: {fileID: 0}
   <SelfBuff>k__BackingField: {fileID: 0}
   <CameraKick>k__BackingField: 1.5

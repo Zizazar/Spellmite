@@ -51,6 +51,12 @@ namespace Spellmite
         [SerializeField, Tooltip("Can't re-latch the host you just left for this long")] private float relatchBlockTime = 0.6f;
         [SerializeField] private float exitInvulnerability = 0.3f;
 
+        [Header("Losing control")]
+        [SerializeField, Range(0f, 1f), Tooltip("Below this the HUD warns: edge vignette, the leap slot pulses")] private float lowControl = 0.25f;
+        [SerializeField, Range(0f, 1f), Tooltip("Below this the host twitches and the next body to leap to gets brackets")] private float criticalControl = 0.1f;
+        [SerializeField, Tooltip("Real seconds the game nearly freezes when the host throws the parasite off")] private float thrownOffHitstop = 0.12f;
+        [SerializeField, Range(0f, 1f)] private float thrownOffTimeScale = 0.05f;
+
         [Header("Bite")]
         [SerializeField] private float biteDamage = 5f;
         [SerializeField] private float biteRadius = 0.5f;
@@ -113,6 +119,14 @@ namespace Spellmite
         public Vector3 ActiveVelocity => IsHosted && Host != null ? Host.Velocity : velocity;
         // The brain's sprint, for the camera (the host gets the same input)
         public bool IsSprinting => input.Sprint;
+        // Control running out: 0 at lowControl, 1 when the host is about to throw the parasite off
+        public float ControlDanger01 => IsControlLow ? 1f - Host.Resistance01 / Mathf.Max(0.001f, lowControl) : 0f;
+        public bool IsControlLow => IsHosted && Host != null && !Host.EndlessPossession && Host.Resistance01 <= lowControl;
+        public bool IsControlCritical => IsControlLow && Host.Resistance01 <= criticalControl;
+        // While control is critical and nothing is aimed at: the host to leap to that needs the least turning
+        public HostBody SuggestedHost { get; private set; }
+        // The host ran out of resistance and threw the parasite off (not on a manual exit or the host's death)
+        public event Action ThrownOff;
 
         private void Awake()
         {
@@ -163,6 +177,7 @@ namespace Spellmite
             AimedHost = State is ParasiteState.Free or ParasiteState.Controlling
                 ? FindLeapTarget(input.AimOrigin, input.Aim, Host, out _)
                 : null;
+            SuggestedHost = AimedHost == null && IsControlCritical ? FindClosestToAim(input.AimOrigin, input.Aim) : null;
         }
 
         private void LateUpdate()
@@ -609,6 +624,24 @@ namespace Spellmite
             return best;
         }
 
+        // Like the aim assist, without the cone
+        private HostBody FindClosestToAim(Vector3 origin, Vector3 dir)
+        {
+            HostBody best = null;
+            float bestAngle = float.MaxValue;
+            foreach (var host in HostBody.All)
+            {
+                if (host == Host || !CanLatch(host) || !InLeapRange(host)) continue;
+                Vector3 point = host.LatchPoint.position;
+                float angle = Vector3.Angle(dir, point - origin);
+                if (angle >= bestAngle) continue;
+                if (Physics.Linecast(transform.position, point, surfaceMask, QueryTriggerInteraction.Ignore)) continue;
+                best = host;
+                bestAngle = angle;
+            }
+            return best;
+        }
+
         private bool InLeapRange(HostBody host) =>
             (host.LatchPoint.position - transform.position).sqrMagnitude <= leapRange * leapRange;
 
@@ -659,7 +692,7 @@ namespace Spellmite
 
             if (Host.Resistance01 <= 0f)
             {
-                Eject();
+                ThrowOff();
                 return;
             }
 
@@ -685,6 +718,28 @@ namespace Spellmite
             velocity = (back + Vector3.up * 1.5f).normalized * ejectSpeed;
             State = ParasiteState.Free;
             Punch(new Vector3(0.3f, 0.3f, 0.3f));
+        }
+
+        // Control ran out: a beat the player can't miss. The host jerks, the camera shakes, time nearly stops for a moment
+        private void ThrowOff()
+        {
+            HostBody host = Host;
+            Eject();
+            host.Flinch();
+            BodyCamera.ShakeThrownOff();
+            Hitstop().Forget();
+            ThrownOff?.Invoke();
+        }
+
+        private async UniTaskVoid Hitstop()
+        {
+            float before = Time.timeScale;
+            float stopped = before * thrownOffTimeScale;
+            Time.timeScale = stopped;
+            await UniTask.Delay(TimeSpan.FromSeconds(thrownOffHitstop), DelayType.UnscaledDeltaTime, cancellationToken: destroyCancellationToken)
+                .SuppressCancellationThrow();
+            // Someone else (the tutorial's slow motion) may have changed it meanwhile
+            if (Mathf.Approximately(Time.timeScale, stopped)) Time.timeScale = before;
         }
 
         private HostBody ReleaseHost()

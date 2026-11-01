@@ -48,6 +48,9 @@ namespace Spellmite
         [SerializeField, Tooltip("Per meter of explosion radius, right at the camera")] private float explosionShake = 0.08f;
         [SerializeField, Tooltip("Explosions further than this from the camera don't shake it")] private float explosionShakeRange = 25f;
         [SerializeField, Tooltip("When the player's swing hits something")] private float meleeHitShake = 0.1f;
+        [SerializeField, Tooltip("When the host throws the parasite off")] private float thrownOffShake = 0.35f;
+        [SerializeField, Tooltip("Twitches while the host's control is critical")] private float trembleShake = 0.06f;
+        [SerializeField, Tooltip("About this many seconds between twitches")] private float trembleInterval = 0.7f;
         [SerializeField] private float maxShake = 0.6f;
         [SerializeField, Tooltip("How fast a shake dies out")] private float shakeDamping = 8f;
         [SerializeField] private float shakeFrequency = 25f;
@@ -70,6 +73,7 @@ namespace Spellmite
         private float fovVelocity;
         private Vector2 recoil, recoilVelocity, targetRecoil, targetRecoilVelocity;
         private float shake;
+        private float nextTremble;
 
         private void Awake()
         {
@@ -105,6 +109,11 @@ namespace Spellmite
             if (Instance != null) Instance.AddShake(Instance.meleeHitShake);
         }
 
+        public static void ShakeThrownOff()
+        {
+            if (Instance != null) Instance.AddShake(Instance.thrownOffShake);
+        }
+
         private void LateUpdate()
         {
             float dt = Time.deltaTime;
@@ -138,6 +147,13 @@ namespace Spellmite
             targetRecoil = Vector2.SmoothDamp(targetRecoil, Vector2.zero, ref targetRecoilVelocity, recoilReturnTime);
             recoil = Vector2.SmoothDamp(recoil, targetRecoil, ref recoilVelocity, recoilFollowTime);
             UpdateLook(dt, sprinting);
+
+            // The host fights back: it twitches, at uneven intervals so it doesn't feel like a metronome
+            if (parasite.IsControlCritical && Time.time >= nextTremble)
+            {
+                AddShake(trembleShake);
+                nextTremble = Time.time + trembleInterval * Random.Range(0.7f, 1.3f);
+            }
 
             // Pitch > 0 looks down. x0.71 of the distance level, x0.33 at -70 (close and low, but above the floor), x0.94 at +70
             float pitchScale = Mathf.Sqrt((1f + orbit.VerticalAxis.Value / 90f) * 0.5f);

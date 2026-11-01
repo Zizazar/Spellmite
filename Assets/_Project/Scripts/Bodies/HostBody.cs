@@ -26,8 +26,11 @@ namespace Spellmite
         [SerializeField] private Transform latchPoint;
 
         [Header("Possession")]
-        [SerializeField, Tooltip("Seconds of control before the host throws the parasite off")] private float resistDuration = 8f;
-        [SerializeField, Tooltip("Resistance refilled per second while free (1 = full)")] private float resistRecovery = 0.25f;
+        [SerializeField, Tooltip("Resistance refilled per second while free (1 = full). While possessed it only drops, on actions")] private float resistRecovery = 0.25f;
+        [SerializeField, Tooltip("Resistance per meter the parasite walks the body (standing still costs nothing)")] private float moveCostPerMeter = 0.003f;
+        [SerializeField, Tooltip("Sprinting costs this many times more per meter")] private float sprintCostMultiplier = 1.5f;
+        [SerializeField] private float jumpCost = 0.02f;
+        [SerializeField, Tooltip("Resistance per melee swing. Spells have their own cost in SpellData")] private float attackCost = 0.03f;
         [SerializeField] private float stunAfterRelease = 1.5f;
 
         [Header("Attack")]
@@ -154,6 +157,14 @@ namespace Spellmite
             }
         }
 
+        // The body just threw the parasite off: it jerks like it was hit
+        public void Flinch()
+        {
+            if (health.IsDead) return;
+            if (animator != null) animator.SetTrigger(HitHash);
+            else PunchVisual(new Vector3(0.25f, -0.25f, 0.25f));
+        }
+
         public void Stun(float duration)
         {
             stunUntil = Mathf.Max(stunUntil, Time.time + duration);
@@ -173,10 +184,10 @@ namespace Spellmite
             velocity = Vector3.zero;
         }
 
-        // Spells cast while possessed cost resistance
+        // Only the parasite's actions cost resistance: moving, jumping, swings, spells
         public void DrainResistance(float amount)
         {
-            if (EndlessPossession) return;
+            if (!IsPossessed || EndlessPossession) return;
             resistance = Mathf.Max(0f, resistance - amount);
         }
 
@@ -185,10 +196,7 @@ namespace Spellmite
             float dt = Time.deltaTime;
             bool canAct = !health.IsDead && !IsStunned;
 
-            if (!EndlessPossession)
-                resistance = IsPossessed
-                    ? Mathf.Max(0f, resistance - dt / resistDuration)
-                    : Mathf.Min(1f, resistance + dt * resistRecovery);
+            if (!IsPossessed) resistance = Mathf.Min(1f, resistance + dt * resistRecovery);
 
             BufferPresses();
             Vector3 move = canAct ? input.Move : Vector3.zero;
@@ -213,11 +221,16 @@ namespace Spellmite
                 horizontal = move.sqrMagnitude > 1e-4f ? move.normalized * speed : Vector3.zero;
                 jumpBufferedUntil = -1f;
                 lastGroundedTime = -1f;
+                DrainResistance(jumpCost);
             }
             vertical -= profile.Gravity * dt;
 
             velocity = new Vector3(horizontal.x, vertical, horizontal.z);
             controller.Move(velocity * dt);
+
+            // Only steered movement costs: knockback and sliding to a stop are free
+            if (move.sqrMagnitude > 0.01f)
+                DrainResistance(horizontal.magnitude * dt * moveCostPerMeter * (input.Sprint ? sprintCostMultiplier : 1f));
 
             // Sprinting ends aim mode: the body turns to where it runs
             if (input.Sprint) aimModeUntil = -1f;
@@ -284,6 +297,7 @@ namespace Spellmite
         {
             nextAttackTime = Time.time + attackCooldown;
             attackFacingUntil = Time.time + attackHitDelay;
+            DrainResistance(attackCost);
             MarkAction();
             SnapToAim();
 

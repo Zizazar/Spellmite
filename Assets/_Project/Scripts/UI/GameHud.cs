@@ -35,6 +35,8 @@ namespace Spellmite
         [SerializeField] private Sprite leapIcon;
         [SerializeField, Tooltip("Spell slots and their separator, hidden while the parasite is free")] private GameObject spellsRoot;
         [SerializeField, Tooltip("\"Possess an enemy to cast spells\", shown instead of the spells while free")] private GameObject freeHint;
+        [SerializeField, Tooltip("While the host's control is low the leap slot punches this often (twice as often when critical)")] private float leapPulseInterval = 0.6f;
+        [SerializeField] private float leapPulseStrength = 0.2f;
 
         [Header("Floor")]
         [SerializeField] private GameObject floorPanel;
@@ -50,6 +52,7 @@ namespace Spellmite
         private float trailHoldUntil;
         private HostBody casterHost;
         private SpellCaster caster;
+        private float nextLeapPulse;
         private int shownFloor = -1;
         private string objectiveKey;
         private int objectiveDone = -1;
@@ -109,7 +112,14 @@ namespace Spellmite
             }
 
             attackSlot.Show(host != null ? hostAttackIcon : biteIcon, 0f, 0f, true);
-            leapSlot.Show(leapIcon, 0f, 0f, host != null || parasite.AimedHost != null);
+            // Control running out: the leap slot is the way out, so it lights up and keeps punching
+            bool low = parasite.IsControlLow;
+            leapSlot.Show(leapIcon, 0f, 0f, host != null || parasite.AimedHost != null, low);
+            if (low && Time.time >= nextLeapPulse)
+            {
+                leapSlot.Punch(leapPulseStrength);
+                nextLeapPulse = Time.time + leapPulseInterval * (parasite.IsControlCritical ? 0.5f : 1f);
+            }
 
             // Free there is nothing to cast: the slots make way for a hint on how to get spells
             spellsRoot.SetActive(host != null);
