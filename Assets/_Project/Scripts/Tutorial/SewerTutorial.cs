@@ -137,7 +137,7 @@ namespace Spellmite
         private bool AllCratesBurnt()
         {
             foreach (var crate in crates)
-                if (!crate.IsBurnt) return false;
+                if (crate != null && !crate.IsBurnt) return false; // burnt ones are destroyed
             return true;
         }
 

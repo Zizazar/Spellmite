@@ -7,8 +7,8 @@ using Random = UnityEngine.Random;
 
 namespace Spellmite
 {
-    // A wooden crate that only fire spells set alight. The fire spreads to the crates it touches; a burnt crate
-    // collapses onto the floor as smouldering embers and no longer blocks anything.
+    // A wooden crate that only fire spells set alight. The fire spreads to the crates it touches; once the fire is
+    // out the crate crumbles away and is gone.
     [RequireComponent(typeof(Collider))]
     public class BurnableCrate : MonoBehaviour
     {
@@ -16,18 +16,17 @@ namespace Spellmite
         private static readonly int BaseColorId = Shader.PropertyToID("baseColorFactor");
         private static readonly int EmissionId = Shader.PropertyToID("emissiveFactor");
         private static readonly Collider[] overlapBuffer = new Collider[32];
-        private static readonly RaycastHit[] rayBuffer = new RaycastHit[16];
 
         [SerializeField, Tooltip("Spells with this tag set the crate alight")] private SpellTag fireTag;
         [SerializeField, Tooltip("Looping fire while it burns (Retro Arsenal Environment/Fire)")] private GameObject fireVfx;
         [SerializeField, Tooltip("From the crate's center")] private Vector3 fireOffset = new(0f, 0.25f, 0f);
-        [SerializeField, Tooltip("Charred while it burns, squashed into embers after. Its pivot is at the bottom")] private Transform model;
+        [SerializeField, Tooltip("Charred while it burns, shrunk to nothing after. Its pivot is at the bottom")] private Transform model;
         [SerializeField] private float burnTime = 3f;
+        [SerializeField, Tooltip("Seconds the burnt crate takes to crumble away")] private float crumbleTime = 0.5f;
         [SerializeField, Tooltip("Seconds after catching fire until the crates it touches catch fire too")] private Vector2 spreadDelay = new(0.3f, 0.7f);
         [SerializeField, Tooltip("Crates whose collider is this close to the center catch fire from this one")] private float spreadRadius = 0.9f;
         [SerializeField] private Color charColor = new(0.12f, 0.09f, 0.07f);
         [SerializeField, ColorUsage(false, true)] private Color emberColor = new(1.6f, 0.45f, 0.1f);
-        [SerializeField, Tooltip("Embers fall onto the first surface below that isn't a crate")] private LayerMask floorMask = 1;
 
         private Renderer[] renderers;
         private MaterialPropertyBlock block;
@@ -81,14 +80,9 @@ namespace Spellmite
                 Destroy(fire, 2f);
             }
 
-            // Down onto the floor, flat, a little scattered, then smouldering
-            Vector2 scatter = Random.insideUnitCircle * 0.3f;
-            Vector3 floor = FloorBelow() + new Vector3(scatter.x, 0f, scatter.y);
-            Tween.Position(transform, floor, 0.35f, Ease.InQuad);
-            Tween.Rotation(transform, Quaternion.Euler(0f, Random.Range(0f, 360f), 0f), 0.35f);
-            if (model != null) Tween.Scale(model, Vector3.Scale(model.localScale, new Vector3(1.15f, 0.15f, 1.15f)), 0.35f, Ease.InQuad);
-            Tween.Custom(this, 0.6f, 0.25f, 1.5f, (crate, glow) => crate.SetColors(crate.charColor, crate.emberColor * glow),
-                Ease.InOutSine, -1, CycleMode.Yoyo, startDelay: 0.35f);
+            // Crumbles down onto its base and is gone
+            Tween.Scale(model != null ? model : transform, Vector3.zero, crumbleTime, Ease.InBack);
+            Destroy(gameObject, crumbleTime);
         }
 
         private void Spread()
@@ -99,22 +93,6 @@ namespace Spellmite
                 var crate = overlapBuffer[i].GetComponentInParent<BurnableCrate>();
                 if (crate != null) crate.Ignite();
             }
-        }
-
-        // Where the crate's center ends up lying on the floor (the center is half a crate above its bottom)
-        private Vector3 FloorBelow()
-        {
-            Vector3 position = transform.position;
-            float nearest = float.MaxValue;
-            int count = Physics.RaycastNonAlloc(position, Vector3.down, rayBuffer, 20f, floorMask, QueryTriggerInteraction.Ignore);
-            for (int i = 0; i < count; i++)
-            {
-                var hit = rayBuffer[i];
-                if (hit.distance >= nearest || hit.collider.GetComponentInParent<BurnableCrate>() != null) continue;
-                nearest = hit.distance;
-                position = hit.point + Vector3.up * 0.5f;
-            }
-            return position;
         }
 
         private void SetColors(Color baseColor, Color emission)
