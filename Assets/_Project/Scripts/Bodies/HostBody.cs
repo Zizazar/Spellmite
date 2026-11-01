@@ -22,6 +22,7 @@ namespace Spellmite
         private static readonly int CastOffsetHash = Animator.StringToHash("CastOffset");
 
         [SerializeField] private BodyProfile profile;
+        [SerializeField, Tooltip("Localization key of the name the HUD shows while possessed")] private string nameKey = "body.grunt";
         [SerializeField] private Transform latchPoint;
 
         [Header("Possession")]
@@ -77,12 +78,14 @@ namespace Spellmite
         private readonly Collider[] hitBuffer = new Collider[16];
 
         public BodyProfile Profile => profile;
+        public string NameKey => nameKey;
         public Transform LatchPoint => latchPoint;
         public Health Health => health;
         public Vector3 Velocity => velocity;
         public Vector3 AimDirection => input.Aim;
         public Vector3 AimOrigin => input.AimOrigin;
         public Vector3 Center => controller.bounds.center;
+        public Bounds Bounds => controller.bounds;
         public bool IsGrounded => controller.isGrounded;
         public bool IsPossessed { get; private set; }
         public bool IsStunned => Time.time < stunUntil || (buffs != null && buffs.IsStunned);

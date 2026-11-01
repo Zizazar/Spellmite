@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7475513340358465072}
+  - component: {fileID: 3011166656215227491}
   m_Layer: 0
   m_Name: LatchPoint
   m_TagString: Untagged
@@ -24,13 +25,42 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2963612777200236885}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7288273, y: -0, z: -0, w: 0.6846977}
-  m_LocalPosition: {x: 0, y: 0.6262781, z: -0.3998448}
+  m_LocalRotation: {x: -0.74204844, y: 0.0094123045, z: 0.04771675, w: 0.6685796}
+  m_LocalPosition: {x: -0.008553505, y: 0.5339069, z: -0.41098392}
   m_LocalScale: {x: 1, y: 0.9999999, z: 0.9999999}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 156884942080145581}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3011166656215227491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2963612777200236885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bfc6e93b66188b4dab5e281bc28238a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.SkinLatch
+  skin: {fileID: 1837425221296093746}
+  patchRadius: 0.1
+  anchors:
+  - Influences:
+    - Bone: {fileID: 156884942080145581}
+      Weight: 1
+      Point: {x: 0.025, y: 0.64992994, z: -0.31942058}
+  - Influences:
+    - Bone: {fileID: 156884942080145581}
+      Weight: 1
+      Point: {x: 0.03, y: 0.39286923, z: -0.29457515}
+  - Influences:
+    - Bone: {fileID: 156884942080145581}
+      Weight: 1
+      Point: {x: 0.04, y: 0.8050328, z: -0.2142995}
+  localPosition: {x: -0.14671797, y: 0.020168502, z: 0.06788887}
+  localRotation: {x: -0.73111254, y: 0.6819742, z: 0.016910251, w: 0.00998972}
 --- !u!1 &5952324770548333998
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,6 +183,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Spellmite.HostBody
   profile: {fileID: 11400000, guid: e1952be832c20974a902f02c83134873, type: 2}
+  nameKey: body.seeker
   latchPoint: {fileID: 7475513340358465072}
   resistDuration: 12
   resistRecovery: 0.25
@@ -164,6 +195,12 @@ MonoBehaviour:
   attackHitDelay: 0.35
   attackCooldown: 1.1
   attackKnockback: 14
+  inputBuffer: 0.15
+  coyoteTime: 0.12
+  aimModeDuration: 2
+  aimIK: {fileID: 0}
+  maxTorsoTwist: 70
+  playerCastAnimSkip: 0.3
   animator: {fileID: 1616650151059291416}
   visual: {fileID: 0}
   destroyDelayAfterDeath: 4
@@ -499,18 +536,6 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 1359807540711761377, guid: d86113069f289914bb485389dcdcd948, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1359807540711761377, guid: d86113069f289914bb485389dcdcd948, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1359807540711761377, guid: d86113069f289914bb485389dcdcd948, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2044059958487471237, guid: d86113069f289914bb485389dcdcd948, type: 3}
       propertyPath: m_UpdateWhenOffscreen
       value: 1
@@ -616,6 +641,11 @@ Transform:
 --- !u!95 &1616650151059291416 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: -7759135877593391325, guid: d86113069f289914bb485389dcdcd948, type: 3}
+  m_PrefabInstance: {fileID: 161423392358457915}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &1837425221296093746 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7259057986624776183, guid: d86113069f289914bb485389dcdcd948, type: 3}
   m_PrefabInstance: {fileID: 161423392358457915}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &3199203598906713732 stripped

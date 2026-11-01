@@ -12,6 +12,16 @@ hud.objective.clear=Победите врагов на этаже
 hud.objective.wave=Победите врагов {0}/{1}
 hud.objective.lift=Поднимитесь на <color=#7FB8FF>лифте</color>
 hud.objective.top=Башня зачищена
+hud.control=Контроль
+hud.hint.possess=<color=#FF8CC0>{0}</color>  вселиться
+hud.hint.no_spells=Вселитесь во врага, чтобы колдовать
+
+# Bodies
+body.parasite=Паразит
+body.grunt=Громила
+body.hailcaller=Градовик
+body.slammer=Крушитель
+body.seeker=Искатель
 coins.one={0} монета
 coins.few={0} монеты
 coins.many={0} монет

@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 namespace Spellmite
 {
-    // Risk of Rain style HUD: health of the body the player is in (bottom left), skills (bottom right),
-    // floor, run timer and objective (top right). The crosshair and the resistance bar are ParasiteHud's.
+    // Risk of Rain style HUD: name and health of the body the player is in (bottom left), skills (bottom right),
+    // floor, run timer and objective (top right). The crosshair and the control bar are ParasiteHud's.
     public class GameHud : MonoBehaviour
     {
         [SerializeField] private ParasiteBody parasite;
@@ -14,6 +14,8 @@ namespace Spellmite
         [SerializeField] private WaveSpawner waves;
 
         [Header("Health")]
+        [SerializeField, Tooltip("Name of the body: the host's NameKey, or parasiteNameKey when free")] private LocText bodyName;
+        [SerializeField] private string parasiteNameKey = "body.parasite";
         [SerializeField, Tooltip("Image Type = Filled, Horizontal")] private Image healthFill;
         [SerializeField, Tooltip("Image Type = Filled, Horizontal. Light bar that lags behind after a hit")] private Image healthTrail;
         [SerializeField] private TMP_Text healthText;
@@ -30,6 +32,8 @@ namespace Spellmite
         [SerializeField] private Sprite biteIcon;
         [SerializeField] private Sprite hostAttackIcon;
         [SerializeField] private Sprite leapIcon;
+        [SerializeField, Tooltip("Spell slots and their separator, hidden while the parasite is free")] private GameObject spellsRoot;
+        [SerializeField, Tooltip("\"Possess an enemy to cast spells\", shown instead of the spells while free")] private GameObject freeHint;
 
         [Header("Floor")]
         [SerializeField] private GameObject floorPanel;
@@ -37,8 +41,11 @@ namespace Spellmite
         [SerializeField] private TMP_Text timerText;
         [SerializeField] private LocText objectiveText;
         [SerializeField, Tooltip("Tick in the objective box, on once the floor is cleared")] private Graphic objectiveCheck;
+        [SerializeField, Tooltip("Shown while a wave is on")] private GameObject waveProgressRoot;
+        [SerializeField, Tooltip("Image Type = Filled, Horizontal. Enemies defeated / wave size")] private Image waveProgressFill;
 
         private Health shownHealth;
+        private string shownNameKey;
         private float trailHoldUntil;
         private HostBody casterHost;
         private SpellCaster caster;
@@ -61,7 +68,14 @@ namespace Spellmite
 
         private void UpdateHealth()
         {
-            Health health = parasite.IsHosted && parasite.Host != null ? parasite.Host.Health : parasite.Health;
+            bool hosted = parasite.IsHosted && parasite.Host != null;
+            Health health = hosted ? parasite.Host.Health : parasite.Health;
+            string nameKey = hosted ? parasite.Host.NameKey : parasiteNameKey;
+            if (nameKey != shownNameKey)
+            {
+                shownNameKey = nameKey;
+                bodyName.SetKey(nameKey);
+            }
             float fill = health.Max > 0f ? health.Current / health.Max : 0f;
 
             // Another body: its bar starts without a trail
@@ -96,11 +110,16 @@ namespace Spellmite
             attackSlot.Show(host != null ? hostAttackIcon : biteIcon, 0f, 0f, true);
             leapSlot.Show(leapIcon, 0f, 0f, host != null || parasite.AimedHost != null);
 
+            // Free there is nothing to cast: the slots make way for a hint on how to get spells
+            spellsRoot.SetActive(host != null);
+            freeHint.SetActive(host == null);
+            if (host == null) return;
+
             for (int i = 0; i < spellSlots.Length; i++)
             {
                 SpellData spell = caster != null ? caster.GetSpell(i) : null;
                 if (spell == null) spellSlots[i].Show(null, 0f, 0f, false);
-                else spellSlots[i].Show(spell.Icon, caster.CooldownRemaining(i), spell.Cooldown, true);
+                else spellSlots[i].Show(spell.Icon, caster.CooldownRemaining(i), spell.Cooldown, true, spell.ResistanceCost >= host.Resistance01);
             }
         }
 
@@ -141,6 +160,8 @@ namespace Spellmite
             objectiveTotal = total;
             objectiveText.SetKey(key, done, total);
             objectiveCheck.enabled = cleared;
+            waveProgressRoot.SetActive(total > 0);
+            if (total > 0) waveProgressFill.fillAmount = (float)done / total;
         }
     }
 }
