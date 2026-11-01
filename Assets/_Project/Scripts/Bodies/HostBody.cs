@@ -19,6 +19,7 @@ namespace Spellmite
         private static readonly int DeathHash = Animator.StringToHash("Death");
         private static readonly int CastHash = Animator.StringToHash("Cast");
         private static readonly int SpeedHash = Animator.StringToHash("Speed");
+        private static readonly int CastOffsetHash = Animator.StringToHash("CastOffset");
 
         [SerializeField] private BodyProfile profile;
         [SerializeField] private Transform latchPoint;
@@ -41,8 +42,14 @@ namespace Spellmite
         [SerializeField, Tooltip("Player only: a press while busy, on cooldown or in the air still fires within this many seconds")] private float inputBuffer = 0.15f;
         [SerializeField, Tooltip("Jump still works this long after leaving the ground")] private float coyoteTime = 0.12f;
 
+        [Header("Aim (player)")]
+        [SerializeField, Tooltip("After a cast or a swing the body keeps facing the crosshair this long, so you can strafe")] private float aimModeDuration = 2f;
+        [SerializeField, Tooltip("Optional, Humanoid only: turns the torso to the aim so the legs can keep running their way")] private AimLookIK aimIK;
+        [SerializeField, Tooltip("With aimIK: up to this angle between aim and run the torso twists; past it the whole body turns")] private float maxTorsoTwist = 70f;
+        [SerializeField, Range(0f, 0.9f), Tooltip("The player's spell fires at once: the Cast clip starts this far in (0..1), past its windup")] private float playerCastAnimSkip = 0.3f;
+
         [Header("Visuals")]
-        [SerializeField, Tooltip("Optional. Uses triggers AttackLeft, AttackRight, Hit, Death, Cast and float Speed")] private Animator animator;
+        [SerializeField, Tooltip("Optional. Uses triggers AttackLeft, AttackRight, Hit, Death, Cast, floats Speed and CastOffset (optional)")] private Animator animator;
         [SerializeField, Tooltip("Punched on hits/attacks when there is no Animator")] private Transform visual;
         [SerializeField] private float destroyDelayAfterDeath = 4f;
 
@@ -56,7 +63,9 @@ namespace Spellmite
         private float stunUntil;
         private float nextAttackTime;
         private float attackFacingUntil;
+        private float aimModeUntil;
         private bool nextAttackLeft = true;
+        private bool hasCastOffset;
         // Buffered presses: valid while Time.time <= the time, -1 = none
         private float jumpBufferedUntil = -1f;
         private float attackBufferedUntil = -1f;
@@ -78,6 +87,8 @@ namespace Spellmite
         public bool IsPossessed { get; private set; }
         public bool IsStunned => Time.time < stunUntil || (buffs != null && buffs.IsStunned);
         public float Resistance01 => resistance;
+        // Player only: right after a cast or a swing, while the body should look where the crosshair is
+        public bool IsAiming => IsPossessed && (Time.time < aimModeUntil || IsCasting);
 
         private bool IsCasting => caster != null && caster.IsCasting;
 
@@ -90,6 +101,9 @@ namespace Spellmite
             health.Damaged += OnDamaged;
             health.Died += OnDied;
             if (visual != null) visualBaseScale = visual.localScale;
+            if (animator != null)
+                foreach (var p in animator.parameters)
+                    if (p.nameHash == CastOffsetHash) hasCastOffset = true;
         }
 
         private void OnEnable() => All.Add(this);
@@ -182,11 +196,14 @@ namespace Spellmite
             velocity = new Vector3(horizontal.x, vertical, horizontal.z);
             controller.Move(velocity * dt);
 
-            if (canAct && Time.time <= castBufferedUntil && caster != null && caster.TryCast(bufferedCastSlot - 1, input.CastTimeScale))
+            // Face the crosshair first: the player's spell leaves the cast point inside TryCast
+            if (canAct && Time.time <= castBufferedUntil && caster != null && caster.CanCast(bufferedCastSlot - 1))
             {
                 castBufferedUntil = -1f;
                 SnapToAim();
+                caster.TryCast(bufferedCastSlot - 1, input.CastTimeScale);
                 PlayCast();
+                aimModeUntil = Time.time + aimModeDuration;
             }
 
             if (canAct && Time.time <= attackBufferedUntil && Time.time >= nextAttackTime && !IsCasting)
@@ -203,8 +220,18 @@ namespace Spellmite
         {
             if (health.IsDead) return;
 
+            Vector3 aim = Vector3.ProjectOnPlane(input.Aim, Vector3.up);
             Vector3 face = horizontal;
-            if (Time.time < attackFacingUntil || IsCasting) face = Vector3.ProjectOnPlane(input.Aim, Vector3.up);
+            if (Time.time < attackFacingUntil || IsCasting)
+            {
+                face = aim;
+            }
+            else if (IsAiming)
+            {
+                // Aim mode: the torso IK covers small angles while the legs run their way; past that the whole body turns
+                bool twist = aimIK != null && horizontal.sqrMagnitude >= 0.25f && Vector3.Angle(aim, horizontal) <= maxTorsoTwist;
+                if (!twist) face = aim;
+            }
             if (face.sqrMagnitude < 0.25f) return;
 
             Quaternion target = Quaternion.LookRotation(face.normalized, Vector3.up);
@@ -224,6 +251,7 @@ namespace Spellmite
         {
             nextAttackTime = Time.time + attackCooldown;
             attackFacingUntil = Time.time + attackHitDelay;
+            aimModeUntil = Time.time + aimModeDuration;
             SnapToAim();
 
             if (animator != null)
@@ -254,8 +282,14 @@ namespace Spellmite
 
         private void PlayCast()
         {
-            if (animator != null) animator.SetTrigger(CastHash);
-            else PunchVisual(new Vector3(0.2f, 0.25f, -0.1f));
+            if (animator == null)
+            {
+                PunchVisual(new Vector3(0.2f, 0.25f, -0.1f));
+                return;
+            }
+            // The player's spell is already out: the Cast state's cycle offset (CastOffset) skips the clip's windup
+            if (hasCastOffset) animator.SetFloat(CastOffsetHash, IsPossessed ? playerCastAnimSkip : 0f);
+            animator.SetTrigger(CastHash);
         }
 
         private void OnDamaged(float amount, Vector3 impulse)

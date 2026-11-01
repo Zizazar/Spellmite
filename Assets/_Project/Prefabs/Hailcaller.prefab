@@ -87,13 +87,38 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 63184d64cb65f7b4fa83c6a69a3e9327, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3320615958155878614}
   m_SourcePrefab: {fileID: 100100000, guid: 63184d64cb65f7b4fa83c6a69a3e9327, type: 3}
 --- !u!4 &1597917598900409100 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 63184d64cb65f7b4fa83c6a69a3e9327, type: 3}
   m_PrefabInstance: {fileID: 1271784116524725479}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2118698689479150006 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 63184d64cb65f7b4fa83c6a69a3e9327, type: 3}
+  m_PrefabInstance: {fileID: 1271784116524725479}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3320615958155878614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118698689479150006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbeb80c3a4be0b5428f58e5b93882c96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.AimLookIK
+  body: {fileID: 2956335935776915470}
+  bodyWeight: 0.6
+  headWeight: 1
+  clampWeight: 0.5
+  blendSpeed: 5
 --- !u!95 &4669350195852478838 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 63184d64cb65f7b4fa83c6a69a3e9327, type: 3}
@@ -176,9 +201,17 @@ PrefabInstance:
       value: -0.28093702
       objectReference: {fileID: 0}
     - target: {fileID: 6910641937542371212, guid: 13b4398fc33ce664a8b2c90d15aa918e, type: 3}
+      propertyPath: aimIK
+      value: 
+      objectReference: {fileID: 3320615958155878614}
+    - target: {fileID: 6910641937542371212, guid: 13b4398fc33ce664a8b2c90d15aa918e, type: 3}
       propertyPath: animator
       value: 
       objectReference: {fileID: 4669350195852478838}
+    - target: {fileID: 6910641937542371212, guid: 13b4398fc33ce664a8b2c90d15aa918e, type: 3}
+      propertyPath: playerCastAnimSkip
+      value: 0.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 761633832693758291, guid: 13b4398fc33ce664a8b2c90d15aa918e, type: 3}
@@ -194,3 +227,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6219204152946580702, guid: 13b4398fc33ce664a8b2c90d15aa918e, type: 3}
   m_PrefabInstance: {fileID: 8566000305472657282}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2956335935776915470 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6910641937542371212, guid: 13b4398fc33ce664a8b2c90d15aa918e, type: 3}
+  m_PrefabInstance: {fileID: 8566000305472657282}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6ea35ecb3622924da2995cdae8cd00d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.HostBody

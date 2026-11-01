@@ -42,6 +42,8 @@ namespace Spellmite
 
         public bool IsReady(int slot) => GetSpell(slot) != null && Time.time >= readyTimes[slot];
 
+        public bool CanCast(int slot) => !IsCasting && IsReady(slot);
+
         // Runtime only (Spellbook "Slot 1" test button): puts a spell into a slot, ready to cast
         public void SetSpell(int slot, SpellData spell)
         {
@@ -54,27 +56,30 @@ namespace Spellmite
         // castTimeScale: windup multiplier from the controller, 0 = the spell's CastTime as is
         public bool TryCast(int slot, float castTimeScale = 1f)
         {
-            if (IsCasting || !IsReady(slot)) return false;
+            if (!CanCast(slot)) return false;
             float castTime = spells[slot].CastTime * (castTimeScale > 0f ? castTimeScale : 1f);
             Cast(slot, spells[slot], castTime, destroyCancellationToken).Forget();
             return true;
         }
 
+        // Enemies wind up (CastVfx telegraphs it) and then fire. The player fires at once and recovers for the same time
+        // afterwards, like Risk of Rain: the shot answers the press, the cost comes after
         private async UniTaskVoid Cast(int slot, SpellData spell, float castTime, CancellationToken token)
         {
             IsCasting = true;
             bool possessed = body.IsPossessed;
+            if (possessed) Fire(slot, spell);
             GameObject telegraph = spell.CastVfx != null ? Instantiate(spell.CastVfx, castPoint.position, castPoint.rotation, castPoint) : null;
-            float fireTime = Time.time + castTime;
+            float endTime = Time.time + castTime;
             try
             {
-                // Stun, death or a change of controller cancels the windup
-                while (Time.time < fireTime)
+                // Stun, death or a change of controller cancels the windup (or ends the recovery early)
+                while (Time.time < endTime)
                 {
                     await UniTask.NextFrame(token);
                     if (body.Health.IsDead || body.IsStunned || body.IsPossessed != possessed) return;
                 }
-                Fire(slot, spell);
+                if (!possessed) Fire(slot, spell);
             }
             finally
             {
