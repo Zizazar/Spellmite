@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: OrbitalStrike
   m_EditorClassIdentifier: Assembly-CSharp::Spellmite.SpellData
   <NameKey>k__BackingField: spell.orbital_strike
-  <Icon>k__BackingField: {fileID: 0}
+  <Icon>k__BackingField: {fileID: 21300000, guid: ba47a3d469b8a4c4ca7d42712056d5fe, type: 3}
   <Tags>k__BackingField:
   - {fileID: 11400000, guid: 50b08909e0bb38a4bb9655dac10b476f, type: 2}
   - {fileID: 11400000, guid: f3f5245d1fb441e42b5bd1e1b1444515, type: 2}
@@ -23,6 +23,7 @@ MonoBehaviour:
   <ResistanceCost>k__BackingField: 0.2
   <CastVfx>k__BackingField: {fileID: 8422093842481178720, guid: 8afeaf36cb64b474bb4c03063fd01fdd, type: 3}
   <SelfBuff>k__BackingField: {fileID: 0}
+  <CameraKick>k__BackingField: 1.5
   <Damage>k__BackingField: 35
   <Speed>k__BackingField: 20
   <Gravity>k__BackingField: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Rockfall
   m_EditorClassIdentifier: Assembly-CSharp::Spellmite.SpellData
   <NameKey>k__BackingField: spell.rockfall
-  <Icon>k__BackingField: {fileID: 0}
+  <Icon>k__BackingField: {fileID: 21300000, guid: 3a72ed144b163a3429c95b8477afd460, type: 3}
   <Tags>k__BackingField:
   - {fileID: 11400000, guid: afb2096190a65e34d8039fa1b82f7441, type: 2}
   - {fileID: 11400000, guid: f3f5245d1fb441e42b5bd1e1b1444515, type: 2}

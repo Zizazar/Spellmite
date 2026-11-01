@@ -44,6 +44,9 @@ namespace Spellmite
 
         public bool CanCast(int slot) => !IsCasting && IsReady(slot);
 
+        // Seconds until the slot is ready again (HUD), 0 = ready
+        public float CooldownRemaining(int slot) => GetSpell(slot) != null ? Mathf.Max(0f, readyTimes[slot] - Time.time) : 0f;
+
         // Runtime only (Spellbook "Slot 1" test button): puts a spell into a slot, ready to cast
         public void SetSpell(int slot, SpellData spell)
         {

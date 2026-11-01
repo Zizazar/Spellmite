@@ -29,6 +29,11 @@ namespace Spellmite
         private float standTime;
         private bool moving;
 
+        // Read by the HUD
+        public int CurrentFloor => currentFloor;
+        public int FloorCount => floorHeights.Length;
+        public bool IsCurrentFloorCleared => IsFloorCleared(currentFloor);
+
         private void Start()
         {
             player = FindAnyObjectByType<ParasiteBody>();

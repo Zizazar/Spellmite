@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FrostShards
   m_EditorClassIdentifier: Assembly-CSharp::Spellmite.SpellData
   <NameKey>k__BackingField: spell.frost_shards
-  <Icon>k__BackingField: {fileID: 0}
+  <Icon>k__BackingField: {fileID: 21300000, guid: 944a09d84f2716b4a9514305a0ab2933, type: 3}
   <Tags>k__BackingField:
   - {fileID: 11400000, guid: aabdeb38047b70543b27b9d39e223af0, type: 2}
   - {fileID: 11400000, guid: 89ec77dd291eff245823573c2dcb344e, type: 2}
@@ -23,6 +23,7 @@ MonoBehaviour:
   <ResistanceCost>k__BackingField: 0.1
   <CastVfx>k__BackingField: {fileID: 4643988801186694651, guid: 475e0944d223d644798888018ff15cbb, type: 3}
   <SelfBuff>k__BackingField: {fileID: 0}
+  <CameraKick>k__BackingField: 1.5
   <Damage>k__BackingField: 6
   <Speed>k__BackingField: 22
   <Gravity>k__BackingField: 0
@@ -35,6 +36,11 @@ MonoBehaviour:
   <HomingRange>k__BackingField: 15
   <SplashRadius>k__BackingField: 0
   <HitBuff>k__BackingField: {fileID: 11400000, guid: 023237e133e1d2a4ebe1f521d5f39b46, type: 2}
+  <AreaVfx>k__BackingField: {fileID: 0}
+  <BarrageHeight>k__BackingField: 8
+  <BarrageVfxOnGround>k__BackingField: 0
+  <BarrageDelay>k__BackingField: 0.7
+  <BarrageInterval>k__BackingField: 0.15
   <ProjectileVfx>k__BackingField: {fileID: 2374901705010446669, guid: be15969a4d6e1c44bbe7a583269bf5e5, type: 3}
   <ImpactVfx>k__BackingField: {fileID: 4011251727955164085, guid: 011166512bd46c64ca8c123c04893048, type: 3}
   <MuzzleVfx>k__BackingField: {fileID: 590347587754499779, guid: 495f4badb3681e740ae65d912ee769fe, type: 3}
@@ -42,3 +48,4 @@ MonoBehaviour:
   <AiMinRange>k__BackingField: 0
   <AiMaxRange>k__BackingField: 12
   <AiHealthBelow>k__BackingField: 0.5
+  <AiTokenCost>k__BackingField: 1

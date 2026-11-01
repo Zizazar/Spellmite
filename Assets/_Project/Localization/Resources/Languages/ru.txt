@@ -6,6 +6,12 @@ menu.quit=Выход
 
 # HUD
 hud.score=Очки: {0}
+hud.floor=Этаж {0}
+hud.objective=Цель:
+hud.objective.clear=Победите врагов на этаже
+hud.objective.wave=Победите врагов {0}/{1}
+hud.objective.lift=Поднимитесь на <color=#7FB8FF>лифте</color>
+hud.objective.top=Башня зачищена
 coins.one={0} монета
 coins.few={0} монеты
 coins.many={0} монет

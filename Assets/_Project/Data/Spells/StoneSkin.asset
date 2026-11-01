@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StoneSkin
   m_EditorClassIdentifier: Assembly-CSharp::Spellmite.SpellData
   <NameKey>k__BackingField: spell.stone_skin
-  <Icon>k__BackingField: {fileID: 0}
+  <Icon>k__BackingField: {fileID: 21300000, guid: 661327322f782c84394da678a0fd7ff8, type: 3}
   <Tags>k__BackingField:
   - {fileID: 11400000, guid: afb2096190a65e34d8039fa1b82f7441, type: 2}
   - {fileID: 11400000, guid: b9525ebeb722f4c4cb73570641cd265e, type: 2}

@@ -19,7 +19,7 @@ namespace Spellmite
         private readonly List<EnemyBrain> spawned = new();
         private ParasiteBody player;
 
-        // Read by the Waves window in Play Mode
+        // Read by the HUD and the Waves window in Play Mode
         public int ActiveFloor { get; private set; } = -1;
         public int SpawnedCount { get; private set; }
         public bool IsSpawning { get; private set; }

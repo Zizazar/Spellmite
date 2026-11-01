@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ToxicSpit
   m_EditorClassIdentifier: Assembly-CSharp::Spellmite.SpellData
   <NameKey>k__BackingField: spell.toxic_spit
-  <Icon>k__BackingField: {fileID: 0}
+  <Icon>k__BackingField: {fileID: 21300000, guid: 311668e3ce4a3614887a1979161f34a5, type: 3}
   <Tags>k__BackingField:
   - {fileID: 11400000, guid: 62ac077b57cb23f42a431aec79763076, type: 2}
   - {fileID: 11400000, guid: 89ec77dd291eff245823573c2dcb344e, type: 2}
@@ -24,6 +24,7 @@ MonoBehaviour:
   <ResistanceCost>k__BackingField: 0.1
   <CastVfx>k__BackingField: {fileID: 6308758188975051715, guid: 3ca2957386a6f7341828e0089b523103, type: 3}
   <SelfBuff>k__BackingField: {fileID: 0}
+  <CameraKick>k__BackingField: 1.5
   <Damage>k__BackingField: 6
   <Speed>k__BackingField: 14
   <Gravity>k__BackingField: 5
@@ -38,6 +39,7 @@ MonoBehaviour:
   <HitBuff>k__BackingField: {fileID: 11400000, guid: 76bc67da90632cb4fb2ea63a21ad47dc, type: 2}
   <AreaVfx>k__BackingField: {fileID: 0}
   <BarrageHeight>k__BackingField: 8
+  <BarrageVfxOnGround>k__BackingField: 0
   <BarrageDelay>k__BackingField: 0.7
   <BarrageInterval>k__BackingField: 0.15
   <ProjectileVfx>k__BackingField: {fileID: 3260385576940821322, guid: 0ddf0370d40badf4da58f005efa3627b, type: 3}

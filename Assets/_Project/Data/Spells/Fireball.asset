@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fireball
   m_EditorClassIdentifier: Assembly-CSharp::Spellmite.SpellData
   <NameKey>k__BackingField: spell.fireball
-  <Icon>k__BackingField: {fileID: 0}
+  <Icon>k__BackingField: {fileID: 21300000, guid: 3545711dfae3f8540a40d03040efb6c9, type: 3}
   <Tags>k__BackingField:
   - {fileID: 11400000, guid: 5bbc42c1e160b4440944b40f4bcc47d3, type: 2}
   - {fileID: 11400000, guid: 89ec77dd291eff245823573c2dcb344e, type: 2}

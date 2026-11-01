@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ArcaneScatter
   m_EditorClassIdentifier: Assembly-CSharp::Spellmite.SpellData
   <NameKey>k__BackingField: spell.arcane_scatter
-  <Icon>k__BackingField: {fileID: 0}
+  <Icon>k__BackingField: {fileID: 21300000, guid: 420aff5fbdd4cc44b928534008c27b88, type: 3}
   <Tags>k__BackingField:
   - {fileID: 11400000, guid: 18e3864f781c36b4facc9cb682afe5b4, type: 2}
   - {fileID: 11400000, guid: 89ec77dd291eff245823573c2dcb344e, type: 2}
@@ -23,6 +23,7 @@ MonoBehaviour:
   <ResistanceCost>k__BackingField: 0.1
   <CastVfx>k__BackingField: {fileID: 7515734976404840579, guid: 94892a1d93b0f3a40aebdea8694f74f9, type: 3}
   <SelfBuff>k__BackingField: {fileID: 0}
+  <CameraKick>k__BackingField: 1.5
   <Damage>k__BackingField: 5
   <Speed>k__BackingField: 30
   <Gravity>k__BackingField: 0
@@ -37,6 +38,7 @@ MonoBehaviour:
   <HitBuff>k__BackingField: {fileID: 0}
   <AreaVfx>k__BackingField: {fileID: 0}
   <BarrageHeight>k__BackingField: 8
+  <BarrageVfxOnGround>k__BackingField: 0
   <BarrageDelay>k__BackingField: 0.7
   <BarrageInterval>k__BackingField: 0.15
   <ProjectileVfx>k__BackingField: {fileID: 2593062369330208301, guid: 7e904a23be6fb46479f811b7b73e0b45, type: 3}
