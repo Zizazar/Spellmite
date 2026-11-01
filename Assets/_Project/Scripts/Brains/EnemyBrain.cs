@@ -50,6 +50,7 @@ namespace Spellmite
         [SerializeField, Tooltip("A random one plays when the enemy gets an attack token")] private AudioClip[] barks;
         [SerializeField, Range(0f, 1f)] private float barkChance = 0.6f;
         [SerializeField] private float barkVolume = 1f;
+        [SerializeField, Tooltip("3D, on the body. Routed to the mixer's Sfx group, so the volume setting applies")] private AudioSource barkSource;
         [SerializeField, Tooltip("Ground ring under the target during the windup of splash spells. Empty = no ring")] private Material aimRingMaterial;
         [SerializeField] private float aimRingWidth = 0.08f;
 
@@ -367,7 +368,7 @@ namespace Spellmite
         {
             if (barks == null || barks.Length == 0 || Random.value > barkChance) return;
             var clip = barks[Random.Range(0, barks.Length)];
-            if (clip != null) AudioSource.PlayClipAtPoint(clip, body.Center, barkVolume);
+            if (clip != null && barkSource != null) barkSource.PlayOneShot(clip, barkVolume);
         }
 
         // Ring on the ground under the target (a Nova: under us) while a splash spell winds up, so the player can step out of it

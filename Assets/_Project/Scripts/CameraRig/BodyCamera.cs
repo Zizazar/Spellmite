@@ -169,7 +169,7 @@ namespace Spellmite
             if (gamepad || Cursor.lockState == CursorLockMode.Locked)
             {
                 // A wider FOV turns faster, sprinting turns slower
-                look *= (gamepad ? gamepadSensitivity * dt : mouseSensitivity) * fovMultiplier * (sprinting ? sprintLookScale : 1f);
+                look *= (gamepad ? gamepadSensitivity * dt : mouseSensitivity) * PauseMenu.LookSensitivity * fovMultiplier * (sprinting ? sprintLookScale : 1f);
                 yaw = Mathf.Repeat(yaw + look.x + 180f, 360f) - 180f;
                 pitch -= look.y;
             }

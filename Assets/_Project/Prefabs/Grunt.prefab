@@ -148,6 +148,7 @@ MonoBehaviour:
   barks: []
   barkChance: 0.6
   barkVolume: 1
+  barkSource: {fileID: 999669058510158971}
   aimRingMaterial: {fileID: 0}
   aimRingWidth: 0.08
 --- !u!114 &6908551560080853840
@@ -193,7 +194,7 @@ AudioSource:
   m_GameObject: {fileID: 1364868255578534701}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 5744693866765874129, guid: e9201b79fdba3a4499ccd89601832403, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0

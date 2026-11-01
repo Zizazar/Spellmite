@@ -26,6 +26,14 @@ end.best=Best: {0}
 end.record=New record!
 end.restart=Play again
 
+# Pause menu
+pause.title=Paused
+pause.sensitivity=Mouse sensitivity
+pause.music=Music
+pause.sfx=Sounds
+pause.resume=Resume
+pause.restart=Restart
+
 # Tutorial
 tutorial.title=Sewers
 tutorial.possess=Possess a body

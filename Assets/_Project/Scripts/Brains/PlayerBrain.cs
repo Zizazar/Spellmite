@@ -37,6 +37,13 @@ namespace Spellmite
 
         private void Update()
         {
+            // The pause menu has the cursor and the clicks; the body stands still meanwhile
+            if (PauseMenu.IsPaused)
+            {
+                parasite.SetInput(new ControlInput { Aim = viewCamera.transform.forward, AimOrigin = viewCamera.transform.position });
+                return;
+            }
+
             // Cursor lock only works from a user input event on WebGL: lock on click and swallow that click
             if (Cursor.lockState != CursorLockMode.Locked)
             {

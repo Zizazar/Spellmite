@@ -26,6 +26,14 @@ end.best=Рекорд: {0}
 end.record=Новый рекорд!
 end.restart=Играть снова
 
+# Pause menu
+pause.title=Пауза
+pause.sensitivity=Чувствительность мыши
+pause.music=Музыка
+pause.sfx=Звуки
+pause.resume=Продолжить
+pause.restart=Начать заново
+
 # Tutorial
 tutorial.title=Канализация
 tutorial.possess=Вселитесь в тело
