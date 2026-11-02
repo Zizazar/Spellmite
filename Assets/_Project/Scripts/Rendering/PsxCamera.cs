@@ -1,17 +1,24 @@
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 namespace Spellmite
 {
     // PlayStation 1 look for this camera. The screen part (low resolution, 15-bit color, dithering) is drawn by
     // PsxRendererFeature; the geometry part (vertex jitter, affine textures) is done by Spellmite/PSX Lit materials,
     // which read the globals set here. Other cameras (Scene view, previews) render with all of it off.
+    // In Play Mode and builds it also sets the URP render scale so the camera renders right at the PSX height.
     [ExecuteAlways]
     [RequireComponent(typeof(Camera))]
     public class PsxCamera : MonoBehaviour
     {
         private static readonly int SnapResolutionId = Shader.PropertyToID("_PsxSnapResolution");
         private static readonly int AffineId = Shader.PropertyToID("_PsxAffine");
+
+        // The URP asset whose render scale is changed and its own value, put back when the camera is disabled
+        // (also on leaving Play Mode, so the asset isn't left changed in the Editor)
+        private static UniversalRenderPipelineAsset scaledAsset;
+        private static float originalRenderScale;
 
         [Header("Screen")]
         [SerializeField, Tooltip("Internal render height in pixels (PS1: 240). Width follows the aspect ratio. 0 = full resolution")]
@@ -45,6 +52,7 @@ namespace Spellmite
         {
             RenderPipelineManager.beginCameraRendering -= OnBeginCameraRendering;
             SetGeometryGlobals(Vector2.zero, 0f);
+            RestoreRenderScale();
         }
 
         // Globals are shared by all cameras, so they are set right before each camera renders.
@@ -61,6 +69,33 @@ namespace Spellmite
                 ? new Vector2(Mathf.Round(vertexSnapHeight * cam.aspect), vertexSnapHeight)
                 : Vector2.zero;
             SetGeometryGlobals(snap, affineMapping);
+            if (Application.isPlaying) ApplyRenderScale();
+        }
+
+        // The PSX pass takes one pixel per block of the full-size image anyway, so rendering at its size looks
+        // the same and shades 13-20x fewer pixels at 1080p. Camera.pixelHeight is the window's, render scale doesn't change it.
+        private void ApplyRenderScale()
+        {
+            var asset = UniversalRenderPipeline.asset;
+            if (asset != scaledAsset)
+            {
+                RestoreRenderScale();
+                if (asset == null) return;
+                scaledAsset = asset;
+                originalRenderScale = asset.renderScale;
+            }
+
+            // +0.5: URP truncates the scaled height, and a line short would make the PSX pass resample the image
+            float scale = verticalResolution > 0
+                ? Mathf.Clamp((verticalResolution + 0.5f) / cam.pixelHeight, 0.1f, 1f)
+                : originalRenderScale;
+            if (asset.renderScale != scale) asset.renderScale = scale;
+        }
+
+        private static void RestoreRenderScale()
+        {
+            if (scaledAsset != null) scaledAsset.renderScale = originalRenderScale;
+            scaledAsset = null;
         }
 
         private static void SetGeometryGlobals(Vector2 snapResolution, float affine)

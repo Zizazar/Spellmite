@@ -94,6 +94,15 @@ namespace Spellmite
                         Blitter.BlitTexture(context.cmd, d.source, NoScaleBias, d.material, 0));
                 }
 
+                // The camera already renders at this size (PsxCamera's render scale): the low-res image becomes the
+                // camera color, and URP's final blit scales it to the screen with point sampling (it's a Point texture).
+                // Copied back into the camera color it would be scaled up bilinearly, as camera post-processing is off.
+                if (width == target.width && height == target.height)
+                {
+                    resourceData.cameraColor = lowRes;
+                    return;
+                }
+
                 using (var builder = renderGraph.AddRasterRenderPass<PassData>("PSX Upscale", out var data))
                 {
                     data.source = lowRes;
