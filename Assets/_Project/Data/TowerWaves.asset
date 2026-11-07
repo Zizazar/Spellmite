@@ -18,34 +18,46 @@ MonoBehaviour:
     <NextGroupAt>k__BackingField: 2
     <Groups>k__BackingField:
     - <Prefab>k__BackingField: {fileID: 2768389401060891421, guid: 13b4398fc33ce664a8b2c90d15aa918e, type: 3}
-      <Count>k__BackingField: 2
+      <Count>k__BackingField: 4
   - <MaxAlive>k__BackingField: 4
     <SpawnInterval>k__BackingField: 1
     <NextGroupAt>k__BackingField: 2
     <Groups>k__BackingField:
     - <Prefab>k__BackingField: {fileID: 2768389401060891421, guid: 13b4398fc33ce664a8b2c90d15aa918e, type: 3}
-      <Count>k__BackingField: 5
-    - <Prefab>k__BackingField: {fileID: 1117153652194171819, guid: 74d0e9a9834811f41b03d92fa5d7e452, type: 3}
-      <Count>k__BackingField: 2
-  - <MaxAlive>k__BackingField: 4
-    <SpawnInterval>k__BackingField: 1
-    <NextGroupAt>k__BackingField: 2
-    <Groups>k__BackingField:
-    - <Prefab>k__BackingField: {fileID: 1117153652194171819, guid: 74d0e9a9834811f41b03d92fa5d7e452, type: 3}
       <Count>k__BackingField: 3
+    - <Prefab>k__BackingField: {fileID: 1117153652194171819, guid: 74d0e9a9834811f41b03d92fa5d7e452, type: 3}
+      <Count>k__BackingField: 1
     - <Prefab>k__BackingField: {fileID: 2768389401060891421, guid: 13b4398fc33ce664a8b2c90d15aa918e, type: 3}
-      <Count>k__BackingField: 6
+      <Count>k__BackingField: 2
+    - <Prefab>k__BackingField: {fileID: 1117153652194171819, guid: 74d0e9a9834811f41b03d92fa5d7e452, type: 3}
+      <Count>k__BackingField: 1
+  - <MaxAlive>k__BackingField: 4
+    <SpawnInterval>k__BackingField: 1
+    <NextGroupAt>k__BackingField: 2
+    <Groups>k__BackingField:
+    - <Prefab>k__BackingField: {fileID: 2768389401060891421, guid: 13b4398fc33ce664a8b2c90d15aa918e, type: 3}
+      <Count>k__BackingField: 3
     - <Prefab>k__BackingField: {fileID: 161767627799041463, guid: 9269bb64197129f44a258f40fe6bee74, type: 3}
       <Count>k__BackingField: 2
+    - <Prefab>k__BackingField: {fileID: 1117153652194171819, guid: 74d0e9a9834811f41b03d92fa5d7e452, type: 3}
+      <Count>k__BackingField: 2
+    - <Prefab>k__BackingField: {fileID: 2768389401060891421, guid: 13b4398fc33ce664a8b2c90d15aa918e, type: 3}
+      <Count>k__BackingField: 3
+    - <Prefab>k__BackingField: {fileID: 1117153652194171819, guid: 74d0e9a9834811f41b03d92fa5d7e452, type: 3}
+      <Count>k__BackingField: 1
   - <MaxAlive>k__BackingField: 5
     <SpawnInterval>k__BackingField: 1
     <NextGroupAt>k__BackingField: 2
     <Groups>k__BackingField:
     - <Prefab>k__BackingField: {fileID: 2768389401060891421, guid: 13b4398fc33ce664a8b2c90d15aa918e, type: 3}
-      <Count>k__BackingField: 6
+      <Count>k__BackingField: 3
+    - <Prefab>k__BackingField: {fileID: 5803944314797362335, guid: 2fe4fe14e4971c94c9488bd9bcaa1992, type: 3}
+      <Count>k__BackingField: 2
     - <Prefab>k__BackingField: {fileID: 1117153652194171819, guid: 74d0e9a9834811f41b03d92fa5d7e452, type: 3}
-      <Count>k__BackingField: 4
+      <Count>k__BackingField: 2
     - <Prefab>k__BackingField: {fileID: 161767627799041463, guid: 9269bb64197129f44a258f40fe6bee74, type: 3}
       <Count>k__BackingField: 2
-    - <Prefab>k__BackingField: {fileID: 5803944314797362335, guid: 2fe4fe14e4971c94c9488bd9bcaa1992, type: 3}
+    - <Prefab>k__BackingField: {fileID: 2768389401060891421, guid: 13b4398fc33ce664a8b2c90d15aa918e, type: 3}
+      <Count>k__BackingField: 3
+    - <Prefab>k__BackingField: {fileID: 1117153652194171819, guid: 74d0e9a9834811f41b03d92fa5d7e452, type: 3}
       <Count>k__BackingField: 2

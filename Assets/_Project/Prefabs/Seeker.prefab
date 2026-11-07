@@ -329,7 +329,7 @@ MonoBehaviour:
   castPoint: {fileID: 2935802641765302097}
   spells:
   - {fileID: 11400000, guid: 683c1e9da38668c44b9f42aeaa0eb7d9, type: 2}
-  - {fileID: 11400000, guid: 451f086651ed28d49baaa17592eaf8ab, type: 2}
+  - {fileID: 11400000, guid: ac3840b6ca3471c4794ce88e584e1e96, type: 2}
   - {fileID: 11400000, guid: db8da4f7afd1f4542a0cd8573e60201b, type: 2}
   - {fileID: 11400000, guid: 15a215abba5b5ef4ab8a122b9ff20ed0, type: 2}
   aimDistance: 100

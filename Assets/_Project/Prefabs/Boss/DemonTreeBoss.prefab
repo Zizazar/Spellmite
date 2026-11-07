@@ -2765,6 +2765,7 @@ GameObject:
   - component: {fileID: 1469859870175855105}
   - component: {fileID: 536959345084208087}
   - component: {fileID: 6170600145206517660}
+  - component: {fileID: 2200023316359146201}
   m_Layer: 0
   m_Name: Tree
   m_TagString: Untagged
@@ -2907,6 +2908,18 @@ MonoBehaviour:
   - {fileID: 6450893018570611840}
   flashColor: {r: 2.5, g: 2.5, b: 2.5, a: 1}
   flashDuration: 0.12
+--- !u!114 &2200023316359146201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3792756299865625270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 401b3668a14f13e448f1773c672331c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.BuffHolder
 --- !u!1 &3805146535396619839
 GameObject:
   m_ObjectHideFlags: 0

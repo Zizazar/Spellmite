@@ -24,7 +24,7 @@ MonoBehaviour:
   <CastVfx>k__BackingField: {fileID: 8422093842481178720, guid: 8afeaf36cb64b474bb4c03063fd01fdd, type: 3}
   <SelfBuff>k__BackingField: {fileID: 0}
   <CameraKick>k__BackingField: 1.5
-  <Damage>k__BackingField: 35
+  <Damage>k__BackingField: 60
   <Speed>k__BackingField: 20
   <Gravity>k__BackingField: 0
   <Lifetime>k__BackingField: 3
