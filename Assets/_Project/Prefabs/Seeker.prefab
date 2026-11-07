@@ -238,10 +238,23 @@ MonoBehaviour:
   separationRadius: 3
   separationWeight: 1
   probeDistance: 1.2
-  barks: []
+  barks:
+  - {fileID: 8300000, guid: 1d5e9c1459b634b46ac60ea239446267, type: 3}
+  - {fileID: 8300000, guid: 36a0066475fa6be408fe8d52c2e4f54b, type: 3}
+  - {fileID: 8300000, guid: 73a67181f7c8f3c47b8ad63f0b0de779, type: 3}
+  - {fileID: 8300000, guid: 22d2cc3a3e520a048ae59c4f88f95397, type: 3}
   barkChance: 0.6
   barkVolume: 1
   barkSource: {fileID: 5340045821412679013}
+  voicePitch: {x: 0.9, y: 1.1}
+  alertClips:
+  - {fileID: 8300000, guid: 5ebb79224ee91c8479a22b5a95589315, type: 3}
+  alertVolume: 1
+  alertDelay: {x: 0, y: 0.6}
+  idleClips:
+  - {fileID: 8300000, guid: dae066236db39fe40b114f9c6d790aab, type: 3}
+  idleVolume: 0.5
+  idleInterval: {x: 6, y: 12}
   aimRingMaterial: {fileID: 0}
   aimRingWidth: 0.08
 --- !u!114 &3609786086768035441
@@ -451,8 +464,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: aa00c3274f166bf46ac1adb09f31b8ff, type: 3}
   - {fileID: 8300000, guid: 482deecd5f370024abf5a61740a3cd41, type: 3}
   - {fileID: 8300000, guid: f80793d27863abf428f26c6bd49e517c, type: 3}
-  hurtClips: []
-  deathClips: []
+  hurtClips:
+  - {fileID: 8300000, guid: dae066236db39fe40b114f9c6d790aab, type: 3}
+  deathClips:
+  - {fileID: 8300000, guid: f7c0e2256ef1cdf458a094079e88e3ea, type: 3}
 --- !u!1 &8136788350279379748
 GameObject:
   m_ObjectHideFlags: 0

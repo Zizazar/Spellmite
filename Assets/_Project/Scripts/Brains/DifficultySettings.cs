@@ -17,6 +17,10 @@ namespace Spellmite
         [field: SerializeField, Tooltip("Still counts as seen this long after leaving the screen, so it doesn't flicker at the edge")] public float SeenMemory { get; private set; } = 0.4f;
         [field: SerializeField, Tooltip("No enemy attacks for this long after the player takes a new body")] public float PossessionGrace { get; private set; } = 1.5f;
 
+        [field: Header("Stealth (tower waves)")]
+        [field: SerializeField, Tooltip("Before the alarm, enemies notice a parasite crawling in the open within this distance. Keep it under the leap range, so the first move stays the player's")] public float NoticeRange { get; private set; } = 8f;
+        [field: SerializeField, Tooltip("The alarm goes up by itself this many seconds into a wave. 0 = never")] public float AlarmTimeout { get; private set; } = 20f;
+
         [field: Header("Telegraph")]
         [field: SerializeField, Tooltip("Enemy spell windup = spell CastTime × this")] public float EnemyCastTimeScale { get; private set; } = 1.5f;
     }

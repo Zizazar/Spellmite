@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -7,7 +8,8 @@ namespace Spellmite
     // Simple AI for a free host, Half-Life squad style. Wander -> Reposition (target found, no attack token: strafe and
     // hold the spell range) -> Attack (holds a token from AttackDirector: stands and casts). It attacks only while the
     // player sees it (PlayerViewTracker), so damage never comes from off screen. Spells are picked by their AI hints,
-    // slot order is the priority. Stops thinking while the host is possessed.
+    // slot order is the priority. Stops thinking while the host is possessed. Before a wave's alarm (AttackDirector) it
+    // only wanders and watches for the parasite.
     [DefaultExecutionOrder(-50)]
     [RequireComponent(typeof(HostBody))]
     public class EnemyBrain : MonoBehaviour
@@ -50,7 +52,14 @@ namespace Spellmite
         [SerializeField, Tooltip("A random one plays when the enemy gets an attack token")] private AudioClip[] barks;
         [SerializeField, Range(0f, 1f)] private float barkChance = 0.6f;
         [SerializeField] private float barkVolume = 1f;
-        [SerializeField, Tooltip("3D, on the body. Routed to the mixer's Sfx group, so the volume setting applies")] private AudioSource barkSource;
+        [SerializeField, Tooltip("3D, on the body. Routed to the mixer's Sfx group, so the volume setting applies. Also used for the alert and idle sounds")] private AudioSource barkSource;
+        [SerializeField] private Vector2 voicePitch = new(0.9f, 1.1f);
+        [SerializeField, Tooltip("Plays when the wave alarm goes off")] private AudioClip[] alertClips;
+        [SerializeField] private float alertVolume = 1f;
+        [SerializeField, Tooltip("Random delay before the alert, so a group doesn't shout in the same frame, seconds")] private Vector2 alertDelay = new(0f, 0.6f);
+        [SerializeField, Tooltip("Groans while the enemy wanders with no target")] private AudioClip[] idleClips;
+        [SerializeField] private float idleVolume = 0.5f;
+        [SerializeField, Tooltip("Seconds between idle groans")] private Vector2 idleInterval = new(6f, 12f);
         [SerializeField, Tooltip("Ground ring under the target during the windup of splash spells. Empty = no ring")] private Material aimRingMaterial;
         [SerializeField] private float aimRingWidth = 0.08f;
 
@@ -63,6 +72,7 @@ namespace Spellmite
         private Vector3 wanderTarget;
         private float nextWanderTime;
         private float nextCastTime;
+        private float nextIdleTime;
         private float slotAngle;
         private float rangeScale = 1f;
         private float strafeSign = 1f;
@@ -70,6 +80,7 @@ namespace Spellmite
         private float lastInViewTime = float.NegativeInfinity;
         private float noticeTime;
         private bool castingWithToken;
+        private bool wasPossessed;
         private SpellData castSpell;
         private LineRenderer aimRing;
 
@@ -91,10 +102,31 @@ namespace Spellmite
             rangeScale = Random.Range(1f - rangeJitter, 1f + rangeJitter);
             home = transform.position;
             wanderTarget = home;
+            nextIdleTime = Time.time + Random.Range(0f, idleInterval.y);
         }
 
         private void OnEnable() => All.Add(this);
         private void OnDisable() => All.Remove(this);
+
+        // Where it wanders until the alarm; it walks there first
+        public void SetHome(Vector3 position)
+        {
+            home = position;
+            wanderTarget = position;
+        }
+
+        public void ShowAlarm()
+        {
+            if (!IsThinking) return;
+            AlarmMark.Show(body);
+            Alert().Forget();
+        }
+
+        private async UniTaskVoid Alert()
+        {
+            await UniTask.Delay(System.TimeSpan.FromSeconds(Random.Range(alertDelay.x, alertDelay.y)), cancellationToken: destroyCancellationToken);
+            if (IsThinking) Speak(alertClips, alertVolume);
+        }
 
         private void Start()
         {
@@ -136,10 +168,18 @@ namespace Spellmite
                 AttackDirector.Instance.Release(this);
             }
 
+            if (body.IsPossessed) wasPossessed = true;
             if (!IsThinking)
             {
                 UpdateAimRing(null);
                 return;
+            }
+
+            // The body the parasite left comes to and tells the others
+            if (wasPossessed && !body.IsStunned)
+            {
+                wasPossessed = false;
+                AttackDirector.Instance.RaiseAlarm();
             }
 #if UNITY_EDITOR
             if (Cheats.NoEnemyAI)
@@ -175,6 +215,11 @@ namespace Spellmite
             else
             {
                 Wander(ref input);
+                if (Time.time >= nextIdleTime)
+                {
+                    nextIdleTime = Time.time + Random.Range(idleInterval.x, idleInterval.y);
+                    Speak(idleClips, idleVolume);
+                }
                 input.CastSlot = ChooseSpell(null, 0f, input.AimOrigin, input.AimOrigin) + 1;
             }
 
@@ -341,9 +386,24 @@ namespace Spellmite
         private Transform FindTarget()
         {
             if (!aggressive || player == null || player.Health.IsDead) return null;
-            // Enemies always know where the player is
+            if (!AttackDirector.Instance.IsAlarmed)
+            {
+                if (!NoticesParasite()) return null;
+                AttackDirector.Instance.RaiseAlarm();
+            }
+            // After the alarm enemies always know where the player is
             Transform target = player.ActiveBody;
             return target == transform ? null : target;
+        }
+
+        // Only a parasite crawling in the open gives itself away. A leap doesn't, or leaping onto a body would always be seen
+        private bool NoticesParasite()
+        {
+            if (player.State != ParasiteState.Free) return false;
+            Vector3 from = transform.position + Vector3.up * 1.5f;
+            Vector3 to = player.transform.position + Vector3.up * 0.3f;
+            float range = AttackDirector.Instance.Settings.NoticeRange;
+            return (to - from).sqrMagnitude <= range * range && HasLineOfSight(from, to, player.transform);
         }
 
         private void Wander(ref ControlInput input)
@@ -366,10 +426,10 @@ namespace Spellmite
 
         private void Bark()
         {
-            if (barks == null || barks.Length == 0 || Random.value > barkChance) return;
-            var clip = barks[Random.Range(0, barks.Length)];
-            if (clip != null && barkSource != null) barkSource.PlayOneShot(clip, barkVolume);
+            if (Random.value <= barkChance) Speak(barks, barkVolume);
         }
+
+        private void Speak(AudioClip[] clips, float volume) => barkSource.PlayRandom(clips, voicePitch, volume);
 
         // Ring on the ground under the target (a Nova: under us) while a splash spell winds up, so the player can step out of it
         private void UpdateAimRing(Transform target)

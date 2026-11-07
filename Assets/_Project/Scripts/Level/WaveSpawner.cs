@@ -14,6 +14,7 @@ namespace Spellmite
         [SerializeField] private TowerWaves waves;
         [SerializeField, Tooltip("Parent of each floor's spawn points, bottom up")] private Transform[] spawnPoints;
         [SerializeField, Tooltip("Points closer to the player than this are skipped while there are others")] private float minPlayerDistance = 6f;
+        [SerializeField, Range(0f, 1f), Tooltip("Before the alarm enemies wander around a spot this far from their spawn point to the middle of the floor. The lift is in the middle: at 1 they walk right up to it")] private float wanderTowardCenter = 0.5f;
 
         private readonly HashSet<int> started = new();
         private readonly List<EnemyBrain> spawned = new();
@@ -73,6 +74,7 @@ namespace Spellmite
             SpawnedCount = 0;
             spawned.Clear();
             IsSpawning = true;
+            AttackDirector.Instance.BeginStealth();
 
             // Read the wave every step, so edits in the Waves window apply right away
             TowerWaves.Wave Wave() => waves.Floors[floor];
@@ -99,6 +101,7 @@ namespace Spellmite
             // Possessed counts as defeated: once no free enemy is left the wave is won, and a host the player still
             // sits in dies when they leave it (or it throws them off) instead of turning hostile again
             await UniTask.WaitUntil(() => AliveCount == 0, cancellationToken: token);
+            AttackDirector.Instance.RaiseAlarm();
             foreach (var enemy in spawned)
             {
                 if (enemy != null && enemy.TryGetComponent(out HostBody host) && host.IsPossessed) KillOnRelease(host, token).Forget();
@@ -124,8 +127,17 @@ namespace Spellmite
         {
             Vector3 playerPosition = player != null ? player.ActiveBody.position : spawnPoints[floor].position;
             Transform point = PickPoint(spawnPoints[floor], playerPosition, minPlayerDistance);
-            spawned.Add(Instantiate(prefab, point.position, point.rotation));
+            EnemyBrain enemy = Instantiate(prefab, point.position, point.rotation);
+            enemy.SetHome(Vector3.Lerp(point.position, FloorCenter(spawnPoints[floor]), wanderTowardCenter));
+            spawned.Add(enemy);
             SpawnedCount++;
+        }
+
+        private static Vector3 FloorCenter(Transform points)
+        {
+            Vector3 sum = Vector3.zero;
+            foreach (Transform point in points) sum += point.position;
+            return sum / points.childCount;
         }
 
         // A random child of parent at least minDistance from the player, or the farthest one when all are close.

@@ -6,6 +6,8 @@ namespace Spellmite
     // Half-Life squad slots: only a few enemies attack at once, the rest reposition. Enemies the player sees ask for
     // tokens every frame they want to cast; once a frame the free tokens go to the ones closest to the screen center.
     // A token comes back TokenHoldTime after the cast, or at once when its holder dies, leaves the screen or is possessed.
+    // Also keeps the alarm: a wave opens with the enemies unaware of the player, and the first thing that gives the player
+    // away alerts the whole wave until it ends. Outside waves (tutorial, boss floor) the alarm is always up.
     public class AttackDirector : MonoBehaviour
     {
         private class Token
@@ -31,17 +33,44 @@ namespace Spellmite
         private ParasiteBody player;
         private HostBody lastHost;
         private float graceUntil;
+        private float possessedAt = float.PositiveInfinity; // infinity once this body has given itself away
+        private float alarmTimeoutAt = float.PositiveInfinity;
 
         public DifficultySettings Settings => settings;
+        public bool IsAlarmed { get; private set; } = true;
 
         private void Awake()
         {
             Instance = this;
         }
 
+        private void OnEnable() => HostBody.AnyDamaged += OnHostDamaged;
+        private void OnDisable() => HostBody.AnyDamaged -= OnHostDamaged;
+
         private void Start()
         {
             player = FindAnyObjectByType<ParasiteBody>();
+        }
+
+        // A wave starts: nobody knows about the player yet
+        public void BeginStealth()
+        {
+            IsAlarmed = false;
+            alarmTimeoutAt = settings.AlarmTimeout > 0f ? Time.time + settings.AlarmTimeout : float.PositiveInfinity;
+        }
+
+        // Reinforcements read IsAlarmed too, so they arrive alerted. Enemies get ReactionDelay to turn, and the "!" time to read
+        public void RaiseAlarm()
+        {
+            if (IsAlarmed) return;
+            IsAlarmed = true;
+            graceUntil = Mathf.Max(graceUntil, Time.time + settings.ReactionDelay);
+            foreach (var enemy in EnemyBrain.All) enemy.ShowAlarm();
+        }
+
+        private void OnHostDamaged(HostBody host, float amount)
+        {
+            if (!host.IsPossessed) RaiseAlarm();
         }
 
         // Seen long enough, and the player isn't just settling into a new body. Melee needs only this, spells also a token.
@@ -84,8 +113,19 @@ namespace Spellmite
                 {
                     tokens.Clear();
                     graceUntil = Time.time + settings.PossessionGrace;
+                    possessedAt = Time.time;
                 }
             }
+
+            // The body's first cast or swing gives it away: the grace ends, so chained hops aren't free
+            if (host != null && host.LastActionTime >= possessedAt)
+            {
+                possessedAt = float.PositiveInfinity;
+                graceUntil = Mathf.Min(graceUntil, Time.time);
+                RaiseAlarm();
+            }
+
+            if (Time.time >= alarmTimeoutAt) RaiseAlarm();
 
             for (int i = tokens.Count - 1; i >= 0; i--)
             {
