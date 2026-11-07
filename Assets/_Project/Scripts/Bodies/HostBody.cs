@@ -12,6 +12,8 @@ namespace Spellmite
     public class HostBody : MonoBehaviour
     {
         public static readonly List<HostBody> All = new();
+        // Any body was hurt: which one, how much (EnemyHealthBars)
+        public static event Action<HostBody, float> AnyDamaged;
 
         private static readonly int AttackLeftHash = Animator.StringToHash("AttackLeft");
         private static readonly int AttackRightHash = Animator.StringToHash("AttackRight");
@@ -349,6 +351,7 @@ namespace Spellmite
 
         private void OnDamaged(float amount, Vector3 impulse)
         {
+            AnyDamaged?.Invoke(this, amount);
             AddImpulse(impulse);
             if (health.IsDead) return;
 

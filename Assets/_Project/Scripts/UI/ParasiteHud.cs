@@ -7,7 +7,7 @@ using UnityEngine.UI;
 namespace Spellmite
 {
     // Crosshair that turns magenta over a host you can leap to, brackets around that host on screen
-    // with its name and the possess key above them, and the current host's control bar
+    // with its name, the possess key and its spells above them, and the current host's control bar
     // (time left before it throws the parasite off).
     // Control running out: a magenta edge vignette pulses, harder towards zero, and flashes when the host throws the parasite off;
     // when critical the next host to leap to gets faded, pulsing brackets (no name) even if it isn't aimed at.
@@ -34,6 +34,9 @@ namespace Spellmite
         [SerializeField] private LocText targetName;
         [SerializeField, Tooltip("Key hud.hint.possess, {0} = the leap key")] private LocText possessHintText;
         [SerializeField, Tooltip("Input action whose key the hint names")] private string leapActionName = "Player/Leap";
+        [SerializeField, Tooltip("Row of spell icons inside the hint, hidden for a host without spells")] private GameObject spellIconsRoot;
+        [SerializeField, Tooltip("One per spell slot of a body. Darkened with its cooldown: a host's cooldowns carry over on possession")] private SkillSlot[] spellIcons;
+        [SerializeField, Tooltip("Seconds between the icons popping up on a new target")] private float spellPopStagger = 0.04f;
 
         [Header("Control")]
         [SerializeField] private GameObject resistanceRoot;
@@ -57,7 +60,12 @@ namespace Spellmite
         private Canvas canvas;
         private Camera cam;
         private HostBody shownTarget;
+        private SpellCaster shownCaster;
         private Tween targetPunch;
+
+        // The aimed host on screen, null for a suggested one, and the top of its brackets in canvas units (EnemyHealthBars)
+        public HostBody FramedHost { get; private set; }
+        public Vector2 FrameTop { get; private set; }
 
         private void Start()
         {
@@ -124,6 +132,7 @@ namespace Spellmite
             bool onScreen = target != null && cam != null && TryGetCanvasRect(target.Bounds, out rect);
             targetFrame.gameObject.SetActive(onScreen);
             possessHint.gameObject.SetActive(onScreen && !suggested);
+            FramedHost = onScreen && !suggested ? target : null;
             if (targetFrameGroup != null)
                 targetFrameGroup.alpha = suggested
                     ? Mathf.Lerp(suggestedAlpha.x, suggestedAlpha.y, 0.5f + 0.5f * Mathf.Sin(Time.time * suggestedPulseRate * 2f * Mathf.PI))
@@ -137,13 +146,37 @@ namespace Spellmite
             targetFrame.anchoredPosition = rect.center;
             targetFrame.sizeDelta = rect.size;
             possessHint.anchoredPosition = new Vector2(rect.center.x, rect.yMax + hintGap);
+            FrameTop = new Vector2(rect.center.x, rect.yMax);
 
-            if (target == shownTarget) return;
-            shownTarget = target;
-            targetName.SetKey(target.NameKey);
-            targetPunch.Stop();
-            targetFrame.localScale = Vector3.one;
-            targetPunch = Tween.PunchScale(targetFrame, Vector3.one * 0.2f, 0.2f);
+            bool newTarget = target != shownTarget;
+            if (newTarget)
+            {
+                shownTarget = target;
+                shownCaster = target.GetComponent<SpellCaster>();
+                targetName.SetKey(target.NameKey);
+                targetPunch.Stop();
+                targetFrame.localScale = Vector3.one;
+                targetPunch = Tween.PunchScale(targetFrame, Vector3.one * 0.2f, 0.2f);
+            }
+            if (!suggested) UpdateSpellIcons(newTarget);
+        }
+
+        private void UpdateSpellIcons(bool pop)
+        {
+            int shown = 0;
+            for (int i = 0; i < spellIcons.Length; i++)
+            {
+                SpellData spell = shownCaster != null ? shownCaster.GetSpell(i) : null;
+                SkillSlot slot = spellIcons[i];
+                slot.gameObject.SetActive(spell != null);
+                if (spell == null) continue;
+
+                float remaining = shownCaster.CooldownRemaining(i);
+                slot.Show(spell.Icon, remaining, spell.Cooldown, remaining <= 0f);
+                if (pop) slot.PopIn(shown * spellPopStagger);
+                shown++;
+            }
+            spellIconsRoot.SetActive(shown > 0);
         }
 
         // White, clear inside `inner`, fading to opaque at the corners. Stretched over the screen, so the falloff follows its aspect

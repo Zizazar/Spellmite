@@ -13,7 +13,7 @@ namespace Spellmite
         [SerializeField] private Image icon;
         [SerializeField, Tooltip("Image Type = Filled, Radial 360")] private Image cooldownFill;
         [SerializeField] private TMP_Text cooldownText;
-        [SerializeField] private TMP_Text keyText;
+        [SerializeField, Tooltip("Empty = no key under the slot")] private TMP_Text keyText;
         [SerializeField, Tooltip("Frame drawn over the icon, tinted when the cast would use up the host's control")] private Image frame;
         [SerializeField, Tooltip("Input action whose key is shown under the slot")] private string actionName = "Player/Attack";
         [SerializeField] private Color unusableColor = new(0.35f, 0.35f, 0.35f, 1f);
@@ -25,6 +25,7 @@ namespace Spellmite
 
         private void Start()
         {
+            if (keyText == null) return;
             var action = InputSystem.actions.FindAction(actionName);
             keyText.text = action != null ? action.GetBindingDisplayString(group: "Keyboard&Mouse") : ""; // noloc
         }
@@ -46,6 +47,13 @@ namespace Spellmite
             shownSeconds = seconds;
             if (seconds > 0) cooldownText.SetText("{0}", seconds);
             else cooldownText.SetText("");
+        }
+
+        // Pops up from nothing after `delay` seconds
+        public void PopIn(float delay)
+        {
+            readyPunch.Stop();
+            readyPunch = Tween.Scale(transform, Vector3.zero, Vector3.one, 0.18f, Ease.OutBack, startDelay: delay);
         }
 
         public void Punch(float strength)
