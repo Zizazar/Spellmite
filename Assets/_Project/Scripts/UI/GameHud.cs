@@ -30,6 +30,7 @@ namespace Spellmite
         [SerializeField] private SkillSlot attackSlot;
         [SerializeField] private SkillSlot leapSlot;
         [SerializeField, Tooltip("Cast1..Cast4")] private SkillSlot[] spellSlots;
+        [SerializeField, Tooltip("The parasite's stolen spell, hidden until it has one. Stays up while free, with its cooldown")] private SkillSlot stolenSlot;
         [SerializeField] private Sprite biteIcon;
         [SerializeField] private Sprite hostAttackIcon;
         [SerializeField] private Sprite leapIcon;
@@ -53,6 +54,7 @@ namespace Spellmite
         private HostBody casterHost;
         private SpellCaster caster;
         private float nextLeapPulse;
+        private SpellData shownStolen;
         private int shownFloor = -1;
         private string objectiveKey;
         private int objectiveDone = -1;
@@ -111,7 +113,9 @@ namespace Spellmite
                 caster = host != null ? host.GetComponent<SpellCaster>() : null;
             }
 
-            attackSlot.Show(host != null ? hostAttackIcon : biteIcon, 0f, 0f, true);
+            // Eating a body LMB bites, in the body too
+            bool devouring = parasite.Thief.DevourTarget != null;
+            attackSlot.Show(host != null && !devouring ? hostAttackIcon : biteIcon, 0f, 0f, true);
             // Control running out: the leap slot is the way out, so it lights up and keeps punching
             bool low = parasite.IsControlLow;
             leapSlot.Show(leapIcon, 0f, 0f, host != null || parasite.AimedHost != null, low);
@@ -120,6 +124,8 @@ namespace Spellmite
                 leapSlot.Punch(leapPulseStrength);
                 nextLeapPulse = Time.time + leapPulseInterval * (parasite.IsControlCritical ? 0.5f : 1f);
             }
+
+            UpdateStolenSlot(host);
 
             // Free there is nothing to cast: the slots make way for a hint on how to get spells
             spellsRoot.SetActive(host != null);
@@ -132,6 +138,19 @@ namespace Spellmite
                 if (spell == null) spellSlots[i].Show(null, 0f, 0f, false);
                 else spellSlots[i].Show(spell.Icon, caster.CooldownRemaining(i), spell.Cooldown, true, spell.ResistanceCost >= host.Resistance01);
             }
+        }
+
+        private void UpdateStolenSlot(HostBody host)
+        {
+            SpellThief thief = parasite.Thief;
+            SpellData spell = thief.StolenSpell;
+            stolenSlot.gameObject.SetActive(spell != null);
+            if (spell == null) return;
+
+            stolenSlot.Show(spell.Icon, thief.CooldownRemaining, thief.Cooldown, host != null, host != null && spell.ResistanceCost >= host.Resistance01);
+            if (spell == shownStolen) return;
+            shownStolen = spell;
+            stolenSlot.PopIn(0f);
         }
 
         private void UpdateFloor()

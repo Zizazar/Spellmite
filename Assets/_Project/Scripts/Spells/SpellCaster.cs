@@ -60,9 +60,17 @@ namespace Spellmite
         public bool TryCast(int slot, float castTimeScale = 1f)
         {
             if (!CanCast(slot)) return false;
-            float castTime = spells[slot].CastTime * (castTimeScale > 0f ? castTimeScale : 1f);
-            Cast(slot, spells[slot], castTime, destroyCancellationToken).Forget();
+            StartCast(slot, spells[slot], castTimeScale);
             return true;
+        }
+
+        // A spell the body doesn't know (the parasite's stolen one): no slot, the caller keeps its cooldown
+        public void CastUnslotted(SpellData spell, float castTimeScale) => StartCast(-1, spell, castTimeScale);
+
+        private void StartCast(int slot, SpellData spell, float castTimeScale)
+        {
+            float castTime = spell.CastTime * (castTimeScale > 0f ? castTimeScale : 1f);
+            Cast(slot, spell, castTime, destroyCancellationToken).Forget();
         }
 
         // Enemies wind up (CastVfx telegraphs it) and then fire. The player fires at once and recovers for the same time
@@ -93,7 +101,7 @@ namespace Spellmite
 
         private void Fire(int slot, SpellData spell)
         {
-            readyTimes[slot] = Time.time + spell.Cooldown;
+            if (slot >= 0) readyTimes[slot] = Time.time + spell.Cooldown;
             if (body.IsPossessed)
             {
                 body.DrainResistance(spell.ResistanceCost);

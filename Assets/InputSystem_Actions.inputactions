@@ -130,6 +130,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "CastStolen",
+                    "type": "Button",
+                    "id": "6e1d4a35-58a6-4c43-9f53-2a7b0f0c1d11",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -625,6 +634,28 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Cast4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b4f0c9d2-7a13-4e68-8d21-5c3e9a6f7b22",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "CastStolen",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d2a87e16-3b5f-4c09-a7e4-1f6b8c2d9e33",
+                    "path": "<Gamepad>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "CastStolen",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

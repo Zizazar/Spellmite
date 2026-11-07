@@ -102,6 +102,7 @@ namespace Spellmite
             {
                 if (enemy != null && enemy.TryGetComponent(out HostBody host) && host.IsPossessed) KillOnRelease(host, token).Forget();
             }
+            if (player != null && player.Host != null) player.Host.Devourable = true;
         }
 
         // The tutorial room follows the same rule

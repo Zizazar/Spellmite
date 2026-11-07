@@ -18,6 +18,8 @@ hud.objective.boss=Вселяйтесь в скелетов, чтобы рани
 hud.control=Контроль
 hud.hint.possess=<color=#FF8CC0>{0}</color>  вселиться
 hud.hint.no_spells=Вселитесь во врага, чтобы колдовать
+hud.hint.devour=<color=#FF8CC0>{0}</color>  сожрать тело
+hud.hint.devour.pick=<color=#FF8CC0>{0}-{1}</color>  выбрать заклинание для кражи
 
 # End screen
 end.title=Победа

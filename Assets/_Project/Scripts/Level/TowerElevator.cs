@@ -123,6 +123,8 @@ namespace Spellmite
         {
             moving = true;
             standTime = 0f;
+            // A body taken up on the lift fights again, also on the boss floor, which has no wave to end: LMB swings, 1-4 cast
+            if (player.Host != null) player.Host.Devourable = false;
             UpdateFloors(currentFloor, floor);
 
             float start = platform.localPosition.y;

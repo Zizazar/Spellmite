@@ -18,6 +18,8 @@ hud.objective.boss=Possess skeletons to wound the <color=#FF6A5A>Demon Tree</col
 hud.control=Control
 hud.hint.possess=<color=#FF8CC0>{0}</color>  possess
 hud.hint.no_spells=Possess an enemy to cast spells
+hud.hint.devour=<color=#FF8CC0>{0}</color>  devour the body
+hud.hint.devour.pick=<color=#FF8CC0>{0}-{1}</color>  pick the spell to steal
 
 # End screen
 end.title=Victory

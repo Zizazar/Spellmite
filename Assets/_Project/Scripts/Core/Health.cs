@@ -31,6 +31,17 @@ namespace Spellmite
             amount *= DamageTakenMultiplier;
             if (amount <= 0f) return;
 
+            ApplyDamage(amount, impulse);
+        }
+
+        // Eaten from inside: armor, invulnerability and god mode don't apply
+        public void Consume(float amount)
+        {
+            if (!IsDead) ApplyDamage(amount, Vector3.zero);
+        }
+
+        private void ApplyDamage(float amount, Vector3 impulse)
+        {
             Current = Mathf.Max(0f, Current - amount);
             Damaged?.Invoke(amount, impulse);
             if (IsDead) Died?.Invoke();

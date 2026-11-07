@@ -77,6 +77,7 @@ namespace Spellmite
 
         private Health health;
         private BuffHolder buffs;
+        private SpellThief thief;
         private SphereCollider trigger;
         private ControlInput input;
         private Vector3 velocity;
@@ -111,6 +112,7 @@ namespace Spellmite
         public HostBody Host { get; private set; }
         public HostBody AimedHost { get; private set; }
         public Health Health => health;
+        public SpellThief Thief => thief;
         public Vector3 Velocity => velocity;
         public bool IsOnSurface => State == ParasiteState.Free && onSurface;
         public bool IsHosted => State is ParasiteState.Latching or ParasiteState.Controlling;
@@ -137,6 +139,7 @@ namespace Spellmite
         {
             health = GetComponent<Health>();
             buffs = GetComponent<BuffHolder>();
+            thief = GetComponent<SpellThief>();
             trigger = GetComponent<SphereCollider>();
             trigger.isTrigger = true;
             trigger.radius = radius;
@@ -725,7 +728,9 @@ namespace Spellmite
 
             ControlInput forwarded = input;
             forwarded.LeapPressed = false;
+            thief.Devour(ref forwarded);
             Host.SetInput(forwarded);
+            thief.CastStolen(Host, forwarded);
         }
 
         // Manual exit: a leap out of the body towards where the camera looks. Can chain straight into the next host.

@@ -14,5 +14,6 @@ namespace Spellmite
         public bool LeapPressed;    // parasite: leap at target / leap out of the host
         public int CastSlot;        // SpellCaster slot to cast this frame, 1-based; 0 = none
         public float CastTimeScale; // windup multiplier of that cast (enemies slower, the player faster); 0 = as is
+        public bool StolenCastPressed; // parasite: cast the stolen spell from the current host
     }
 }

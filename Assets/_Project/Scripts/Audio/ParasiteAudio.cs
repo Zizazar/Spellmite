@@ -2,7 +2,8 @@ using UnityEngine;
 
 namespace Spellmite
 {
-    // The player parasite's sounds: a skitter loop while it crawls (louder and higher the faster), bite, latching onto a host
+    // The player parasite's sounds: a skitter loop while it crawls (louder and higher the faster), bite, latching onto a host,
+    // eating a body from inside
     public class ParasiteAudio : MonoBehaviour
     {
         [SerializeField] private ParasiteBody parasite;
@@ -20,6 +21,8 @@ namespace Spellmite
         [SerializeField, Tooltip("Sinking into a host")] private AudioClip[] latchClips;
         [SerializeField] private AudioClip[] hurtClips;
         [SerializeField] private AudioClip[] deathClips;
+        [SerializeField, Tooltip("Every bite of a devoured body")] private AudioClip[] devourClips;
+        [SerializeField, Tooltip("The bite that finishes the body and steals its spell")] private AudioClip[] stealClips;
 
         private void Start()
         {
@@ -27,6 +30,8 @@ namespace Spellmite
             parasite.Latched += OnLatched;
             parasite.Health.Damaged += OnDamaged;
             parasite.Health.Died += OnDied;
+            parasite.Thief.Bitten += OnDevourBite;
+            parasite.Thief.SpellStolen += OnSpellStolen;
             crawlSource.loop = true;
             crawlSource.volume = 0f;
             crawlSource.Play();
@@ -39,6 +44,8 @@ namespace Spellmite
             parasite.Latched -= OnLatched;
             parasite.Health.Damaged -= OnDamaged;
             parasite.Health.Died -= OnDied;
+            parasite.Thief.Bitten -= OnDevourBite;
+            parasite.Thief.SpellStolen -= OnSpellStolen;
         }
 
         private void Update()
@@ -52,5 +59,7 @@ namespace Spellmite
         private void OnLatched() => sfxSource.PlayRandom(latchClips, pitchRange);
         private void OnDamaged(float amount, Vector3 impulse) => sfxSource.PlayRandom(hurtClips, pitchRange);
         private void OnDied() => sfxSource.PlayRandom(deathClips, pitchRange);
+        private void OnDevourBite() => sfxSource.PlayRandom(devourClips, pitchRange);
+        private void OnSpellStolen() => sfxSource.PlayRandom(stealClips, pitchRange);
     }
 }

@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 7743183108574816749}
   - component: {fileID: 4859073575574711116}
   - component: {fileID: 7542002380499708045}
+  - component: {fileID: 1159062140613946842}
   m_Layer: 6
   m_Name: Parasite
   m_TagString: Untagged
@@ -518,6 +519,11 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f2af089ed47a9da4a87566fb4d912252, type: 3}
   hurtClips: []
   deathClips: []
+  devourClips:
+  - {fileID: 8300000, guid: 8394c1ff3e9831f4ba98323999b5bc23, type: 3}
+  - {fileID: 8300000, guid: 93b5985b71e3dde49b0e5d5d3c71f33a, type: 3}
+  stealClips:
+  - {fileID: 8300000, guid: 4fa1ebb68172dd74d890c3f57f428b07, type: 3}
 --- !u!114 &7542002380499708045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -536,6 +542,28 @@ MonoBehaviour:
   lowHealth: 0.35
   interval: {x: 1.1, y: 0.55}
   volume: {x: 0.4, y: 1}
+--- !u!114 &1159062140613946842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 909765166564590262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84cc77533b865094c8abd8ba51513387, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.SpellThief
+  biteFraction: 0.2
+  biteInterval: 0.12
+  biteVfx: {fileID: 6858720721630604465, guid: 3a8b19321afc2a94e9cf2ca55382b6c4, type: 3}
+  biteVfxCount: 3
+  finishVfx:
+  - {fileID: 6873174941490874086, guid: 9a367a5fa181aea46834bec32cc5f991, type: 3}
+  - {fileID: 5737305730674577762, guid: d4cc1225b3a2c9548909376bc6967a05, type: 3}
+  cooldownMultiplier: 2
+  minCooldown: 5
+  inputBuffer: 0.15
 --- !u!1 &7973089065959680602
 GameObject:
   m_ObjectHideFlags: 0

@@ -226,7 +226,10 @@ namespace Spellmite
             // A body the player still sits in dies once they leave it, as in the tower
             foreach (var body in roomBodies)
                 if (body != null && body.TryGetComponent(out HostBody host) && host.IsPossessed)
+                {
+                    host.Devourable = true;
                     WaveSpawner.KillOnRelease(host, destroyCancellationToken).Forget();
+                }
 
             Tween.PositionY(drainGrate, drainGrate.position.y + grateLift, 0.8f, Ease.InOutSine);
             SetStep(Step.Drain);
@@ -299,6 +302,7 @@ namespace Spellmite
             {
                 enabled = false;
                 Time.timeScale = 1f;
+                parasite.Thief.CarryToNextScene();
                 SceneManager.LoadScene(nextScene);
             }
         }

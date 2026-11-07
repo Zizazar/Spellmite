@@ -103,6 +103,8 @@ namespace Spellmite
         public float PossessedSpellScale { get; set; } = 1f;
         public float DamageScale => IsPossessed ? 1f : FreeDamageScale;
         public float SpellDamageScale => IsPossessed ? PossessedSpellScale : FreeDamageScale;
+        // The wave is won and the player is inside: this body can be eaten for its spell (SpellThief)
+        public bool Devourable { get; set; }
         // Player only: right after a cast or a swing, while the body should look where the crosshair is
         public bool IsAiming => IsPossessed && (Time.time < aimModeUntil || IsCasting);
         // Player only: when the last cast or swing went off (PlayerBrain drops the sprint on it)
@@ -298,6 +300,17 @@ namespace Spellmite
             if (!IsPossessed) return;
             Vector3 face = Vector3.ProjectOnPlane(input.Aim, Vector3.up);
             if (face.sqrMagnitude > 1e-4f) transform.rotation = Quaternion.LookRotation(face.normalized, Vector3.up);
+        }
+
+        // The parasite's stolen spell goes off like a slot's; the cooldown is the parasite's, not the body's
+        public bool TryCastStolen(SpellData spell, float castTimeScale)
+        {
+            if (health.IsDead || IsStunned || caster == null || caster.IsCasting) return false;
+            SnapToAim();
+            caster.CastUnslotted(spell, castTimeScale);
+            PlayCast();
+            MarkAction();
+            return true;
         }
 
         private async UniTaskVoid Attack()

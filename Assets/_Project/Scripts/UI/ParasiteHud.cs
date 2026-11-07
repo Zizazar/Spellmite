@@ -11,6 +11,7 @@ namespace Spellmite
     // (time left before it throws the parasite off).
     // Control running out: a magenta edge vignette pulses, harder towards zero, and flashes when the host throws the parasite off;
     // when critical the next host to leap to gets faded, pulsing brackets (no name) even if it isn't aimed at.
+    // While the current host can be eaten (SpellThief) a tooltip under the crosshair names the keys and the spell to steal.
     // Runs after the camera (Cinemachine updates in LateUpdate), so the brackets don't lag a frame behind the host.
     [DefaultExecutionOrder(100)]
     public class ParasiteHud : MonoBehaviour
@@ -38,6 +39,13 @@ namespace Spellmite
         [SerializeField, Tooltip("One per spell slot of a body. Darkened with its cooldown: a host's cooldowns carry over on possession")] private SkillSlot[] spellIcons;
         [SerializeField, Tooltip("Seconds between the icons popping up on a new target")] private float spellPopStagger = 0.04f;
 
+        [Header("Devour tooltip")]
+        [SerializeField, Tooltip("Shown while the current host can be eaten")] private RectTransform devourHint;
+        [SerializeField, Tooltip("Key hud.hint.devour, {0} = the attack key")] private LocText devourText;
+        [SerializeField, Tooltip("Key hud.hint.devour.pick, {0} and {1} = the first and last cast keys")] private LocText devourPickText;
+        [SerializeField, Tooltip("Name of the spell the bite would steal")] private LocText devourSpellName;
+        [SerializeField, Tooltip("One per spell slot of a body. The chosen one is lit")] private SkillSlot[] devourIcons;
+
         [Header("Control")]
         [SerializeField] private GameObject resistanceRoot;
         [SerializeField, Tooltip("Image Type = Filled")] private Image resistanceFill;
@@ -62,6 +70,8 @@ namespace Spellmite
         private HostBody shownTarget;
         private SpellCaster shownCaster;
         private Tween targetPunch;
+        private Tween devourPunch;
+        private int shownDevourSlot = -1;
 
         // The aimed host on screen, null for a suggested one, and the top of its brackets in canvas units (EnemyHealthBars)
         public HostBody FramedHost { get; private set; }
@@ -73,6 +83,9 @@ namespace Spellmite
             canvasRect = (RectTransform)canvas.transform;
             var action = InputSystem.actions.FindAction(leapActionName);
             possessHintText.SetArgs(action != null ? action.GetBindingDisplayString(group: "Keyboard&Mouse") : ""); // noloc
+            // The attack has more than one key: name the mouse button, the first one listed
+            devourText.SetKey("hud.hint.devour", KeyName("Player/Attack").Split(" | ")[0]);
+            devourPickText.SetKey("hud.hint.devour.pick", KeyName("Player/Cast1"), KeyName("Player/Cast4"));
 
             if (vignette != null)
             {
@@ -87,10 +100,17 @@ namespace Spellmite
 
         private void OnThrownOff() => vignetteFlash = 1f;
 
+        private static string KeyName(string actionName)
+        {
+            var action = InputSystem.actions.FindAction(actionName);
+            return action != null ? action.GetBindingDisplayString(group: "Keyboard&Mouse") : ""; // noloc
+        }
+
         private void LateUpdate()
         {
             UpdateTarget();
             UpdateVignette();
+            UpdateDevourHint();
 
             bool hosted = parasite.IsHosted && parasite.Host != null;
             resistanceRoot.SetActive(hosted);
@@ -100,6 +120,40 @@ namespace Spellmite
             bool flash = parasite.IsControlLow && Mathf.Repeat(Time.time * flashRate, 1f) < 0.5f;
             resistanceFill.color = flash ? resistanceFlashColor : resistanceColor;
             if (resistanceLabel != null) resistanceLabel.color = flash ? resistanceFlashColor : resistanceColor;
+        }
+
+        private void UpdateDevourHint()
+        {
+            SpellThief thief = parasite.Thief;
+            bool show = thief.DevourTarget != null;
+            bool appeared = show && !devourHint.gameObject.activeSelf;
+            devourHint.gameObject.SetActive(show);
+            if (!show)
+            {
+                shownDevourSlot = -1;
+                return;
+            }
+
+            SpellCaster caster = thief.DevourCaster;
+            for (int i = 0; i < devourIcons.Length; i++)
+            {
+                SpellData spell = caster.GetSpell(i);
+                SkillSlot slot = devourIcons[i];
+                slot.gameObject.SetActive(spell != null);
+                bool chosen = i == thief.ChosenSlot;
+                if (spell != null) slot.Show(spell.Icon, 0f, 0f, chosen, chosen);
+            }
+
+            if (appeared)
+            {
+                devourPunch.Stop();
+                devourHint.localScale = Vector3.one;
+                devourPunch = Tween.PunchScale(devourHint, Vector3.one * 0.25f, 0.3f);
+            }
+            if (thief.ChosenSlot == shownDevourSlot) return;
+            shownDevourSlot = thief.ChosenSlot;
+            devourSpellName.SetKey(caster.GetSpell(thief.ChosenSlot).NameKey);
+            if (!appeared) devourIcons[thief.ChosenSlot].Punch(0.2f);
         }
 
         private void UpdateVignette()
