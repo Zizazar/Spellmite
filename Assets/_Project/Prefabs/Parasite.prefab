@@ -541,7 +541,7 @@ MonoBehaviour:
   beat: {fileID: 8300000, guid: dcfa22689120f2047aeda8cb575153ea, type: 3}
   lowHealth: 0.35
   interval: {x: 1.1, y: 0.55}
-  volume: {x: 0.4, y: 1}
+  volume: {x: 0.1, y: 0.3}
 --- !u!114 &1159062140613946842
 MonoBehaviour:
   m_ObjectHideFlags: 0

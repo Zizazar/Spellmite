@@ -17,6 +17,7 @@ namespace Spellmite
         [SerializeField] private LocText bannerText;
         [SerializeField] private AudioSource audioSource;
         [SerializeField] private AudioClip clip;
+        [SerializeField, Range(0f, 1f), Tooltip("Levelled with the spells: this is 2D, they are 3D and lose about 15 dB at camera distance")] private float clipVolume = 0.25f;
         [SerializeField, Range(0.05f, 1f)] private float slowTimeScale = 0.25f;
         [SerializeField, Tooltip("Real seconds of slow motion")] private float slowTime = 1f;
         [SerializeField, Tooltip("Real seconds the banner takes to pop in")] private float bannerInTime = 0.15f;
@@ -37,7 +38,7 @@ namespace Spellmite
             bannerText.SetKey(textKey);
             Tween.Alpha(banner, 0f, 1f, bannerInTime, useUnscaledTime: true);
             Tween.Scale(banner.transform, Vector3.one * bannerStartScale, Vector3.one, bannerInTime, Ease.OutBack, useUnscaledTime: true);
-            audioSource.PlayOneShot(clip);
+            audioSource.PlayOneShot(clip, clipVolume);
             Time.timeScale = slowTimeScale;
 
             // Scaled time, so the pause menu holds the beat instead of letting it run out behind the menu

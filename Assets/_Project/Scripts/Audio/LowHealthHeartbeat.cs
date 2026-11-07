@@ -11,7 +11,7 @@ namespace Spellmite
         [SerializeField, Tooltip("A single beat")] private AudioClip beat;
         [SerializeField, Range(0f, 1f), Tooltip("Beats below this fraction of health")] private float lowHealth = 0.35f;
         [SerializeField, Tooltip("Seconds between beats at lowHealth and at almost zero")] private Vector2 interval = new(1.1f, 0.55f);
-        [SerializeField, Tooltip("Volume at lowHealth and at almost zero")] private Vector2 volume = new(0.4f, 1f);
+        [SerializeField, Tooltip("Volume at lowHealth and at almost zero")] private Vector2 volume = new(0.1f, 0.3f);
 
         private float nextBeatTime;
 

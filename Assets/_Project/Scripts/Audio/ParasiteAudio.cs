@@ -24,6 +24,13 @@ namespace Spellmite
         [SerializeField, Tooltip("Every bite of a devoured body")] private AudioClip[] devourClips;
         [SerializeField, Tooltip("The bite that finishes the body and steals its spell")] private AudioClip[] stealClips;
 
+        // These play in 2D at full level, while spells are 3D and lose about 15 dB at camera distance
+        [Header("Volume, levelled with the spells")]
+        [SerializeField, Range(0f, 1f)] private float biteVolume = 0.35f;
+        [SerializeField, Range(0f, 1f)] private float latchVolume = 0.12f;
+        [SerializeField, Range(0f, 1f)] private float devourVolume = 0.25f;
+        [SerializeField, Range(0f, 1f)] private float stealVolume = 0.25f;
+
         private void Start()
         {
             parasite.Bit += OnBit;
@@ -55,11 +62,11 @@ namespace Spellmite
             if (speed01 > 0f) crawlSource.pitch = Mathf.Lerp(crawlPitch.x, crawlPitch.y, speed01);
         }
 
-        private void OnBit() => sfxSource.PlayRandom(biteClips, pitchRange);
-        private void OnLatched() => sfxSource.PlayRandom(latchClips, pitchRange);
+        private void OnBit() => sfxSource.PlayRandom(biteClips, pitchRange, biteVolume);
+        private void OnLatched() => sfxSource.PlayRandom(latchClips, pitchRange, latchVolume);
         private void OnDamaged(float amount, Vector3 impulse) => sfxSource.PlayRandom(hurtClips, pitchRange);
         private void OnDied() => sfxSource.PlayRandom(deathClips, pitchRange);
-        private void OnDevourBite() => sfxSource.PlayRandom(devourClips, pitchRange);
-        private void OnSpellStolen() => sfxSource.PlayRandom(stealClips, pitchRange);
+        private void OnDevourBite() => sfxSource.PlayRandom(devourClips, pitchRange, devourVolume);
+        private void OnSpellStolen() => sfxSource.PlayRandom(stealClips, pitchRange, stealVolume);
     }
 }
