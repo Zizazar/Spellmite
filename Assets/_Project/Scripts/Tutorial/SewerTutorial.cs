@@ -217,22 +217,22 @@ namespace Spellmite
                 progressFill.fillAmount = (float)done / roomBodies.Length;
             }
 
-            if (free == 0) ClearRoom();
+            if (free == 0) ClearRoom(destroyCancellationToken).Forget();
             else CheckResistanceHint();
         }
 
-        private void ClearRoom()
+        private async UniTaskVoid ClearRoom(CancellationToken token)
         {
             // A body the player still sits in dies once they leave it, as in the tower
             foreach (var body in roomBodies)
                 if (body != null && body.TryGetComponent(out HostBody host) && host.IsPossessed)
-                {
-                    host.Devourable = true;
-                    WaveSpawner.KillOnRelease(host, destroyCancellationToken).Forget();
-                }
+                    WaveSpawner.KillOnRelease(host, token).Forget();
 
             Tween.PositionY(drainGrate, drainGrate.position.y + grateLift, 0.8f, Ease.InOutSine);
             SetStep(Step.Drain);
+
+            await VictoryBeat.Instance.Play("hud.victory.room");
+            if (parasite.Host != null) parasite.Host.Devourable = true;
         }
 
         // Dying in the room puts it back to sleep; the parasite comes back at its entrance (set when the fight began)

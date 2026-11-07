@@ -56,6 +56,13 @@ namespace Spellmite
             readyPunch = Tween.Scale(transform, Vector3.zero, Vector3.one, 0.18f, Ease.OutBack, startDelay: delay);
         }
 
+        // A row of slots to choose from: the selected one stays bigger than the rest
+        public void Select(bool selected, float scale)
+        {
+            readyPunch.Stop();
+            readyPunch = Tween.Scale(transform, selected ? scale : 1f, 0.12f, Ease.OutBack);
+        }
+
         public void Punch(float strength)
         {
             readyPunch.Stop();

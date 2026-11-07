@@ -20,6 +20,8 @@ hud.hint.possess=<color=#FF8CC0>{0}</color>  possess
 hud.hint.no_spells=Possess an enemy to cast spells
 hud.hint.devour=<color=#FF8CC0>{0}</color>  devour the body
 hud.hint.devour.pick=<color=#FF8CC0>{0}-{1}</color>  pick the spell to steal
+hud.victory.floor=Floor cleared
+hud.victory.room=Room cleared
 
 # End screen
 end.title=Victory

@@ -18,6 +18,7 @@ namespace Spellmite
         private readonly HashSet<int> started = new();
         private readonly List<EnemyBrain> spawned = new();
         private ParasiteBody player;
+        private bool celebrating;
 
         // Read by the HUD and the Waves window in Play Mode
         public int ActiveFloor { get; private set; } = -1;
@@ -61,7 +62,7 @@ namespace Spellmite
         {
             if (!HasWave(floor)) return true;
             if (!started.Contains(floor)) return false;
-            return floor != ActiveFloor || (!IsSpawning && AliveCount == 0);
+            return floor != ActiveFloor || (!IsSpawning && !celebrating && AliveCount == 0);
         }
 
         private bool HasWave(int floor) => waves != null && floor < waves.Floors.Count && waves.Floors[floor].Total > 0;
@@ -102,6 +103,11 @@ namespace Spellmite
             {
                 if (enemy != null && enemy.TryGetComponent(out HostBody host) && host.IsPossessed) KillOnRelease(host, token).Forget();
             }
+
+            // The lift stays locked until the beat ends: leaving now would turn eating off before it is offered
+            celebrating = true;
+            await VictoryBeat.Instance.Play("hud.victory.floor");
+            celebrating = false;
             if (player != null && player.Host != null) player.Host.Devourable = true;
         }
 
