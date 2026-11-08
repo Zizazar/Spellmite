@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 4859073575574711116}
   - component: {fileID: 7542002380499708045}
   - component: {fileID: 1159062140613946842}
+  - component: {fileID: 2170507450916558573}
   m_Layer: 6
   m_Name: Parasite
   m_TagString: Untagged
@@ -524,6 +525,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 93b5985b71e3dde49b0e5d5d3c71f33a, type: 3}
   stealClips:
   - {fileID: 8300000, guid: 4fa1ebb68172dd74d890c3f57f428b07, type: 3}
+  biteVolume: 0.35
+  latchVolume: 0.12
+  devourVolume: 0.25
+  stealVolume: 0.25
 --- !u!114 &7542002380499708045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -564,6 +569,18 @@ MonoBehaviour:
   cooldownMultiplier: 2
   minCooldown: 5
   inputBuffer: 0.15
+--- !u!114 &2170507450916558573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 909765166564590262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d669b66d937f8f346a1a4e445649dc8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spellmite.RunStats
 --- !u!1 &7973089065959680602
 GameObject:
   m_ObjectHideFlags: 0

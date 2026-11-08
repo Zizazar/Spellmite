@@ -13,6 +13,7 @@ namespace Spellmite
             public float EndTime;
             public float NextTick;
             public GameObject Vfx;
+            public bool ByPlayer; // the last one to put it on was the player: its ticks are their damage
         }
 
         private readonly List<ActiveBuff> active = new();
@@ -27,7 +28,7 @@ namespace Spellmite
             health.Died += Clear;
         }
 
-        public void Apply(BuffData buff)
+        public void Apply(BuffData buff, bool byPlayer = false)
         {
             if (buff == null || health.IsDead) return;
 
@@ -35,6 +36,7 @@ namespace Spellmite
             if (existing != null)
             {
                 existing.EndTime = Time.time + buff.Duration;
+                existing.ByPlayer = byPlayer;
                 return;
             }
 
@@ -43,6 +45,7 @@ namespace Spellmite
                 Data = buff,
                 EndTime = Time.time + buff.Duration,
                 NextTick = Time.time + buff.TickInterval,
+                ByPlayer = byPlayer,
                 Vfx = buff.Vfx != null ? Instantiate(buff.Vfx, transform.TransformPoint(buff.VfxOffset), transform.rotation, transform) : null,
             });
             Recalculate();
@@ -57,7 +60,7 @@ namespace Spellmite
                 {
                     buff.NextTick += buff.Data.TickInterval;
                     if (buff.Data.HealthPerTick > 0f) health.Heal(buff.Data.HealthPerTick);
-                    else health.TakeDamage(-buff.Data.HealthPerTick, Vector3.zero);
+                    else health.TakeDamage(-buff.Data.HealthPerTick, Vector3.zero, buff.ByPlayer, true);
                     if (health.IsDead) return; // Died already cleared the list
                 }
 

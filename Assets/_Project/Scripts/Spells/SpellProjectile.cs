@@ -106,7 +106,7 @@ namespace Spellmite
 
             damaged.Clear();
             var directHealth = direct.GetComponentInParent<Health>();
-            if (directHealth != null) Damage(spell, directHealth, point, velocity, damageScale);
+            if (directHealth != null) Damage(spell, directHealth, fromPlayer, point, velocity, damageScale);
             if (spell.SplashRadius > 0f) Splash(spell, ownerHealth, fromPlayer, point, velocity, damageScale);
             BurnableCrate.IgniteAround(spell, point);
             // Plain hits shake a little too
@@ -130,20 +130,20 @@ namespace Spellmite
             for (int i = 0; i < count; i++)
             {
                 var health = overlapBuffer[i].GetComponentInParent<Health>();
-                if (health != null && CanHit(overlapBuffer[i], owner, fromPlayer)) Damage(spell, health, point, pushFallback, damageScale);
+                if (health != null && CanHit(overlapBuffer[i], owner, fromPlayer)) Damage(spell, health, fromPlayer, point, pushFallback, damageScale);
             }
         }
 
         // pushFallback: knockback direction when the target stands right on the point
-        private static void Damage(SpellData spell, Health target, Vector3 point, Vector3 pushFallback, float damageScale)
+        private static void Damage(SpellData spell, Health target, bool fromPlayer, Vector3 point, Vector3 pushFallback, float damageScale)
         {
             if (target.Invulnerable || !damaged.Add(target)) return;
 
             Vector3 away = Vector3.ProjectOnPlane(target.transform.position - point, Vector3.up);
             if (away.sqrMagnitude < 0.01f) away = Vector3.ProjectOnPlane(pushFallback, Vector3.up);
-            target.TakeDamage(spell.Damage * damageScale, (away.normalized + Vector3.up * 0.4f) * spell.Knockback);
+            target.TakeDamage(spell.Damage * damageScale, (away.normalized + Vector3.up * 0.4f) * spell.Knockback, fromPlayer);
 
-            if (spell.HitBuff != null && target.TryGetComponent(out BuffHolder buffs)) buffs.Apply(spell.HitBuff);
+            if (spell.HitBuff != null && target.TryGetComponent(out BuffHolder buffs)) buffs.Apply(spell.HitBuff, fromPlayer);
         }
 
         // Enemy of the caster closest to the flight direction

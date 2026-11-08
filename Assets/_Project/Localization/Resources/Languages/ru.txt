@@ -28,6 +28,10 @@ end.title=Победа
 end.time=Время: {0}
 end.best=Рекорд: {0}
 end.record=Новый рекорд!
+end.kills=Убийства: {0}
+end.deaths=Смерти: {0}
+end.possessions=Вселения: {0}
+end.chain=Вселений подряд без касания пола: {0}
 end.restart=Играть снова
 
 # Pause menu

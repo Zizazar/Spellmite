@@ -28,6 +28,10 @@ end.title=Victory
 end.time=Time: {0}
 end.best=Best: {0}
 end.record=New record!
+end.kills=Kills: {0}
+end.deaths=Deaths: {0}
+end.possessions=Possessions: {0}
+end.chain=Longest possession chain in the air: {0}
 end.restart=Play again
 
 # Pause menu

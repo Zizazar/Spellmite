@@ -115,6 +115,8 @@ namespace Spellmite
         public SpellThief Thief => thief;
         public Vector3 Velocity => velocity;
         public bool IsOnSurface => State == ParasiteState.Free && onSurface;
+        // On a floor, not a wall (RunStats: touching one ends a chain of possessions)
+        public bool IsOnFloor => IsOnSurface && !onWall;
         public bool IsHosted => State is ParasiteState.Latching or ParasiteState.Controlling;
 
         // What the camera and enemies should look at
@@ -566,7 +568,7 @@ namespace Spellmite
             {
                 var target = overlapBuffer[i].GetComponentInParent<Health>();
                 // The boss tree's bark is too hard for teeth: only possessed bodies hurt it
-                if (target != null && target != health && !target.TryGetComponent(out TreeBoss _)) target.TakeDamage(biteDamage, aim * 2f);
+                if (target != null && target != health && !target.TryGetComponent(out TreeBoss _)) target.TakeDamage(biteDamage, aim * 2f, true);
             }
         }
 

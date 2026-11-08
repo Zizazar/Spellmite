@@ -343,7 +343,7 @@ namespace Spellmite
                 if (target == null || target == health || !damaged.Add(target)) continue;
 
                 Vector3 push = (Vector3.ProjectOnPlane(target.transform.position - transform.position, Vector3.up).normalized + Vector3.up * 0.4f) * attackKnockback;
-                target.TakeDamage(attackDamage * DamageScale, push);
+                target.TakeDamage(attackDamage * DamageScale, push, IsPossessed);
             }
             if (damaged.Count == 0) return;
             MeleeHit?.Invoke();

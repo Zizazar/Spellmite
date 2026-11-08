@@ -22,6 +22,7 @@ namespace Spellmite
             body.MeleeHit += OnMeleeHit;
             body.Health.Damaged += OnDamaged;
             body.Health.Died += OnDied;
+            Health.AnyHurtByPlayer += OnHurtByPlayer;
         }
 
         private void OnDestroy()
@@ -29,10 +30,24 @@ namespace Spellmite
             body.MeleeHit -= OnMeleeHit;
             body.Health.Damaged -= OnDamaged;
             body.Health.Died -= OnDied;
+            Health.AnyHurtByPlayer -= OnHurtByPlayer;
         }
 
         private void OnMeleeHit() => source.PlayRandom(meleeHitClips, pitchRange);
-        private void OnDamaged(float amount, Vector3 impulse) => source.PlayRandom(hurtClips, pitchRange);
+
+        // The player's own body sounds hurt from any damage
+        private void OnDamaged(float amount, Vector3 impulse)
+        {
+            if (body.IsPossessed) source.PlayRandom(hurtClips, pitchRange);
+        }
+
+        // An enemy sounds hurt only from the player's direct hits (no buff ticks)
+        private void OnHurtByPlayer(Health target, float amount, bool overTime)
+        {
+            if (target != body.Health || overTime || body.IsPossessed) return;
+            source.PlayRandom(hurtClips, pitchRange);
+        }
+
         private void OnDied() => source.PlayRandom(deathClips, pitchRange);
     }
 }

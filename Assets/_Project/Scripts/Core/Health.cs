@@ -16,13 +16,18 @@ namespace Spellmite
         // amount, knockback impulse
         public event Action<float, Vector3> Damaged;
         public event Action Died;
+        // Damage the player dealt, to any body: DamageNumbers. target, amount, damage over time (a buff's tick)
+        public static event Action<Health, float, bool> AnyHurtByPlayer;
+        // A body the player's damage finished off: RunStats
+        public static event Action<Health> AnyKilledByPlayer;
 
         private void Awake()
         {
             Current = maxHealth;
         }
 
-        public void TakeDamage(float amount, Vector3 impulse)
+        // byPlayer: the player's bite, swing, spell or a buff they put on (kills and damage numbers count only these)
+        public void TakeDamage(float amount, Vector3 impulse, bool byPlayer = false, bool overTime = false)
         {
             if (IsDead || Invulnerable) return;
 #if UNITY_EDITOR
@@ -31,20 +36,23 @@ namespace Spellmite
             amount *= DamageTakenMultiplier;
             if (amount <= 0f) return;
 
-            ApplyDamage(amount, impulse);
+            ApplyDamage(amount, impulse, byPlayer, overTime);
         }
 
-        // Eaten from inside: armor, invulnerability and god mode don't apply
+        // Eaten from inside by the parasite: armor, invulnerability and god mode don't apply
         public void Consume(float amount)
         {
-            if (!IsDead) ApplyDamage(amount, Vector3.zero);
+            if (!IsDead) ApplyDamage(amount, Vector3.zero, true, false);
         }
 
-        private void ApplyDamage(float amount, Vector3 impulse)
+        private void ApplyDamage(float amount, Vector3 impulse, bool byPlayer, bool overTime)
         {
             Current = Mathf.Max(0f, Current - amount);
+            if (byPlayer) AnyHurtByPlayer?.Invoke(this, amount, overTime);
             Damaged?.Invoke(amount, impulse);
-            if (IsDead) Died?.Invoke();
+            if (!IsDead) return;
+            if (byPlayer) AnyKilledByPlayer?.Invoke(this);
+            Died?.Invoke();
         }
 
         public void Heal(float amount)
