@@ -150,8 +150,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 36a0066475fa6be408fe8d52c2e4f54b, type: 3}
   - {fileID: 8300000, guid: 73a67181f7c8f3c47b8ad63f0b0de779, type: 3}
   - {fileID: 8300000, guid: 22d2cc3a3e520a048ae59c4f88f95397, type: 3}
-  barkChance: 0.6
-  barkVolume: 1
+  barkChance: 0.373
+  barkVolume: 0.32
   barkSource: {fileID: 999669058510158971}
   voicePitch: {x: 0.9, y: 1.1}
   alertClips:
